@@ -22,7 +22,7 @@ export class TaskService {
     async getTask(id:string):Promise<Task>{
       return this.tasks.findOneBy({id});
     }
-    
+
     async deleteUserTasks(taskId:string,userId:string):Promise<Task>{
       const task:DeleteResult = await this.tasks.delete({id:taskId});
       const user:User = await this.users.findOneBy({id:userId});
@@ -39,7 +39,6 @@ export class TaskService {
     }
 
     async updateUserTasks(id:string,{title}:TaskBodyDto):Promise<UpdateResult>{
-      console.log(id,title)
       return this.tasks.update({id},{title});
     }
 }

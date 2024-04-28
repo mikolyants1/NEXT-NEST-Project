@@ -1,4 +1,5 @@
-import { IsString, IsNotEmpty } from "class-validator";
+import { OmitType } from "@nestjs/mapped-types";
+import { IsString, IsNotEmpty, IsBoolean } from "class-validator";
 
 export class CommBodyDto {
     @IsNotEmpty()
@@ -8,4 +9,9 @@ export class CommBodyDto {
     @IsNotEmpty()
     @IsString()
     author:string;
+}
+
+export class UpdateCommDto extends OmitType(CommBodyDto,["author"]) {
+   @IsBoolean()
+   was_update?:boolean;
 }

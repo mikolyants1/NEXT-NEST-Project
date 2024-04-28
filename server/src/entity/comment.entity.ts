@@ -12,6 +12,9 @@ export class Comment {
   @Column({name:"author",type:"varchar",length:255,nullable:false})
   author:string;
 
+  @Column({name:"was_update",type:"boolean",default:false,nullable:false})
+  was_update:boolean;
+
   @Column({name:"author_id",type:"varchar",length:255,nullable:false})
   author_id:string;
 
