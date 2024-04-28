@@ -2,8 +2,8 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-interface props {
-    children:JSX.Element
+interface IProps {
+  children:JSX.Element
 }
 
 const query:QueryClient = new QueryClient({
@@ -15,7 +15,7 @@ const query:QueryClient = new QueryClient({
     }
 })
 
-function QueryLayout({children}:props):JSX.Element {
+function QueryLayout({children}:IProps):JSX.Element {
   return (
     <QueryClientProvider client={query}>
       {children}

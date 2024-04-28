@@ -1,6 +1,6 @@
+import {type IStore } from '@/components/libs/types/type';
 import {create} from 'zustand'
 import {persist,devtools} from 'zustand/middleware';
-import {type IStore } from '@/components/libs/types/type';
 import {immer} from 'zustand/middleware/immer'
 
 export const useStore = create<IStore>()(
@@ -8,7 +8,7 @@ persist(devtools(immer((set)=>({
   name:"",
   id:"",
   token:"",
-  role:"",
+  tag:"",
   setId:(id:string)=>set((state:IStore):void=>{
      state.id = id;
   }),
@@ -18,7 +18,7 @@ persist(devtools(immer((set)=>({
   setToken:(token:string):void=>{
     set({token});
   },
-  setRole:(role:string):void=>{
-    set({role})
+  setTag:(tag:string):void=>{
+    set({tag});
   }
 }))),{version:1,name:'films'}))

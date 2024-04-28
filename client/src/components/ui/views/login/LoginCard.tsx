@@ -1,76 +1,90 @@
 'use client'
 
-import { Box,} from '@chakra-ui/react';
+import { Box} from '@chakra-ui/react';
 import {type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { FormProvider,type SubmitHandler, useForm } from 'react-hook-form';
 import { useStore } from '@/components/model/store/store';
-import { useMutation, useQueryClient,QueryClient } from '@tanstack/react-query';
 import LoginCardWrapper from './content/LoginCardWrapper';
 import LoginButton from './content/buttons/LoginButtons';
 import LoginErrorCard from './content/error/LoginErrorCard';
-import addUser from '@/components/api/mutation/user/addUser';
-import {type ICheck,type IFields,type IStore,type IUsers,type Form } from '@/components/libs/types/type';
-import { response } from '@/components/libs/compare/response';
-import checkUsers from '@/components/api/query/user/checkUsers';
-import { createFields } from '@/components/libs/create/maps/fileds';
+import {IUserBody, type ICheckRes,type IFields,type IStore,type IUser,type TForm } from '@/components/libs/types/type';
+import { createFields } from '@/components/model/functions/maps/fields';
 import LoginInputs from './content/inputs/LoginInputs';
+import { checkUser } from '@/components/api/query/user/checkUser';
+import { createUser } from '@/components/api/mutation/user/createUser';
+import { response } from '@/components/model/functions/compare/response';
 
-interface props {
+interface IProps {
   isHome:boolean,
+  tags?:string[],
   children:JSX.Element
-};
+}
 
-type MutateArg = Omit<IUsers,"_id"|"films">;
-
-export default function LoginCard({isHome,children}:props):JSX.Element {
+export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
  const [errArray,setErrArray] = useState<string[]>([]);
  const hashArray:string[] = useMemo(()=>errArray,[errArray]);
  const router:AppRouterInstance = useRouter();
- const [error,setError] = useState<boolean>(false);
- const {invalidateQueries}:QueryClient = useQueryClient();
- const {mutate:add} = useMutation<unknown,IUsers,MutateArg>({
-    mutationFn:(body:MutateArg)=>addUser(body),
-    onSuccess:()=>invalidateQueries({queryKey:['users']})
-  })
- const {setName,setId,setToken,setRole}:IStore = useStore();
- const methods = useForm<Form>({
-  defaultValues:{name:"",pass:""}
+ const [error,setError] = useState<string>("");
+ const {setName,setId,setToken,setTag}:IStore = useStore();
+ const methods = useForm<TForm>({
+  defaultValues:{username:"",password:"",tag:""}
  });
- const fields:IFields[] = createFields();
+ const fields:IFields[] = createFields(isHome);
 
- const submit:SubmitHandler<Form> = async (date):Promise<void> => {
+ const submit:SubmitHandler<TForm> = async ({
+   username,password,tag
+ }):Promise<void> => {
   setErrArray([]);
-  if (!date.name) errorHandler("name");
-  if (!date.pass) errorHandler("pass");
-  if (!date.name || !date.pass) return;
+  const isTag = isHome || tag;
+  if (!username) errorHandler("name");
+  if (!password) errorHandler("pass");
+  if (!isHome && !tag) errorHandler("tag");
+  if (!username || !password || !isTag){
+    setError("all fields shouldn't be empty");
+    return;
+  }
   try {
-    const check:ICheck = await checkUsers(date);
-    if (response(check._id,isHome)){
-      setError(true);
+    const check:ICheckRes = await checkUser({
+      username,password,isLogin:isHome
+    });
+    console.log(check)
+    if (response(check.id,isHome)){
+      setError("login error");
       methods.reset();
       return;
     };
     if (isHome){
-      setName(date.name);
-      setId(check._id);
+      setName(username);
+      setId(check.id);
       setToken(check.token);
-      setRole(check.role);
-      router.push(`/profile/${check._id}`);
-    } else add(date);
+      setTag(check.tag)
+      router.push(`/main/${check.id}`);
+    } else {
+      const trimTag:string = tag.trim().toLowerCase();
+      if (trimTag[0] !== "@"){
+        setError("first symbol should be  @")
+        return;
+      }
+      if (tags?.some(t => t == trimTag)){
+        setError("tag should be unique");
+        return;
+      }
+      createUser({username,password,tag:trimTag});
+    }
   } catch(e) {
     console.log(e);
-    setError(true);
+    setError("login error");
     methods.reset();
-  };
- };
+  }
+ }
  
  const errorHandler = (value:string):void => {
   setErrArray((prv:string[])=>([
     ...prv,value
   ]));
- };
+ }
 
  const focus = useCallback((e:ChangeEvent<HTMLInputElement>):void => {
    const newArrArray:string[] = errArray

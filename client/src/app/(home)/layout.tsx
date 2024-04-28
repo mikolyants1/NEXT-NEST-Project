@@ -1,15 +1,16 @@
+import ModalLayout from '@/components/model/providers/ModalLayout'
+import Header from '@/components/ui/views/home/header/Header'
+import { ReactNode } from 'react'
 
-import Header from "@/components/ui/views/home/header/Header";
-import {type ReactNode } from "react";
-
-interface props {
+export default function layout({
+    children
+}:Readonly<{
     children:ReactNode
-}
-export default function layout({children}:props):JSX.Element{
+}>):JSX.Element {
   return (
-     <>
-      <Header />
-      {children}
-     </>
+    <ModalLayout>
+     <Header />
+     {children}
+    </ModalLayout>
   )
 }

@@ -4,8 +4,8 @@ import {type ReactNode } from "react"
 import { DelContext } from "../context/DelContext"
 
 interface IProps {
-    children:ReactNode,
-    isDel:boolean
+   children:ReactNode,
+   isDel:boolean
 };
 
 function DelLayut({children,isDel}:IProps):JSX.Element{

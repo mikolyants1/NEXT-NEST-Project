@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import {memo} from 'react';
 
 interface IProps {
-  error:boolean
+  error:string
 }
 function LoginErrorCard({error}:IProps):JSX.Element {
   return (
@@ -10,7 +10,7 @@ function LoginErrorCard({error}:IProps):JSX.Element {
           {error&&(
             <Box color='red'
              mt={5} textAlign='center'>
-              login error
+               {error}
             </Box>
             )}
         </Box>
