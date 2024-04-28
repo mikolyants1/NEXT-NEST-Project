@@ -7,10 +7,10 @@ import { useStore } from "@/components/model/store/store";
 import { Box, Flex } from "@chakra-ui/react";
 import { useContext } from "react"
 
-function CommentCard({text,date,author,id,author_id}:IComment):JSX.Element {
+function CommentCard({text,date,author,id,author_id,was_update}:IComment):JSX.Element {
   const {state,dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   const {id:userId}:IStore = useStore();
-
+  console.log(was_update)
   const updateOpen = ():void => {
     if (userId == author_id){
      dispatch({
@@ -34,15 +34,25 @@ function CommentCard({text,date,author,id,author_id}:IComment):JSX.Element {
       </Box>
       <Flex minW={250}
        justifyContent='space-between'
-       bg='rgb(180,180,180)'
-       borderRadius={15}
-       pl={2} pr={2}
+       bg='rgb(120,120,120)'
+       borderRadius={15} pl={2}
+       pr={2} pos="relative"
        onClick={updateOpen}
        alignItems='center'
        fontSize={18}
-       h={10}>
-        <Box>{text}</Box>
-        <Box>{getTime(date)}</Box>
+       h={12} gap={5}>
+         <Box>{text}</Box>
+         <Flex columnGap={1}
+          alignItems="center">
+           {was_update && (
+            <Box 
+             color="rgb(200,200,200)"
+             fontSize={11}>
+              changed.
+           </Box>
+           )}
+          {getTime(date)}
+        </Flex>
       </Flex>
     </Flex>
   );

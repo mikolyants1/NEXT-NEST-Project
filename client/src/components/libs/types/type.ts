@@ -21,7 +21,8 @@ export interface IComment {
   text:string,
   author:string,
   author_id:string,
-  date:string
+  date:string,
+  was_update:boolean
 }
 
 export interface IFields {
