@@ -43,12 +43,12 @@ function CommentMapCard({data,taskId}:IProps):JSX.Element {
           {data.map((c:IComment,idx:number):JSX.Element => {
              const isNewDay:boolean = checkData(data,idx);
              return (
-                <>
-                {isNewDay && (
-                 <DayCommCard time={c.date} />
-                )}
-                 <CommentCard key={c._id} {...c} />
-               </>
+              <>
+               {isNewDay && (
+                <DayCommCard time={c.date} />
+               )}
+                <CommentCard key={c.id} {...c} />
+              </>
              )
           })}
         </Box>

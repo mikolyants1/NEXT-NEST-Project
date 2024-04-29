@@ -1,8 +1,7 @@
 "use client"
 
-import getAdminMess from '@/components/api/query/mess/getAdminMess';
 import { useStore } from '@/components/model/store/store';
-import {type Invitation, type IMessToAdmin,type IStore} from '@/components/libs/types/type';
+import {type Invitation,type IStore} from '@/components/libs/types/type';
 import { Box, Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -20,7 +19,7 @@ function InviteLinkCard():JSX.Element {
   });
 
   if (isLoading) return <Loading />;
-  if (isError) return <Error />;
+  if (isError || !data) return <Error />;
   
     return (
        <Flex w="90%"

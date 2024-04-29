@@ -3,7 +3,7 @@
 import { delInvite } from "@/components/api/mutation/invite/delInvite"
 import { IStore } from "@/components/libs/types/type";
 import { useStore } from "@/components/model/store/store";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 
 interface IProps {
   id:string

@@ -3,7 +3,7 @@ import { getDayOfComment } from '@/components/model/functions/find/getDayOfComm'
 import { Box } from '@chakra-ui/react';
 
 interface IProps {
-  time:number
+  time:string
 }
 
 function DayCommCard({time}:IProps):JSX.Element {

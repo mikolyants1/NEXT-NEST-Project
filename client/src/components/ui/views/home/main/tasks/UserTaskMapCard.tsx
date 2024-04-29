@@ -13,6 +13,7 @@ interface IProps {
 }
 
 function UserTaskMapCard({tasks,userId}:IProps):JSX.Element {
+  const [mutTasks,setMutTasks] = useState(tasks);
   const [title,setTitle] = useState<string>("");
   const {id,token}:IStore = useStore();
   
@@ -20,8 +21,9 @@ function UserTaskMapCard({tasks,userId}:IProps):JSX.Element {
     setTitle(e.target.value);
   }
 
-  const addTask = ():void => {
-    createTask({userId:id,token,title});
+  const addTask = async ():Promise<void> => {
+   const data = await createTask({userId:id,token,title});
+   setMutTasks((prv:ITask[]) => ([...prv,data]));
   }
   return (
     <>
@@ -41,8 +43,9 @@ function UserTaskMapCard({tasks,userId}:IProps):JSX.Element {
          </Button>
        </Flex>
       )}
-      {tasks.map((t:ITask):JSX.Element=>(
+      {mutTasks.map((t:ITask):JSX.Element=>(
         <UserTaskCard
+         setMutTasks={setMutTasks}
          key={t.id}
          userId={userId}
          {...t}

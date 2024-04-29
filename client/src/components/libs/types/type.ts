@@ -55,8 +55,7 @@ export interface ICheckRes {
 
 export interface ITask {
   id:string,
-  title:string,
-  completed:boolean
+  title:string
 }
 
 export interface ITaskBody extends IAuth {
@@ -85,7 +84,7 @@ export interface ILogo {
 export interface ICommDelBody extends IAuth {
   id:string
 }
-export interface ICommUpdateBody extends Omit<ICommBody,"author"> {
+export interface ICommUpdateBody extends Omit<ICommBody,"author"|"taskId"> {
   id:string
 }
 
@@ -133,7 +132,7 @@ export interface IModalState {
 
 export interface IModalAction {
   type:EModal,
-  payload:IUpdateTaskOrCommState|IRemUserState|IUpdateUserState
+  payload:IUpdateTaskOrCommState|IRemUserState|IUpdateUserState|{}
 }
 
 export interface IModalContext {

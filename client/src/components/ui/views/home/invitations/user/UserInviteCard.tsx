@@ -1,8 +1,7 @@
 import { EInvite } from "@/components/libs/enums/enum";
-import { delInvite } from "@/components/api/mutation/invite/delInvite";
 import { getUser } from "@/components/api/query/user/getUser"
 import {type IUser,type Invitation } from "@/components/libs/types/type"
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import CancelButtonCard from "./buttons/CancelButtonCard";
 import AcceptButtonCard from "./buttons/AcceptButtonCard";
 import LogoCard from "../../header/title/cards/logo/LogoCard";

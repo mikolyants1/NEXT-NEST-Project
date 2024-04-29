@@ -8,13 +8,13 @@ import { Box, Flex } from "@chakra-ui/react";
 import { useContext } from "react"
 
 function CommentCard({text,date,author,id,author_id,was_update}:IComment):JSX.Element {
-  const {state,dispatch,onOpen} = useContext<IModalContext>(ModalContext);
+  const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   const {id:userId}:IStore = useStore();
-  console.log(was_update)
+
   const updateOpen = ():void => {
     if (userId == author_id){
      dispatch({
-       type:EModal.UPDATE_TASK_COMMENT,
+       type:EModal.UPDATE_COMMENT,
        payload:{id,text}
      })
      onOpen();

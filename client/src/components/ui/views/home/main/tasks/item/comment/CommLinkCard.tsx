@@ -13,12 +13,12 @@ interface IProps {
 
 function CommLinkCard({taskId}:IProps):JSX.Element {
   const {data,isError,isLoading} = useQuery<IComment[]>({
-    queryKey:["comments"],
+    queryKey:["comments",taskId],
     queryFn:()=>getTaskComments(taskId)
   });
 
   if (isLoading) return <Loading />;
-  if (isError) return <Error />;
+  if (isError || !data) return <Error />;
 
   return (
     <Flex w={390}

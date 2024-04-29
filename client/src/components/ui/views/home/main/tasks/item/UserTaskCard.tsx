@@ -1,26 +1,29 @@
 
 import { IModalContext, IStore, ITask } from '@/components/libs/types/type';
 import { Box, Flex, Image } from '@chakra-ui/react';
-import bask from '@/app/bask.png';
 import { useStore } from '@/components/model/store/store';
 import { delTask } from '@/components/api/mutation/task/delTask';
-import { MouseEvent, useContext, useState } from 'react';
+import { Dispatch, MouseEvent, SetStateAction, useContext, useState } from 'react';
 import {motion} from 'framer-motion';
 import { ModalContext } from '@/components/model/context/modal';
 import { EModal } from '@/components/libs/enums/enum';
 import CommLinkCard from './comment/CommLinkCard';
 
 interface IProps extends ITask {
-    userId:string
+    userId:string,
+    setMutTasks:Dispatch<SetStateAction<ITask[]>>
 }
 
-function UserTaskCard({title,id,userId}:IProps):JSX.Element {
+function UserTaskCard({title,id,userId,setMutTasks}:IProps):JSX.Element {
   const {id:adminId,token}:IStore = useStore();
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   const [show,setShow] = useState<boolean>(false);
 
-  const deleteTask = ():void => {
-    delTask({userId,taskId:id,token});
+  const deleteTask = async ():Promise<void> => {
+    await delTask({userId,taskId:id,token});
+    setMutTasks((prv:ITask[]) => (
+      prv.filter((t:ITask) => t.id !== id)
+    ));
   }
 
   const hover = (e:MouseEvent<HTMLDivElement>):void => {
@@ -29,7 +32,7 @@ function UserTaskCard({title,id,userId}:IProps):JSX.Element {
 
   const updateOpen = ():void => {
     dispatch({
-      type:EModal.UPDATE_TASK_COMMENT,
+      type:EModal.UPDATE_TASK,
       payload:{id,text:title}
     });
     onOpen();

@@ -3,7 +3,7 @@ import { IModalContext, IStore, IUser } from '@/components/libs/types/type';
 import { ModalContext } from '@/components/model/context/modal';
 import { useStore } from '@/components/model/store/store';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
-import React, { useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useState } from 'react'
 
 interface IState {
   username:string,
@@ -27,7 +27,7 @@ function UpdateStepCard():JSX.Element {
     }));
   }
     
-  const submit = async ():void => {
+  const submit = async ():Promise<void> => {
     if (state.tag[0] !== "@"){
       setError("first tag symbol must be @")
     }

@@ -7,7 +7,8 @@ export enum EFriendStatus {
 export enum EModal {
     REM_USER = "remove user",
     REM_FRIEND = "remove friend",
-    UPDATE_TASK_COMMENT = "update task or comment",
+    UPDATE_TASK = "update task or comment",
+    UPDATE_COMMENT = "update comment",
     UPDATE_USER = "update user"
 }
 

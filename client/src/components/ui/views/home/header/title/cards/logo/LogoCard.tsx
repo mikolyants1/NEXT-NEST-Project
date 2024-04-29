@@ -27,7 +27,7 @@ function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
     <Box w={size == "xl" ? "80px" : 12}
      onClick={ allow ? () => router.push(
       isHeader ? `/main/${id}/profile/${role}` : `/main/${id}`
-     ) : null}
+     ) : () => null}
      background={`linear-gradient(45deg,${one},${two})`}
      textAlign='center' borderRadius='50%'
      fontSize={size == "xl" ? 37 : 21}
