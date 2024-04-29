@@ -13,7 +13,7 @@ interface IProps {
 }
 
 function UserTaskMapCard({tasks,userId}:IProps):JSX.Element {
-  const [mutTasks,setMutTasks] = useState(tasks);
+  const [mutTasks,setMutTasks] = useState<ITask[]>(tasks);
   const [title,setTitle] = useState<string>("");
   const {id,token}:IStore = useStore();
   
@@ -45,7 +45,7 @@ function UserTaskMapCard({tasks,userId}:IProps):JSX.Element {
       )}
       {mutTasks.map((t:ITask):JSX.Element=>(
         <UserTaskCard
-         setMutTasks={setMutTasks}
+         change={setMutTasks}
          key={t.id}
          userId={userId}
          {...t}

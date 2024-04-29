@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { TaskBodyDto } from "src/dto/task.dto";
 import { Task } from "src/entity/task.entity";
 import { User } from "src/entity/user.entity";
-import { DeleteResult, Repository, UpdateResult } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 
 @Injectable()
 export class TaskService {
@@ -38,7 +38,8 @@ export class TaskService {
       return this.tasks.save(newTask);
     }
 
-    async updateUserTasks(id:string,{title}:TaskBodyDto):Promise<UpdateResult>{
-      return this.tasks.update({id},{title});
+    async updateUserTasks(id:string,{title}:TaskBodyDto):Promise<Task>{
+      await this.tasks.update({id},{title});
+      return this.tasks.findOneBy({id});
     }
 }

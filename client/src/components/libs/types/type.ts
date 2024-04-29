@@ -1,4 +1,4 @@
-import { Dispatch } from "react"
+import { Dispatch, SetStateAction } from "react"
 import { EFriendAction, EModal } from "../enums/enum"
 
 export interface IStore {
@@ -111,9 +111,10 @@ export interface IFriendBody extends IAuth {
   action:EFriendAction
 }
 
-export interface IUpdateTaskOrCommState {
+export interface IUpdateTaskOrCommState<T> {
   id:string,
-  text:string
+  text:string,
+  change:Dispatch<SetStateAction<T>>
 }
 export interface IUpdateUserState {
   id:string,
@@ -127,12 +128,12 @@ export interface IRemUserState {
 
 export interface IModalState {
   type:EModal,
-  data:IUpdateTaskOrCommState|IRemUserState|IUpdateUserState
+  data:IUpdateTaskOrCommState<ITask[]|IComment[]>|IRemUserState|IUpdateUserState
 }
 
 export interface IModalAction {
   type:EModal,
-  payload:IUpdateTaskOrCommState|IRemUserState|IUpdateUserState|{}
+  payload:IUpdateTaskOrCommState<ITask[]|IComment[]>|IRemUserState|IUpdateUserState|{}
 }
 
 export interface IModalContext {

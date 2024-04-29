@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } fro
 import { CommentService } from "./comment.service";
 import { Comment } from "src/entity/comment.entity";
 import { CommBodyDto } from "src/dto/comm.dto";
-import { UpdateResult } from "typeorm";
 import { AuthGuard } from "src/guards/auth.guard";
 
 @Controller("comments")
@@ -35,7 +34,7 @@ export class CommentController {
     async updateComment(
       @Param("id") id:string,
       @Body() body:Omit<CommBodyDto,"author">
-    ):Promise<UpdateResult>{
+    ):Promise<Comment>{
       return this.service.updateComment(id,body.text);
     }
 

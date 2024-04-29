@@ -6,7 +6,6 @@ import CheckStepCard from './steps/CheckStepCard';
 import UpdateStepCard from './steps/UpdateStepCard';
 
 function UpdateUserCard():JSX.Element {
-  const {state} = useContext<IModalContext>(ModalContext);
   const [step,setStep] = useState<number>(0);
   
   return (

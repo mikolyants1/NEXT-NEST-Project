@@ -1,8 +1,9 @@
+import { delComment } from '@/components/api/mutation/comment/delComment';
 import { updateComment } from '@/components/api/mutation/comment/updateComment';
 import { updateTask } from '@/components/api/mutation/task/updateTask';
 import { updateUser } from '@/components/api/mutation/user/updateUser';
 import { EModal } from '@/components/libs/enums/enum';
-import { IModalContext, IStore, IUpdateTaskOrCommState } from '@/components/libs/types/type';
+import { IComment, IModalContext, IStore, ITask, IUpdateTaskOrCommState } from '@/components/libs/types/type';
 import { ModalContext } from '@/components/model/context/modal';
 import { useStore } from '@/components/model/store/store';
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
@@ -12,30 +13,40 @@ import React, { ChangeEvent, useContext, useState } from 'react'
 
 function UpdateTaskOrCommentCard():JSX.Element {
   const {state} = useContext<IModalContext>(ModalContext);
-  const data = state.data as  IUpdateTaskOrCommState;
-  const [text,setText] = useState<string>(data.text);
+  const {text:initText} = state.data as IUpdateTaskOrCommState<unknown>;
+  const [text,setText] = useState<string>(initText);
   const {token,id:userId}:IStore = useStore();
 
   const change = (e:ChangeEvent<HTMLInputElement>):void => {
     setText(e.target.value);
   }
 
-  const update = ():void => {
+  const update = async ():Promise<void> => {
     if (state.type == EModal.UPDATE_TASK){
-      updateTask({
-        userId,
-        token,
-        taskId:data.id,
-        title:text
+     const {id,change} = state.data as IUpdateTaskOrCommState<ITask[]>;
+     const newTask:ITask = await updateTask({
+        userId,token,taskId:id,title:text
       });
-    } else {
-      updateComment({
-         id:data.id,
-         text,
-         token,
-         userId
-      })
+      change((prv:ITask[]) => (
+        prv.map((t:ITask) => t.id == id ? newTask : t)
+      ));
+    } else if (state.type == EModal.CHANGE_COMMENT) {
+     const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>
+     const newComm:IComment = await updateComment({
+      id,text,token,userId
+     });
+     change((prv:IComment[]) => (
+      prv.map((c:IComment) => c.id == id ? newComm : c)
+    ));
     }
+  }
+
+  const remove = async ():Promise<void> => {
+    const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>
+    await delComment({id,token,userId});
+    change((prv:IComment[]) => (
+     prv.filter((c:IComment) => c.id !== id)
+   ));
   }
 
   return (
@@ -57,10 +68,19 @@ function UpdateTaskOrCommentCard():JSX.Element {
       />
      </Flex>
      <Flex w="80%"
-      justifyContent="end"
+      columnGap={5}
+      justifyContent="center"
+      alignItems="center"
       m="10px auto">
+       {state.type == EModal.CHANGE_COMMENT && (
        <Button
         colorScheme="red"
+        onClick={remove}>
+         delete
+       </Button>
+       )}
+       <Button
+        colorScheme="green"
         isDisabled={!text}
         onClick={update}>
          update

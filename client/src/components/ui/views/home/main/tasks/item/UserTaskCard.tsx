@@ -11,17 +11,17 @@ import CommLinkCard from './comment/CommLinkCard';
 
 interface IProps extends ITask {
     userId:string,
-    setMutTasks:Dispatch<SetStateAction<ITask[]>>
+    change:Dispatch<SetStateAction<ITask[]>>
 }
 
-function UserTaskCard({title,id,userId,setMutTasks}:IProps):JSX.Element {
+function UserTaskCard({title,id,userId,change}:IProps):JSX.Element {
   const {id:adminId,token}:IStore = useStore();
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   const [show,setShow] = useState<boolean>(false);
 
   const deleteTask = async ():Promise<void> => {
     await delTask({userId,taskId:id,token});
-    setMutTasks((prv:ITask[]) => (
+    change((prv:ITask[]) => (
       prv.filter((t:ITask) => t.id !== id)
     ));
   }
@@ -33,7 +33,7 @@ function UserTaskCard({title,id,userId,setMutTasks}:IProps):JSX.Element {
   const updateOpen = ():void => {
     dispatch({
       type:EModal.UPDATE_TASK,
-      payload:{id,text:title}
+      payload:{id,text:title,change}
     });
     onOpen();
   }

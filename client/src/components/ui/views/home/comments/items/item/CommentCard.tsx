@@ -5,17 +5,21 @@ import { ModalContext } from "@/components/model/context/modal"
 import { getTime } from "@/components/model/functions/find/getTime";
 import { useStore } from "@/components/model/store/store";
 import { Box, Flex } from "@chakra-ui/react";
-import { useContext } from "react"
+import { Dispatch, SetStateAction, useContext } from "react"
 
-function CommentCard({text,date,author,id,author_id,was_update}:IComment):JSX.Element {
+interface IProps extends IComment {
+  change:Dispatch<SetStateAction<IComment[]>>
+}
+
+function CommentCard({text,date,author,id,author_id,was_update,change}:IProps):JSX.Element {
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   const {id:userId}:IStore = useStore();
 
   const updateOpen = ():void => {
     if (userId == author_id){
      dispatch({
-       type:EModal.UPDATE_COMMENT,
-       payload:{id,text}
+       type:EModal.CHANGE_COMMENT,
+       payload:{id,text,change}
      })
      onOpen();
     }

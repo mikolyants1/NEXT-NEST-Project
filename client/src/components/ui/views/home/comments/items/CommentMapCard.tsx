@@ -15,6 +15,7 @@ interface IProps {
 }
 
 function CommentMapCard({data,taskId}:IProps):JSX.Element {
+  const [mutComment,setMutComment] = useState<IComment[]>(data);
   const [comment,setComment] = useState<string>("");
   const [isWidth] = useMediaQuery('(max-width: 700px)');
   const {id:userId,token,name}:IStore = useStore();
@@ -23,14 +24,15 @@ function CommentMapCard({data,taskId}:IProps):JSX.Element {
     setComment(e.target.value);
   }
 
-  const addComment = ():void => {
-    createComment({
+  const addComment = async ():Promise<void> => {
+    const newComm:IComment = await createComment({
       userId,
       taskId,
       text:comment,
       token,
       author:name
     });
+    setMutComment((prv:IComment[]) => ([...prv,newComm]));
   }
 
   return (
@@ -40,14 +42,18 @@ function CommentMapCard({data,taskId}:IProps):JSX.Element {
          overflowY="scroll"
          boxSizing="border-box"
          pl={5} m="10px auto">
-          {data.map((c:IComment,idx:number):JSX.Element => {
+          {mutComment.map((c:IComment,idx:number):JSX.Element => {
              const isNewDay:boolean = checkData(data,idx);
              return (
               <>
                {isNewDay && (
                 <DayCommCard time={c.date} />
                )}
-                <CommentCard key={c.id} {...c} />
+                <CommentCard
+                 change={setMutComment}
+                 key={c.id}
+                  {...c}
+                 />
               </>
              )
           })}

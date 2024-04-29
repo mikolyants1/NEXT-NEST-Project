@@ -8,7 +8,7 @@ export enum EModal {
     REM_USER = "remove user",
     REM_FRIEND = "remove friend",
     UPDATE_TASK = "update task or comment",
-    UPDATE_COMMENT = "update comment",
+    CHANGE_COMMENT = "update or delete comment",
     UPDATE_USER = "update user"
 }
 

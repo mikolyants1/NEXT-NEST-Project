@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } fro
 import { TaskService } from "./task.service";
 import { Task } from "src/entity/task.entity";
 import { TaskBodyDto } from "src/dto/task.dto";
-import { UpdateResult } from "typeorm";
 import { AuthGuard } from "src/guards/auth.guard";
 
 @Controller("task")
@@ -41,7 +40,7 @@ export class TaskController {
     async updateTask(
       @Param("id") id:string,
       @Body() body:TaskBodyDto
-    ):Promise<UpdateResult>{
+    ):Promise<Task>{
       return this.service.updateUserTasks(id,body);
     }
 }

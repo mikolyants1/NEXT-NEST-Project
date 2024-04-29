@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CommBodyDto, UpdateCommDto } from "src/dto/comm.dto";
 import { Comment } from "src/entity/comment.entity";
 import { Task } from "src/entity/task.entity";
-import { DeleteResult, Repository, UpdateResult } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 
 @Injectable()
 export class CommentService {
@@ -36,12 +36,13 @@ export class CommentService {
       return this.comments.save(newComment);
     }
 
-    async updateComment(id:string,text:string):Promise<UpdateResult>{
+    async updateComment(id:string,text:string):Promise<Comment>{
       const comment:Comment = await this.comments.findOneBy({id});
       const body:UpdateCommDto = comment.was_update ? {text} : {
         text,
         was_update:true
       };
-      return this.comments.update({id},body);
+      await this.comments.update({id},body);
+      return this.comments.findOneBy({id});
     }
 }

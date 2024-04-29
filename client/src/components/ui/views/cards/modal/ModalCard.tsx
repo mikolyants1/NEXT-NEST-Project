@@ -36,7 +36,7 @@ function ModalCard():JSX.Element {
          {state.type == EModal.UPDATE_TASK && (
             <UpdateTaskOrCommentCard />
          )}
-         {state.type == EModal.UPDATE_COMMENT && (
+         {state.type == EModal.CHANGE_COMMENT && (
             <UpdateTaskOrCommentCard />
          )}
          {state.type == EModal.UPDATE_USER && (
