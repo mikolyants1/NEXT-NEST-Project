@@ -128,7 +128,7 @@ export interface IRemUserState {
 
 export interface IModalState {
   type:EModal,
-  data:IUpdateTaskOrCommState<ITask[]|IComment[]>|IRemUserState|IUpdateUserState
+  data:IUpdateTaskOrCommState<ITask[]|IComment[]>|IRemUserState|IUpdateUserState|{}
 }
 
 export interface IModalAction {
