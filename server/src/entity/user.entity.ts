@@ -21,11 +21,11 @@ export class User {
   raiting:number;
 
   @OneToMany(()=>Task,({user}:Task)=>user)
-  @JoinColumn({name:"tasks"})
+  @JoinColumn({name:"tasks",referencedColumnName:"user_id"})
   tasks:Task[];
 
   @OneToMany(()=>Friend,({user}:Friend)=>user)
-  @JoinColumn({name:"tasks"})
+  @JoinColumn({name:"friends"})
   friends:Friend[];
 
   @OneToMany(()=>Invitation,({user}:Invitation)=>user)
