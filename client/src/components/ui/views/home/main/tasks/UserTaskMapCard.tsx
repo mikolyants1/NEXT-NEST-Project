@@ -44,6 +44,7 @@ function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
       )}
       {mutTasks.map((t:ITask):JSX.Element=>(
         <UserTaskCard
+         adminId={adminId}
          change={setMutTasks}
          key={t.id}
          userId={userId}

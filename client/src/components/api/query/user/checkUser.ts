@@ -9,7 +9,6 @@ export async function checkUser(body:ICheckBody):Promise<ICheckRes> {
     return apiClient.post<ICheckRes>("user/check",body)
     .then(({data}:AxiosResponse<ICheckRes>)=>{
       if (data.success && body.isLogin){
-        console.log(8)
         cookies().set("token",data.token);
         cookies().set("userId",data.id);
       }

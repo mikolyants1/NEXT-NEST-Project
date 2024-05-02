@@ -25,7 +25,7 @@ function CommLinkCard({taskId}:IProps):JSX.Element {
      justifyContent="end">
       <Box color="grey">
         <Link href={`/comments/${taskId}`}>
-         comments {data.length}
+           comments {data.length}
         </Link>
       </Box>
     </Flex>

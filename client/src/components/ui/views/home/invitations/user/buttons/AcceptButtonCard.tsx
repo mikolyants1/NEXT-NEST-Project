@@ -4,7 +4,6 @@ import { actionWithFriend } from '@/components/api/mutation/friend/actionWithFri
 import { delInvite } from '@/components/api/mutation/invite/delInvite'
 import { EFriendAction } from '@/components/libs/enums/enum'
 import { Button } from '@chakra-ui/react'
-import React from 'react'
 
 interface IProps {
     friendId:string,

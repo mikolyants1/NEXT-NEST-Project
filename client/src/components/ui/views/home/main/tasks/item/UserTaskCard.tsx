@@ -1,7 +1,6 @@
 
-import { IModalContext, IStore, ITask } from '@/components/libs/types/type';
+import { IModalContext, ITask } from '@/components/libs/types/type';
 import { Box, Flex, Image } from '@chakra-ui/react';
-import { useStore } from '@/components/model/store/store';
 import { delTask } from '@/components/api/mutation/task/delTask';
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import {motion} from 'framer-motion';
@@ -11,16 +10,16 @@ import CommLinkCard from './comment/CommLinkCard';
 
 interface IProps extends ITask {
     userId:string,
-    change:Dispatch<SetStateAction<ITask[]>>
+    change:Dispatch<SetStateAction<ITask[]>>,
+    adminId:string
 }
 
-function UserTaskCard({title,id,userId,change}:IProps):JSX.Element {
-  const {id:adminId,token}:IStore = useStore();
+function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   const [show,setShow] = useState<boolean>(false);
 
   const deleteTask = async ():Promise<void> => {
-    await delTask({userId,taskId:id,token});
+    await delTask(id);
     change((prv:ITask[]) => (
       prv.filter((t:ITask) => t.id !== id)
     ));
