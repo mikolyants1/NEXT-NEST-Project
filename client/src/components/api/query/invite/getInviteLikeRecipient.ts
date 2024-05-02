@@ -1,8 +1,12 @@
-import { INotification, Invitation } from "@/components/libs/types/type";
+"use server"
+
+import { Invitation } from "@/components/libs/types/type";
 import { apiClient } from "../../apiClient";
 import { AxiosResponse } from "axios";
+import { cookies } from "next/headers";
 
-export async function getInviteLikeRecipient(id:string):Promise<Invitation[]> {
-    return apiClient.get<Invitation[]>(`invitation/recipient/${id}`)
-    .then(({data}:AxiosResponse<Invitation[]>)=>data);
+export async function getInviteLikeRecipient():Promise<Invitation[]> {
+  const id = cookies().get("userId")?.value;
+  return apiClient.get<Invitation[]>(`invitation/recipient/${id}`)
+  .then(({data}:AxiosResponse<Invitation[]>)=>data);
 }

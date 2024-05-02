@@ -3,7 +3,10 @@ import AdresserMapCard from '@/components/ui/views/home/notifications/adresser/A
 import RecipientMapCard from '@/components/ui/views/home/notifications/recipient/RecipientMapCard'
 import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import {type Metadata } from 'next'
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 import dynamic from 'next/dynamic'
+import { cookies } from 'next/headers'
+import { notFound, redirect } from 'next/navigation'
 import { Suspense } from 'react'
 
 interface IProps {
@@ -21,6 +24,11 @@ const AdresserCard = dynamic(() => import("@/components/ui/views/home/invitation
 const RecipientCard = dynamic(() => import("@/components/ui/views/home/invitations/recipient/RecipientMapCard"));
 
 export default function page({params}:IProps):JSX.Element {
+  const cookieStore:ReadonlyRequestCookies = cookies();
+  if (!cookieStore.has("userId")) notFound();
+  if (cookieStore.get("userId")?.value !== params.id){
+    redirect(`/main/${params.id}`);
+  }
   return (
     <Flex w="100%"
      justifyContent="center"

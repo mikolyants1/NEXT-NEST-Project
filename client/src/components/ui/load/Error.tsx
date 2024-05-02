@@ -20,7 +20,7 @@ function Error():JSX.Element {
      width ='100%'
      justifyContent='center'
      textAlign='center'
-     color='white'>
+     color='black'>
        error {err}
     </Flex>
   );

@@ -21,7 +21,7 @@ export class User {
   raiting:number;
 
   @OneToMany(()=>Task,({user}:Task)=>user)
-  @JoinColumn({name:"tasks",referencedColumnName:"user_id"})
+  @JoinColumn({name:"tasks"})
   tasks:Task[];
 
   @OneToMany(()=>Friend,({user}:Friend)=>user)

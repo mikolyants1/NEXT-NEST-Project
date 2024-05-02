@@ -1,12 +1,13 @@
 import { getTaskComments } from '@/components/api/query/comment/getComments'
 import { getTask } from '@/components/api/query/task/getTask'
-import { IComment, ITask } from '@/components/libs/types/type'
+import { getUser } from '@/components/api/query/user/getUser'
+import {type IComment,type ITask,type IUser } from '@/components/libs/types/type'
 import BackLinkCard from '@/components/ui/views/home/comments/back/BackLinkCard'
 import CommentMapCard from '@/components/ui/views/home/comments/items/CommentMapCard'
 import CommentTilteCard from '@/components/ui/views/home/comments/title/CommentTilteCard'
-import { Box, Grid } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 import { Metadata } from 'next'
-import React from 'react'
+import { cookies } from 'next/headers'
 
 interface IProps {
   params:{
@@ -19,8 +20,12 @@ export const metadata:Metadata = {
   description:"Comments page"
 }
 
+export const revalidate = 3600;
+
 async function page({params}:IProps):Promise<JSX.Element> {
+  const id = cookies().get("userId")?.value || "";
   const comments:IComment[] = await getTaskComments(params.id);
+  const user:IUser = await getUser(id);
   const task:ITask = await getTask(params.id);
 
   return (
@@ -35,6 +40,8 @@ async function page({params}:IProps):Promise<JSX.Element> {
         <CommentMapCard
          data={comments}
          taskId={params.id}
+         userId={id}
+         author={user.username}
          />
       </Grid>
     </>

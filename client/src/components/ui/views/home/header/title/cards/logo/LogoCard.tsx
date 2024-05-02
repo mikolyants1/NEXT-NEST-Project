@@ -16,17 +16,16 @@ interface IProps {
   allow:boolean,
   size:"xs"|"xl"
 }
+
 function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
  const router:AppRouterInstance = useRouter();
- const lett:string = username.slice(0,1).toUpperCase() || "";
+ const lett:string = username.slice(0,1) || "";
  const {one,two}:ILogo = createLogo();
- const {id:userId}:IStore = useStore();
- const role = userId == id ? ERoles.ADMIN : ERoles.GUEST;
-
+ 
   return (
     <Box w={size == "xl" ? "80px" : 12}
      onClick={ allow ? () => router.push(
-      isHeader ? `/main/${id}/profile/${role}` : `/main/${id}`
+      isHeader ? `/main/${id}/profile` : `/main/${id}`
      ) : () => null}
      background={`linear-gradient(45deg,${one},${two})`}
      textAlign='center' borderRadius='50%'
@@ -35,9 +34,9 @@ function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
      p={size == "xl" ? "13px" : "8px"}
      h={size == "xl" ? "80px" : 12}
      color="white" fontWeight="bold">
-      {lett}
+      {lett.toUpperCase()}
     </Box>
-  )
+  );
 }
 
-export default memo(LogoCard)
+export default memo(LogoCard);

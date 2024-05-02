@@ -1,26 +1,25 @@
 
 import { EModal } from "@/components/libs/enums/enum";
-import { IComment, IModalContext, IStore } from "@/components/libs/types/type"
+import { IComment, IModalContext} from "@/components/libs/types/type"
 import { ModalContext } from "@/components/model/context/modal"
 import { getTime } from "@/components/model/functions/find/getTime";
-import { useStore } from "@/components/model/store/store";
 import { Box, Flex } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useContext } from "react"
 
 interface IProps extends IComment {
-  change:Dispatch<SetStateAction<IComment[]>>
+  change:Dispatch<SetStateAction<IComment[]>>,
+  userId:string
 }
 
-function CommentCard({text,date,author,id,author_id,was_update,change}:IProps):JSX.Element {
+function CommentCard({text,date,author,id,author_id,was_update,change,userId}:IProps):JSX.Element {
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
-  const {id:userId}:IStore = useStore();
 
   const updateOpen = ():void => {
     if (userId == author_id){
      dispatch({
        type:EModal.CHANGE_COMMENT,
        payload:{id,text,change}
-     })
+     });
      onOpen();
     }
   }

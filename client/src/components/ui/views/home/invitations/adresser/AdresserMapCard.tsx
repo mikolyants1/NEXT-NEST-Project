@@ -1,15 +1,12 @@
 import { getInviteLikeAdresser} from '@/components/api/query/invite/getInviteLikeAdresser';
 import { type Invitation } from '@/components/libs/types/type'
-import EmptyNotCard from '../empty/EmptyNotCard';
+import EmptyInviteCard from '../empty/EmptyInviteCard';
 import UserInviteCard from '../user/UserInviteCard';
 import { EInvite } from '@/components/libs/enums/enum';
 
-interface IProps {
-  id:string
-}
 
-async function AdresserMapCard({id}:IProps):Promise<JSX.Element> {
-  const adressInvites:Invitation[] = await getInviteLikeAdresser(id);
+async function AdresserMapCard():Promise<JSX.Element> {
+  const adressInvites:Invitation[] = await getInviteLikeAdresser();
   return (
     <>
         {adressInvites.length ? (
@@ -18,11 +15,11 @@ async function AdresserMapCard({id}:IProps):Promise<JSX.Element> {
            <UserInviteCard
             key={n.id}
             {...n}
-             role={EInvite.ADRESSER}
+            role={EInvite.ADRESSER}
            />
-         ))}
+          ))}
         </>
-      ) : <EmptyNotCard />}
+        ) : <EmptyInviteCard />}
     </>
   )
 }

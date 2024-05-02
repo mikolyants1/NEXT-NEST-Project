@@ -1,36 +1,34 @@
 "use client"
 
-import { IComment, IStore } from '@/components/libs/types/type'
+import {type IComment } from '@/components/libs/types/type'
 import { Box, Button, Flex, Input, useMediaQuery } from '@chakra-ui/react'
-import React, { ChangeEvent, useState } from 'react'
+import  {type ChangeEvent, useState } from 'react'
 import CommentCard from './item/CommentCard'
 import { createComment } from '@/components/api/mutation/comment/createComment'
-import { useStore } from '@/components/model/store/store'
 import DayCommCard from './item/DayCommCard'
 import checkData from '@/components/model/functions/compare/compareData'
 
 interface IProps {
   data:IComment[],
-  taskId:string
+  taskId:string,
+  userId:string,
+  author:string
 }
 
-function CommentMapCard({data,taskId}:IProps):JSX.Element {
+function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
   const [mutComment,setMutComment] = useState<IComment[]>(data);
   const [comment,setComment] = useState<string>("");
   const [isWidth] = useMediaQuery('(max-width: 700px)');
-  const {id:userId,token,name}:IStore = useStore();
-
+  
   const change = (e:ChangeEvent<HTMLInputElement>):void => {
     setComment(e.target.value);
   }
 
   const addComment = async ():Promise<void> => {
     const newComm:IComment = await createComment({
-      userId,
       taskId,
       text:comment,
-      token,
-      author:name
+      author
     });
     setMutComment((prv:IComment[]) => ([...prv,newComm]));
   }
@@ -50,6 +48,7 @@ function CommentMapCard({data,taskId}:IProps):JSX.Element {
                 <DayCommCard time={c.date} />
                )}
                 <CommentCard
+                 userId={userId}
                  change={setMutComment}
                  key={c.id}
                   {...c}

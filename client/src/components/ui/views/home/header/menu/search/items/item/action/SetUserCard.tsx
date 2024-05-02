@@ -1,56 +1,49 @@
 import { createInvite } from '@/components/api/mutation/invite/createInvite';
 import { EFriendStatus, EModal } from '@/components/libs/enums/enum';
-import { IModalContext, IStore } from '@/components/libs/types/type';
+import { type IModalContext } from '@/components/libs/types/type';
 import { FriendContext } from '@/components/model/context/friend';
 import { ModalContext } from '@/components/model/context/modal';
 import { getFriendStatus } from '@/components/model/functions/find/getFriendStatus';
-import { useStore } from '@/components/model/store/store';
+import Error from '@/components/ui/load/Error';
+import Loading from '@/components/ui/load/Loading';
 import { Box } from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
 
 interface IProps {
-  friendId:string
+  id:string
 }
-function SetUserCard({friendId}:IProps):JSX.Element {
-  const {id,token}:IStore = useStore();
+function SetUserCard({id}:IProps):JSX.Element {
   const isFriend = useContext<boolean>(FriendContext);
-  const [status,setStatus] = useState<EFriendStatus>(EFriendStatus.ADD);
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
-
-  useEffect(() => {
-   (async () => {
-    const res:EFriendStatus = await getFriendStatus({
-        userId:id,
-        friendId
-    });
-    setStatus(res);
-   })();
-  },[]);
-
-  const create = ():void => {
+  const {data,isError,isLoading} = useQuery<EFriendStatus>({
+    queryKey:["status",id],
+    queryFn:() => getFriendStatus(id)
+  })
+  
+  const create = (status:EFriendStatus):void => {
     if (status == EFriendStatus.ADD){
-      createInvite({
-        recipient:friendId,
-        userId:id,
-        token
-      });
+      createInvite(id);
     }
   }
 
   const delFriend = ():void => {
     dispatch({
       type:EModal.REM_FRIEND,
-      payload:{friendId}
+      payload:{friendId:id}
     });
     onOpen();
   }
 
+  if (isLoading) return <Loading />;
+  if (isError || !data) return <Error />;
+
   return (
     <Box color={isFriend ? "red" : "green"}
-     fontSize={25}
-     onClick={isFriend ? delFriend : create}>
-      {status == EFriendStatus.ADD && <>+</>}
-      {status == EFriendStatus.WAIT&& <>&#10003;</>}
+     onClick={() => isFriend ? delFriend() : create(data)}
+     fontSize={25}>
+      {data == EFriendStatus.ADD && <>+</>}
+      {data == EFriendStatus.WAIT&& <>&#10003;</>}
       {isFriend && "-"}
     </Box>
   );

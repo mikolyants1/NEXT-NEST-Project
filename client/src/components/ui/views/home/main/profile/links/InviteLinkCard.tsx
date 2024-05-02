@@ -1,7 +1,7 @@
 "use client"
 
-import { useStore } from '@/components/model/store/store';
-import {type Invitation,type IStore} from '@/components/libs/types/type';
+
+import {type Invitation} from '@/components/libs/types/type';
 import { Box, Flex } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -10,12 +10,14 @@ import Error from '@/components/ui/load/Error';
 import InviteCount from './invite/InviteCount';
 import { getInviteLikeRecipient } from '@/components/api/query/invite/getInviteLikeRecipient';
 
+interface IProps {
+  id:string
+}
 
-function InviteLinkCard():JSX.Element {
-  const {id}:IStore = useStore();
+function InviteLinkCard({id}:IProps):JSX.Element {
   const {data,isError,isLoading} = useQuery<Invitation[]>({
-    queryKey:["invites",id],
-    queryFn:()=>getInviteLikeRecipient(id)
+    queryKey:["invites"],
+    queryFn:() => getInviteLikeRecipient()
   });
 
   if (isLoading) return <Loading />;
@@ -33,12 +35,16 @@ function InviteLinkCard():JSX.Element {
             }}>
              back to main
           </Link>
-          <Link style={{display:"flex",gap:5}}
-           href={`/invitation/${id}`}>
-            <Box>
-               invitations
+          <Link href={`/invitation/${id}`}>
+            <Box pos="relative">
+              <Box>invitations</Box>
+              <Box pos="absolute"
+               top={-1} right={-4}>
+                <InviteCount
+                 length={data.length}
+                 />
+              </Box>
             </Box>
-            <InviteCount length={data.length} />
           </Link>
         </Flex>
   )

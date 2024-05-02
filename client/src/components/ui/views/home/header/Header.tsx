@@ -5,7 +5,11 @@ import DrawerCard from './menu/DrawerCard';
 import HeaderTitleCard from './title/cards/HeaderTitleCard';
 import ModalCard from '../../cards/modal/ModalCard';
 
-function Header():JSX.Element {
+interface IProps {
+  id:string
+}
+
+function Header({id}:IProps):JSX.Element {
   const {onOpen,isOpen,onClose} = useDisclosure();
   
   return (
@@ -13,6 +17,7 @@ function Header():JSX.Element {
       <ModalCard />
       <HeaderTitleCard
        onOpen={onOpen}
+       id={id}
        />
       <DrawerCard
        isOpen={isOpen}

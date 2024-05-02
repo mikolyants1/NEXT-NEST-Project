@@ -1,6 +1,4 @@
 import { getAccess } from '@/components/api/query/user/getAccess';
-import { IStore } from '@/components/libs/types/type';
-import { useStore } from '@/components/model/store/store';
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import React, { ChangeEvent, useState } from 'react'
 
@@ -14,7 +12,6 @@ interface IProps {
 }
 
 function CheckStepCard({next}:IProps):JSX.Element {
-  const {id}:IStore = useStore();
   const [error,setError] = useState<string>("");
   const [state,setState] = useState<IState>({
     username:"",
@@ -30,7 +27,6 @@ function CheckStepCard({next}:IProps):JSX.Element {
   const submit = async ():Promise<void> => {
     try {
       const res:boolean = await getAccess({
-        id,
         check_name:state.username,
         check_pass:state.password
       });

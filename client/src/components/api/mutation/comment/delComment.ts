@@ -1,10 +1,15 @@
-import { ICommDelBody, IComment } from "@/components/libs/types/type";
-import { apiClient } from "../../apiClient";
-import { AxiosResponse } from "axios";
+"use server"
 
-export async function delComment({
-  id,token,userId
-}:ICommDelBody):Promise<IComment> {
+import {type IComment } from "@/components/libs/types/type";
+import { apiClient } from "../../apiClient";
+import {type AxiosResponse } from "axios";
+import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { cookies } from "next/headers";
+
+export async function delComment(id:string):Promise<IComment> {
+  const cookieStore:ReadonlyRequestCookies = cookies();
+  const token = cookieStore.get("token")?.value;
+  const userId = cookieStore.get("userId")?.value;
   return apiClient.delete<IComment>(
   `comments/${id}?userId=${userId}`,{
     headers:{

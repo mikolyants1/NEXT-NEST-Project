@@ -1,7 +1,6 @@
 import { updateUser } from '@/components/api/mutation/user/updateUser';
-import { IModalContext, IStore, IUser } from '@/components/libs/types/type';
+import {type IModalContext } from '@/components/libs/types/type';
 import { ModalContext } from '@/components/model/context/modal';
-import { useStore } from '@/components/model/store/store';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
 import React, { ChangeEvent, useContext, useState } from 'react'
 
@@ -12,7 +11,6 @@ interface IState {
 }
 
 function UpdateStepCard():JSX.Element {
-  const {id,token,setName,setTag}:IStore = useStore();
   const {onClose} = useContext<IModalContext>(ModalContext);
   const [error,setError] = useState<string>("");
   const [state,setState] = useState<IState>({
@@ -32,16 +30,14 @@ function UpdateStepCard():JSX.Element {
       setError("first tag symbol must be @")
     }
     try {
-      const res:IUser = await updateUser({
-        id,
-        token,
+      await updateUser({
         tag:state.tag,
         username:state.username,
         password:state.password
       });
-      setName(res.username);
-      setTag(state.tag);
-    } catch {}
+    } catch {
+      setError("server error");
+    }
     onClose();
   }
 
@@ -52,7 +48,7 @@ function UpdateStepCard():JSX.Element {
            color="white">
              {"update your's data"}
           </Box>
-          {["username","password","tag"].map((n):JSX.Element =>(
+          {["username","password","tag"].map((n):JSX.Element => (
             <Input key={n} w="70%"
              bg="rgb(200,200,200)"
              placeholder={n}
@@ -71,7 +67,11 @@ function UpdateStepCard():JSX.Element {
           <Flex w="70%" mb={5}
            justifyContent="end">
             <Button colorScheme='blue'
-             isDisabled={!state.password || !state.username || !state.tag}
+             isDisabled = {
+              !state.password ||
+              !state.username ||
+              !state.tag
+            }
              onClick={submit}>
                update
             </Button>

@@ -1,18 +1,24 @@
+"use client"
 import { IUser } from "@/components/libs/types/type";
 import { FriendContext } from "@/components/model/context/friend";
 import SearchItemCard from "../search/items/item/SearchItemCard";
-import { getFriendUsers } from "@/components/model/functions/compare/friendUsers";
+import { getFriendUsers } from "@/components/model/functions/compare/friendUsers"
+import { useQuery } from "@tanstack/react-query";
+import Loading from "@/components/ui/load/Loading";
+import Error from "@/components/ui/load/Error";
 
-interface IProps {
-  id:string
-}
+function FriendCard():JSX.Element {
+  const {data,isError,isLoading} = useQuery<IUser[]>({
+    queryKey:["friends"],
+    queryFn:() => getFriendUsers()
+  });
 
-async function FriendCard({id}:IProps):Promise<JSX.Element> {
-  const users:IUser[] = await getFriendUsers(id);
+  if (isLoading) return <Loading />;
+  if (isError || !data) return <Error />;
 
   return (
     <FriendContext.Provider value={true}>
-      {users.map((u:IUser):JSX.Element => (
+      {data.map((u:IUser):JSX.Element => (
         <SearchItemCard key={u.id} {...u} />
       ))}
     </FriendContext.Provider>

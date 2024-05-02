@@ -3,7 +3,7 @@ import { IModalContext, IStore, ITask } from '@/components/libs/types/type';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { useStore } from '@/components/model/store/store';
 import { delTask } from '@/components/api/mutation/task/delTask';
-import { Dispatch, MouseEvent, SetStateAction, useContext, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import {motion} from 'framer-motion';
 import { ModalContext } from '@/components/model/context/modal';
 import { EModal } from '@/components/libs/enums/enum';
@@ -26,10 +26,6 @@ function UserTaskCard({title,id,userId,change}:IProps):JSX.Element {
     ));
   }
 
-  const hover = (e:MouseEvent<HTMLDivElement>):void => {
-    setShow(e.type == "mouseover");
-  }
-
   const updateOpen = ():void => {
     dispatch({
       type:EModal.UPDATE_TASK,
@@ -48,17 +44,17 @@ function UserTaskCard({title,id,userId,change}:IProps):JSX.Element {
       columnGap={3}
       overflow="hidden"
       bg="rgb(100,100,100)"
-      onMouseOver={hover}
-      onMouseOut={hover}
+      onMouseOver={() => setShow(true)}
+      onMouseOut={() => setShow(false)}
       color="white">
         <Box color="white"
          onClick={updateOpen}
          fontSize={17}>
           {title}
         </Box>
-        {(userId == adminId)&&show&&(
+        {(userId == adminId) && show && (
           <motion.div
-           initial={{transform:"translate(45px)"}}
+           initial={{transform:`translate(45px)`}}
            animate={{transform:`translate(${show ? 0 : 45}px)`}}
            style={{width:45,height:45}}>
             <Image

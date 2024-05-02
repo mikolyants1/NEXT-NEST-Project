@@ -1,21 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { EFriendAction, EModal } from "../enums/enum"
 
-export interface IStore {
-    name:string,
-    id:string,
-    token:string,
-    tag:string,
-    setName:(name:string)=>void,
-    setId:(id:string)=>void,
-    setTag:(tag:string)=>void,
-    setToken:(token:string)=>void
-}
-
-export interface IAuth {
-  token:string,
-  userId:string
-}
 export interface IComment {
   id:string,
   text:string,
@@ -58,19 +43,13 @@ export interface ITask {
   title:string
 }
 
-export interface ITaskBody extends IAuth {
-  title:string
+
+export interface ITaskUpdateBody {
+  title:string,
+  taskId:string
 }
 
-export interface ITaskDelBody extends Omit<ITaskBody,"title"> {
-   taskId:string
-}
-
-export interface ITaskUpdateBody extends ITaskBody {
-  taskId:string;
-}
-
-export interface ICommBody extends IAuth {
+export interface ICommBody {
   text:string,
   author:string,
   taskId:string
@@ -81,9 +60,7 @@ export interface ILogo {
   two:string
 }
   
-export interface ICommDelBody extends IAuth {
-  id:string
-}
+
 export interface ICommUpdateBody extends Omit<ICommBody,"author"|"taskId"> {
   id:string
 }
@@ -101,12 +78,11 @@ export interface IUserBody extends Omit<ICheckBody,"isLogin">{
 }
 
 export interface IAccessBody {
-  id:string,
   check_name:string,
   check_pass:string
 }
 
-export interface IFriendBody extends IAuth {
+export interface IFriendBody {
   friendId:string,
   action:EFriendAction
 }
@@ -143,18 +119,8 @@ export interface IModalContext {
   onOpen:()=>void,
   onClose:()=>void
 }
-export interface IUserUpdateBody extends IUserBody {
-  id:string,
-  token:string
-}
 
-export interface InviteBody {
-    userId:string,
-    token:string,
-    inviteId:string
-}
-
-export interface InviteCreareBody extends IAuth {
+export interface InviteCreareBody {
    recipient:string
 }
 

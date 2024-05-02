@@ -1,3 +1,5 @@
+"use client"
+
 import { useStore } from '@/components/model/store/store'
 import {type ILinks,type IStore } from '@/components/libs/types/type'
 import { Drawer, DrawerBody,DrawerCloseButton,DrawerContent,
@@ -10,12 +12,11 @@ interface IProps {
   isOpen:boolean,
   onClose:()=>void
 }
-const Search = lazy(()=>import("../menu/search/SearchCard"));
+const Search = lazy(() => import("../menu/search/SearchCard"));
 
-const Friend = lazy(()=>import("../menu/friends/FriendCard"));
+const Friend = lazy(() => import("../menu/friends/FriendCard"));
 
 function DrawerCard({isOpen,onClose}:IProps):JSX.Element {
-  const {id}:IStore = useStore();
   const [title,setTitle] = useState<string>("Search");
   return (
     <Drawer
@@ -38,7 +39,7 @@ function DrawerCard({isOpen,onClose}:IProps):JSX.Element {
                <Search />
              </TabPanel>
              <TabPanel>
-               <Friend id={id} />
+               <Friend />
              </TabPanel>
            </TabPanels>
           </Suspense>

@@ -11,8 +11,7 @@ function HeaderWrapper({children}:props):JSX.Element {
      color='white'
      justifyContent='space-between'
      alignItems='center'
-     h='80px'
-     m='auto'>
+     h='80px' m='auto'>
       {children}
     </Flex>
   )

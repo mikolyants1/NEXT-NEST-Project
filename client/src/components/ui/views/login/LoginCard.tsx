@@ -5,11 +5,10 @@ import {type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.s
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { FormProvider,type SubmitHandler, useForm } from 'react-hook-form';
-import { useStore } from '@/components/model/store/store';
 import LoginCardWrapper from './content/LoginCardWrapper';
 import LoginButton from './content/buttons/LoginButtons';
 import LoginErrorCard from './content/error/LoginErrorCard';
-import {IUserBody, type ICheckRes,type IFields,type IStore,type IUser,type TForm } from '@/components/libs/types/type';
+import {type ICheckRes,type IFields,type TForm} from '@/components/libs/types/type';
 import { createFields } from '@/components/model/functions/maps/fields';
 import LoginInputs from './content/inputs/LoginInputs';
 import { checkUser } from '@/components/api/query/user/checkUser';
@@ -24,10 +23,9 @@ interface IProps {
 
 export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
  const [errArray,setErrArray] = useState<string[]>([]);
- const hashArray:string[] = useMemo(()=>errArray,[errArray]);
+ const hashArray:string[] = useMemo(() => errArray,[errArray]);
  const router:AppRouterInstance = useRouter();
  const [error,setError] = useState<string>("");
- const {setName,setId,setToken,setTag}:IStore = useStore();
  const methods = useForm<TForm>({
   defaultValues:{username:"",password:"",tag:""}
  });
@@ -49,17 +47,12 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     const check:ICheckRes = await checkUser({
       username,password,isLogin:isHome
     });
-    console.log(check)
     if (response(check.id,isHome)){
       setError("login error");
       methods.reset();
       return;
     };
     if (isHome){
-      setName(username);
-      setId(check.id);
-      setToken(check.token);
-      setTag(check.tag)
       router.push(`/main/${check.id}`);
     } else {
       const trimTag:string = tag.trim().toLowerCase();

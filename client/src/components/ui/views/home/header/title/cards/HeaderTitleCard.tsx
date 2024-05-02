@@ -1,29 +1,34 @@
-"use client"
-
 import { Box} from '@chakra-ui/react'
 import { memo } from 'react'
 import LogoCard from './logo/LogoCard'
-import HeaderWrapper from '../HeaderWrapper'
-import { IStore, Invitation } from '@/components/libs/types/type'
-import { useStore } from '@/components/model/store/store'
-import { useQuery } from '@tanstack/react-query'
+import HeaderWrapper from '../HeaderWrapper';
 import { getInviteLikeRecipient } from '@/components/api/query/invite/getInviteLikeRecipient'
+import InviteCount from '../../../main/profile/links/invite/InviteCount'
+import { getUser } from '@/components/api/query/user/getUser'
+import { useQueries } from '@tanstack/react-query'
 import Loading from '@/components/ui/load/Loading'
 import Error from '@/components/ui/load/Error'
-import InviteCount from '../../../main/profile/links/invite/InviteCount'
 
 interface IProps {
-  onOpen:()=>void
+  onOpen:()=>void,
+  id:string
 }
-function HeaderTitleCard({onOpen}:IProps):JSX.Element {
-  const {name,id}:IStore = useStore();
-  const {data,isError,isLoading} = useQuery<Invitation[]>({
-    queryKey:["invites",id],
-    queryFn:()=>getInviteLikeRecipient(id)
-  });
 
-  if (isLoading) return <Loading />;
-  if (isError || !data) return <Error />;
+function HeaderTitleCard({onOpen,id}:IProps):JSX.Element {
+  const [user,invites] = useQueries({queries:[
+    {
+      queryKey:["user",id],
+      queryFn:() => getUser(id)
+    },
+    {
+      queryKey:["recipient"],
+      queryFn:() => getInviteLikeRecipient()
+    }
+  ]});
+
+  if (user.isLoading || invites.isLoading) return <Loading />;
+  if (user.isError || invites.isError) return <Error />;
+  if (!user.data || !invites.data) return <Error />;
 
   return (
     <Box w='100%'
@@ -38,14 +43,13 @@ function HeaderTitleCard({onOpen}:IProps):JSX.Element {
           {`Karma's duary`}
         </Box>
         <Box pos="relative">
-          {data.length && (
-           <Box pos="absolute"
-            right={-2}>
-             <InviteCount length={data.length} />
+          {invites.data.length ? (
+           <Box right={-2} pos='absolute'>
+             <InviteCount length={invites.data.length} />
            </Box>
-          )}
+          ) : <></>}
           <LogoCard
-           username={name}
+           username={user.data.username}
            size='xs'
            isHeader
            allow

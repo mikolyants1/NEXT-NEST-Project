@@ -14,7 +14,8 @@ function LoginCardWrapper({children}:IProps):JSX.Element {
       position='absolute'
       right={0} left={0}
       borderRadius={20}
-      minH={300} overflow='hidden'>
+      minH={300}
+      overflow='hidden'>
       {children}
     </Box>
   )

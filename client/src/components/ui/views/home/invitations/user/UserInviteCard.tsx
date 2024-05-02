@@ -1,3 +1,5 @@
+"use server"
+
 import { EInvite } from "@/components/libs/enums/enum";
 import { getUser } from "@/components/api/query/user/getUser"
 import {type IUser,type Invitation } from "@/components/libs/types/type"

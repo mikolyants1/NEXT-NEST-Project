@@ -11,7 +11,7 @@ function Loader():JSX.Element {
         margin="10px auto"
         thickness='4px'
         speed='0.65s'
-        emptyColor='rgb(60,60,60)'
+        emptyColor='rgb(230,230,230)'
         color='blue.500'
         size='xl'
        />

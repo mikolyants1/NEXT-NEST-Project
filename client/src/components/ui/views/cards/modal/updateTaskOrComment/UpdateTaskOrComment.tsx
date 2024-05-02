@@ -1,11 +1,9 @@
 import { delComment } from '@/components/api/mutation/comment/delComment';
 import { updateComment } from '@/components/api/mutation/comment/updateComment';
 import { updateTask } from '@/components/api/mutation/task/updateTask';
-import { updateUser } from '@/components/api/mutation/user/updateUser';
 import { EModal } from '@/components/libs/enums/enum';
-import { IComment, IModalContext, IStore, ITask, IUpdateTaskOrCommState } from '@/components/libs/types/type';
+import { IComment, IModalContext,ITask, IUpdateTaskOrCommState } from '@/components/libs/types/type';
 import { ModalContext } from '@/components/model/context/modal';
-import { useStore } from '@/components/model/store/store';
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import React, { ChangeEvent, useContext, useState } from 'react'
 
@@ -15,7 +13,6 @@ function UpdateTaskOrCommentCard():JSX.Element {
   const {state} = useContext<IModalContext>(ModalContext);
   const {text:initText} = state.data as IUpdateTaskOrCommState<unknown>;
   const [text,setText] = useState<string>(initText);
-  const {token,id:userId}:IStore = useStore();
 
   const change = (e:ChangeEvent<HTMLInputElement>):void => {
     setText(e.target.value);
@@ -23,30 +20,26 @@ function UpdateTaskOrCommentCard():JSX.Element {
 
   const update = async ():Promise<void> => {
     if (state.type == EModal.UPDATE_TASK){
-     const {id,change} = state.data as IUpdateTaskOrCommState<ITask[]>;
-     const newTask:ITask = await updateTask({
-        userId,token,taskId:id,title:text
-      });
+      const {id,change} = state.data as IUpdateTaskOrCommState<ITask[]>;
+      const newTask:ITask = await updateTask({taskId:id,title:text});
       change((prv:ITask[]) => (
         prv.map((t:ITask) => t.id == id ? newTask : t)
       ));
     } else if (state.type == EModal.CHANGE_COMMENT) {
-     const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>
-     const newComm:IComment = await updateComment({
-      id,text,token,userId
-     });
-     change((prv:IComment[]) => (
-      prv.map((c:IComment) => c.id == id ? newComm : c)
-    ));
+      const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>
+      const newComm:IComment = await updateComment({id,text});
+      change((prv:IComment[]) => (
+        prv.map((c:IComment) => c.id == id ? newComm : c)
+      ));
     }
   }
 
   const remove = async ():Promise<void> => {
     const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>
-    await delComment({id,token,userId});
+    await delComment(id);
     change((prv:IComment[]) => (
-     prv.filter((c:IComment) => c.id !== id)
-   ));
+      prv.filter((c:IComment) => c.id !== id)
+    ));
   }
 
   return (

@@ -31,7 +31,7 @@ function SearchItemCard({username,id}:IUser):JSX.Element {
         />
        <Box>{username}</Box>
       </Flex>
-      {show&&<SetUserCard friendId={id} />}
+      {show && <SetUserCard id={id} />}
     </Flex>
   )
 }
