@@ -102,14 +102,16 @@ export interface IRemUserState {
   friendId:string
 }
 
+type TModalUnion = IUpdateTaskOrCommState<ITask[]|IComment[]>|IRemUserState|IUpdateUserState|{};
+
 export interface IModalState {
   type:EModal,
-  data:IUpdateTaskOrCommState<ITask[]|IComment[]>|IRemUserState|IUpdateUserState|{}
+  data:TModalUnion
 }
 
 export interface IModalAction {
   type:EModal,
-  payload:IUpdateTaskOrCommState<ITask[]|IComment[]>|IRemUserState|IUpdateUserState|{}
+  payload:TModalUnion
 }
 
 export interface IModalContext {

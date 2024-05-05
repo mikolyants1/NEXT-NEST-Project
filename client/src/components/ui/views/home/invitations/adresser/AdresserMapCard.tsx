@@ -3,7 +3,8 @@ import { type Invitation } from '@/components/libs/types/type'
 import EmptyInviteCard from '../empty/EmptyInviteCard';
 import UserInviteCard from '../user/UserInviteCard';
 import { EInvite } from '@/components/libs/enums/enum';
-
+import {motion} from 'framer-motion';
+import UserInviteWrapper from '../user/wrappers/UserInviteWrapper';
 
 async function AdresserMapCard():Promise<JSX.Element> {
   const adressInvites:Invitation[] = await getInviteLikeAdresser();
@@ -11,12 +12,14 @@ async function AdresserMapCard():Promise<JSX.Element> {
     <>
         {adressInvites.length ? (
         <>
-          {adressInvites.map((n:Invitation):JSX.Element => (
-           <UserInviteCard
-            key={n.id}
-            {...n}
-            role={EInvite.ADRESSER}
-           />
+          {adressInvites.map((n:Invitation,idx:number):JSX.Element => (
+            <UserInviteWrapper
+             key={n.id} idx={idx}>
+              <UserInviteCard
+               role={EInvite.ADRESSER}
+               {...n}
+               />
+            </UserInviteWrapper>
           ))}
         </>
         ) : <EmptyInviteCard />}

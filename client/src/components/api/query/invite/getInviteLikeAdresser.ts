@@ -8,5 +8,5 @@ import { cookies } from "next/headers";
 export async function getInviteLikeAdresser():Promise<Invitation[]> {
   const id = cookies().get("userId")?.value;
   return apiClient.get<Invitation[]>(`invitation/adresser/${id}`)
-  .then(({data}:AxiosResponse<Invitation[]>)=>data);
+  .then(({data}:AxiosResponse<Invitation[]>) => data);
 }

@@ -14,7 +14,7 @@ interface IProps extends IComment {
 function CommentCard({text,date,author,id,author_id,was_update,change,userId}:IProps):JSX.Element {
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
 
-  const updateOpen = ():void => {
+  const updateOpen = () => {
     if (userId == author_id){
      dispatch({
        type:EModal.CHANGE_COMMENT,

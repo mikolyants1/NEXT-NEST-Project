@@ -3,6 +3,8 @@ import {type Invitation } from '@/components/libs/types/type';
 import EmptyInviteCard from '../empty/EmptyInviteCard';
 import UserInviteCard from '../user/UserInviteCard';
 import { EInvite } from '@/components/libs/enums/enum';
+import {motion} from 'framer-motion';
+import UserInviteWrapper from '../user/wrappers/UserInviteWrapper';
 
 async function RecipientMapCard():Promise<JSX.Element> {
   const recipInvites:Invitation[] = await getInviteLikeRecipient();
@@ -10,12 +12,14 @@ async function RecipientMapCard():Promise<JSX.Element> {
     <>
       {recipInvites.length ? (
         <>
-          {recipInvites.map((n:Invitation):JSX.Element => (
-           <UserInviteCard
-            role={EInvite.RECIPIENT}
-            key={n.id}
-            {...n}
-           />
+          {recipInvites.map((n:Invitation,idx:number):JSX.Element => (
+            <UserInviteWrapper
+             key={n.id} idx={idx}>
+             <UserInviteCard
+              role={EInvite.RECIPIENT}
+              {...n}
+              />
+           </UserInviteWrapper>
          ))}
         </>
       ) : <EmptyInviteCard />}

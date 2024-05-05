@@ -52,12 +52,11 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
       methods.reset();
       return;
     };
-    if (isHome){
-      router.push(`/main/${check.id}`);
-    } else {
-      const trimTag:string = tag.trim().toLowerCase();
+    if (isHome) router.push(`/main/${check.id}`);
+    else {
+      const trimTag = tag.trim().toLowerCase();
       if (trimTag[0] !== "@"){
-        setError("first symbol should be  @")
+        setError("first symbol should be @");
         return;
       }
       if (tags?.some(t => t == trimTag)){

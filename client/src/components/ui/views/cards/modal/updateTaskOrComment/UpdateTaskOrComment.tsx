@@ -26,7 +26,7 @@ function UpdateTaskOrCommentCard():JSX.Element {
         prv.map((t:ITask) => t.id == id ? newTask : t)
       ));
     } else if (state.type == EModal.CHANGE_COMMENT) {
-      const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>
+      const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>;
       const newComm:IComment = await updateComment({id,text});
       change((prv:IComment[]) => (
         prv.map((c:IComment) => c.id == id ? newComm : c)
@@ -35,7 +35,7 @@ function UpdateTaskOrCommentCard():JSX.Element {
   }
 
   const remove = async ():Promise<void> => {
-    const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>
+    const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>;
     await delComment(id);
     change((prv:IComment[]) => (
       prv.filter((c:IComment) => c.id !== id)

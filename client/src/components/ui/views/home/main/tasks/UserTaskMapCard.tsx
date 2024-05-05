@@ -5,6 +5,7 @@ import UserTaskCard from "./item/UserTaskCard"
 import { Button, Flex, Input } from "@chakra-ui/react"
 import { ChangeEvent, useState } from "react"
 import { createTask } from "@/components/api/mutation/task/createTask"
+import {motion} from 'framer-motion';
 
 interface IProps {
   tasks:ITask[],
@@ -21,9 +22,10 @@ function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
   }
 
   const addTask = async ():Promise<void> => {
-   const data = await createTask(title);
-   setMutTasks((prv:ITask[]) => ([...prv,data]));
+    const data:ITask = await createTask(title);
+    setMutTasks((prv:ITask[]) => ([...prv,data]));
   }
+
   return (
     <>
       {(adminId == userId) && (
@@ -42,14 +44,18 @@ function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
          </Button>
        </Flex>
       )}
-      {mutTasks.map((t:ITask):JSX.Element=>(
-        <UserTaskCard
-         adminId={adminId}
-         change={setMutTasks}
-         key={t.id}
-         userId={userId}
-         {...t}
-        />
+      {mutTasks.map((t:ITask,idx:number):JSX.Element => (
+       <motion.div key={t.id}
+        initial={{opacity:0,translateY:-50}}
+        animate={{opacity:1,translateY:0}}
+        transition={{delay:idx * 0.3}}>
+          <UserTaskCard
+           adminId={adminId}
+           change={setMutTasks}
+           userId={userId}
+           {...t}
+           />
+        </motion.div>
       ))}
     </>
   )

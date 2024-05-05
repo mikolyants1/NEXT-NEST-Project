@@ -42,43 +42,42 @@ function UpdateStepCard():JSX.Element {
   }
 
   return (
-        <>
-          <Box fontSize={20}
-           fontWeight="bold"
-           color="white">
-             {"update your's data"}
-          </Box>
-          {["username","password","tag"].map((n):JSX.Element => (
-            <Input key={n} w="70%"
-             bg="rgb(200,200,200)"
-             placeholder={n}
-             onChange={change}
-             name={n}
-            />
-          ))}
-          {error && (
-           <Box w="100%"
-            textAlign="center"
-            fontSize={18}
-            color="red">
-            {error}
-          </Box>
-          )}
-          <Flex w="70%" mb={5}
-           justifyContent="end">
-            <Button colorScheme='blue'
-             isDisabled = {
-              !state.password ||
-              !state.username ||
-              !state.tag
-            }
-             onClick={submit}>
-               update
-            </Button>
-          </Flex>
-        </>
-      )
-    
+      <>
+        <Box fontSize={20}
+         fontWeight="bold"
+         color="white">
+          {"update your's data"}
+        </Box>
+        {["username","password","tag"].map((n):JSX.Element => (
+          <Input key={n} w="70%"
+           bg="rgb(200,200,200)"
+           placeholder={n}
+           onChange={change}
+           name={n}
+           />
+        ))}
+        {error && (
+         <Box w="100%"
+          textAlign="center"
+          fontSize={18}
+          color="red">
+           {error}
+         </Box>
+        )}
+        <Flex w="70%" mb={5}
+         justifyContent="end">
+          <Button colorScheme='blue'
+           isDisabled = {
+            !state.password ||
+            !state.username ||
+            !state.tag
+           }
+           onClick={submit}>
+             update
+          </Button>
+        </Flex>
+      </>
+    );
 }
 
 export default UpdateStepCard

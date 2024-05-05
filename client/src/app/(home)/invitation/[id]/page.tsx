@@ -1,13 +1,10 @@
-import Loading from '@/components/ui/load/Loading'
-import AdresserMapCard from '@/components/ui/views/home/notifications/adresser/AdresserMapCard'
-import RecipientMapCard from '@/components/ui/views/home/notifications/recipient/RecipientMapCard'
+
 import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import {type Metadata } from 'next'
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 import dynamic from 'next/dynamic'
 import { cookies } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
-import { Suspense } from 'react'
 
 interface IProps {
   params:{
@@ -29,6 +26,7 @@ export default function page({params}:IProps):JSX.Element {
   if (cookieStore.get("userId")?.value !== params.id){
     redirect(`/main/${params.id}`);
   }
+  
   return (
     <Flex w="100%"
      justifyContent="center"
@@ -50,10 +48,10 @@ export default function page({params}:IProps):JSX.Element {
          alignItems="center"
          mt={10}>
           <TabPanel>
-            <AdresserCard id={params.id} />
+            <AdresserCard />
           </TabPanel>
           <TabPanel>
-            <RecipientCard id={params.id} />
+            <RecipientCard />
           </TabPanel>
         </TabPanels>
       </Tabs>
