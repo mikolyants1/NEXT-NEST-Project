@@ -12,8 +12,8 @@ interface IProps {
   isOpen:boolean,
   onClose:()=>void
 }
-const Search = lazy(() => import("../menu/search/SearchCard"));
 
+const Search = lazy(() => import("../menu/search/SearchCard"));
 const Friend = lazy(() => import("../menu/friends/FriendCard"));
 
 function DrawerCard({isOpen,onClose}:IProps):JSX.Element {

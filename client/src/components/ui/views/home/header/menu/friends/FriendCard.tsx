@@ -1,4 +1,5 @@
 "use client"
+
 import { IUser } from "@/components/libs/types/type";
 import { FriendContext } from "@/components/model/context/friend";
 import SearchItemCard from "../search/items/item/SearchItemCard";

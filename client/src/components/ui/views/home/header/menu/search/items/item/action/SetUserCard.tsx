@@ -27,7 +27,7 @@ function SetUserCard({id}:IProps):JSX.Element {
     }
   }
 
-  const delFriend = ():void => {
+  const delFriend = () => {
     dispatch({
       type:EModal.REM_FRIEND,
       payload:{friendId:id}

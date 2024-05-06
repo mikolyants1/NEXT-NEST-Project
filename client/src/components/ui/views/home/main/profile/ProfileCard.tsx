@@ -17,7 +17,7 @@ function ProfileCard({user}:IProps):JSX.Element {
   const router:AppRouterInstance = useRouter();
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   
-  const updateOpen = ():void => {
+  const updateOpen = () => {
     dispatch({
        type:EModal.UPDATE_USER,
        payload:{

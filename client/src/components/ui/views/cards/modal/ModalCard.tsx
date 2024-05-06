@@ -8,9 +8,7 @@ import { Modal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from
 import { Suspense, lazy, useContext } from 'react'
 
 const UpdateTaskOrCommentCard = lazy(() => import("./updateTaskOrComment/UpdateTaskOrComment"));
-
 const DelFriendOrUserCard = lazy(() => import("./delFriendOrUser/DelFriendOrUserCard"));
-
 const UpdateUserCard = lazy(() => import("./updateUser/UpdateUserCard"));
 
 function ModalCard():JSX.Element {

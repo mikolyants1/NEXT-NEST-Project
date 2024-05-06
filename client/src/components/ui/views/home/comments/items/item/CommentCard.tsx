@@ -11,11 +11,11 @@ interface IProps extends IComment {
   userId:string
 }
 
-function CommentCard({text,date,author,id,author_id,was_update,change,userId}:IProps):JSX.Element {
+function CommentCard({id,text,change,...props}:IProps):JSX.Element {
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
 
   const updateOpen = () => {
-    if (userId == author_id){
+    if (props.userId == props.author_id){
      dispatch({
        type:EModal.CHANGE_COMMENT,
        payload:{id,text,change}
@@ -33,7 +33,7 @@ function CommentCard({text,date,author,id,author_id,was_update,change,userId}:IP
        textAlign='center'
        color="black"
        fontSize={20}>
-        {author}
+        {props.author}
       </Box>
       <Flex minW={250}
        justifyContent='space-between'
@@ -47,14 +47,14 @@ function CommentCard({text,date,author,id,author_id,was_update,change,userId}:IP
          <Box>{text}</Box>
          <Flex columnGap={1}
           alignItems="center">
-           {was_update && (
+           {props.was_update && (
             <Box 
              color="rgb(200,200,200)"
              fontSize={11}>
               changed.
            </Box>
            )}
-          {getTime(date)}
+          {getTime(props.date)}
         </Flex>
       </Flex>
     </Flex>

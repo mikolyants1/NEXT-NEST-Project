@@ -8,7 +8,6 @@ import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import React, { ChangeEvent, useContext, useState } from 'react'
 
 
-
 function UpdateTaskOrCommentCard():JSX.Element {
   const {state} = useContext<IModalContext>(ModalContext);
   const {text:initText} = state.data as IUpdateTaskOrCommState<unknown>;
