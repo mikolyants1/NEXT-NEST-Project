@@ -109,6 +109,8 @@ export interface IModalState {
   data:TModalUnion
 }
 
+export type Null<T> = T | null;
+
 export interface IModalAction {
   type:EModal,
   payload:TModalUnion

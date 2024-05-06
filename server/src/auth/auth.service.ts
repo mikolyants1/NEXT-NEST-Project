@@ -1,20 +1,19 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Request } from "express";
-import { AuthUserDto } from "src/dto/auth.dto";
-import { User } from "src/entity/user.entity";
+import { AuthUserDto } from "../dto/auth.dto";
 
 @Injectable()
 export class AuthService {
   constructor(private readonly service:JwtService){}
 
-  sign({id,username}:AuthUserDto):string{
-    return this.service.sign({id,username});
+  sign({id}:AuthUserDto):string{
+    return this.service.sign({id});
   }
 
-  verify(token:string,{username,id}:User):boolean{
+  verify(token:string,id:string):boolean{
     const decoded:AuthUserDto = this.service.verify(token);
-    return decoded.id == id && decoded.username == username;
+    return decoded.id == id ;
   }
 
    getToken({headers}:Request):string{

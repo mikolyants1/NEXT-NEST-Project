@@ -1,5 +1,5 @@
 import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
-import {OmitType } from '@nestjs/mapped-types';
+import { OmitType } from '@nestjs/mapped-types';
 
 export class UserBodyDto {
     @IsString()

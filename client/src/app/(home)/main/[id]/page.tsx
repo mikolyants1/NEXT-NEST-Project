@@ -5,7 +5,6 @@ import UserTaskMapCard from "@/components/ui/views/home/main/tasks/UserTaskMapCa
 import { Box, Flex } from "@chakra-ui/react";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 interface IProps {
   params:{
@@ -21,7 +20,6 @@ export const revalidate = 3600;
 
 async function page({params}:IProps):Promise<JSX.Element> {
   const adminId = cookies().get("userId")?.value;
-  if (!adminId) redirect("/");
   const tasks:ITask[] = await getUserTasks(params.id);
   const {id,username}:IUser = await getUser(params.id);
   
@@ -37,7 +35,7 @@ async function page({params}:IProps):Promise<JSX.Element> {
       <UserTaskMapCard
        tasks={tasks}
        userId={params.id}
-       adminId={adminId}
+       adminId={adminId || ""}
        />
     </Flex>
   );

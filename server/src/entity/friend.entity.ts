@@ -9,7 +9,7 @@ export class Friend {
   @Column({name:"friend_id",type:"varchar",length:255,nullable:false})
   friend_id:string;
 
-  @ManyToOne(()=>User,({friends}:User)=>friends,{
+  @ManyToOne(() => User,({friends}:User) => friends,{
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
   })

@@ -12,7 +12,7 @@ export class Invitation {
   @Column({name:"recipient",type:"varchar",length:255,nullable:false})
   recipient:string;
 
-  @ManyToOne(()=>User,({invitations}:User)=>invitations,{
+  @ManyToOne(() => User,({invitations}:User) => invitations,{
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
   })

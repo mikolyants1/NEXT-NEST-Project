@@ -17,6 +17,8 @@ export const metadata:Metadata = {
   description:"user profile page"
 }
 
+export const revalidate = 3000;
+
 export default function page({params}:IProps):JSX.Element {
   const user:IUser = use(getUser(params.id));
   

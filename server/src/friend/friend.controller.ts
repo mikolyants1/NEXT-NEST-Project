@@ -18,11 +18,11 @@ export class FriendController {
     @Post()
     async actionWithFriend(
       @Query("userId") userId:string,
-      @Body() body:FriendBodyDto
+      @Body() {action,friendId}:FriendBodyDto
     ):Promise<Friend[]|Friend>{
-      if (body.action == EFriendAction.ADD){
-        return this.service.addFriend(userId,body.friendId);
+      if (action == EFriendAction.ADD){
+        return this.service.addFriend(userId,friendId);
       }
-      return this.service.delFriend(userId,body.friendId);
+      return this.service.delFriend(userId,friendId);
     }
 }

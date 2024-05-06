@@ -5,6 +5,7 @@ import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
 import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export async function updateUser(body:IUserBody):Promise<IUser> {
   const cookieStore:ReadonlyRequestCookies = cookies();
@@ -15,5 +16,8 @@ export async function updateUser(body:IUserBody):Promise<IUser> {
         authorization:`Bearer ${token}`
       }
     })
-    .then(({data}:AxiosResponse<IUser>)=>data);
+    .then(({data}:AxiosResponse<IUser>)=>{
+      revalidatePath("/main/:id/profile");
+      return data;
+    });
 }

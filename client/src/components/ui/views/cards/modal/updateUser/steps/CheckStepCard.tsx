@@ -1,78 +1,60 @@
-import { getAccess } from '@/components/api/query/user/getAccess';
+import { checkUserAction } from '@/components/model/actions/checkUserAction';
 import { Box, Button, Flex, Input } from '@chakra-ui/react'
-import React, { ChangeEvent, useState } from 'react'
-
-interface IState {
-  username:string,
-  password:string
-}
+import React, { useState } from 'react'
+import { useFormStatus } from 'react-dom';
 
 interface IProps {
-    next:()=>void
+  next:()=>void
 }
 
 function CheckStepCard({next}:IProps):JSX.Element {
   const [error,setError] = useState<string>("");
-  const [state,setState] = useState<IState>({
-    username:"",
-    password:""
+  const {pending} = useFormStatus();
+  const checkAction = checkUserAction.bind(null,{
+    next,
+    setError
   });
 
-  const change = (e:ChangeEvent<HTMLInputElement>):void => {
-    setState((prv:IState) => ({
-      ...prv,[e.target.name]:e.target.value
-    }));
-  }
-
-  const submit = async ():Promise<void> => {
-    try {
-      const res:boolean = await getAccess({
-        check_name:state.username,
-        check_pass:state.password
-      });
-      if (res) next();
-      else setError("incorrect data");
-    } catch (e) {
-       setError("server error")
-    }
-  }
-
   return (
-    <>
-      <Box fontSize={20}
-       fontWeight="bold"
-       color="white">
-         At first,verify your data
-      </Box>
-      <Input w="70%"
-       bg="rgb(200,200,200)"
-       placeholder='username'
-       onChange={change}
-       name='username'
-      />
-      <Input w="70%"
-       bg="rgb(200,200,200)"
-       placeholder='password'
-       onChange={change}
-       name='password'
-      />
-      {error && (
-        <Box w="100%"
-         textAlign="center"
-         fontSize={18}
-         color="red">
-          {error}
+    <form action={checkAction}
+     style={{width:"100%"}}>
+      <Flex w="100%"
+       justifyContent="center"
+       flexDir="column" gap={4}
+       alignItems="center">
+        <Box fontSize={20}
+         fontWeight="bold"
+         color="white">
+          At first,verify your data
         </Box>
-      )}
-      <Flex w="70%" mb={5}
-       justifyContent="end">
-        <Button colorScheme='blue'
-         isDisabled={!state.password || !state.username}
-         onClick={submit}>
-           next step
-        </Button>
+        <Input w="70%"
+         bg="rgb(200,200,200)"
+         placeholder='username'
+         name='username'
+        />
+        <Input w="70%"
+         bg="rgb(200,200,200)"
+         placeholder='password'
+         name='password'
+        />
+        {error && (
+          <Box w="100%"
+           textAlign="center"
+           fontSize={18}
+           color="red">
+            {error}
+          </Box>
+        )}
+        <Flex w="70%" mb={5}
+         justifyContent="end">
+          <Button colorScheme='blue'
+           isDisabled={pending}
+           type="submit">
+             next step
+          </Button>
+        </Flex>
       </Flex>
-    </>
+    </form>
   )
 }
 

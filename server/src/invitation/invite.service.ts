@@ -23,7 +23,7 @@ export class InviteService {
       return this.invites.findBy({addresser:id});
     } 
 
-    async deleteInvite(userId:string,inviteId:string):Promise<Invitation>{
+    async deleteInvite(inviteId:string):Promise<Invitation>{
      const invites:DeleteResult = await this.invites.delete({id:inviteId});
      return invites.raw;
     }

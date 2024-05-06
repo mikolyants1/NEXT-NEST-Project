@@ -20,11 +20,8 @@ export class InviteController {
 
   @UseGuards(AuthGuard)
   @Delete(":id")
-  async deleteInvitation(
-    @Param("id") inviteId:string,
-    @Query("userId") userId:string
-  ):Promise<Invitation>{
-    return this.service.deleteInvite(userId,inviteId);
+  async deleteInvitation(@Param("id") inviteId:string):Promise<Invitation>{
+    return this.service.deleteInvite(inviteId);
   }
 
   @UseGuards(AuthGuard)

@@ -11,7 +11,7 @@ function UpdateUserCard():JSX.Element {
      justifyContent="center"
      flexDir="column" gap={4}
      alignItems="center">
-      {step && (
+      {!step && (
         <CheckStepCard
          next={() => setStep(true)}
          />

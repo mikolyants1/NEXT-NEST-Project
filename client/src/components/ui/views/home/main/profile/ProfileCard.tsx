@@ -11,7 +11,7 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 import InviteLinkCard from './links/InviteLinkCard';
 
 interface IProps {
-   user:IUser
+  user:IUser
 }
 function ProfileCard({user}:IProps):JSX.Element {
   const router:AppRouterInstance = useRouter();
@@ -29,7 +29,7 @@ function ProfileCard({user}:IProps):JSX.Element {
     onOpen();
   }
   
-  const removeOpen = ():void => {
+  const removeOpen = () => {
     dispatch({
       type:EModal.REM_USER,
       payload:{}

@@ -1,9 +1,10 @@
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req:NextRequest){
-  const cookieStore = cookies();
+  const cookieStore:ReadonlyRequestCookies = cookies();
   if (!cookieStore.has("userId")){
     notFound();
   }

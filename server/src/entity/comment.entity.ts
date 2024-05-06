@@ -21,7 +21,7 @@ export class Comment {
   @Column({name:"date",type:"bigint",nullable:false})
   date:number;
 
-  @ManyToOne(()=>Task,({comments}:Task)=>comments,{
+  @ManyToOne(() => Task,({comments}:Task) => comments,{
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
   })

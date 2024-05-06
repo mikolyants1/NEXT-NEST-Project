@@ -10,7 +10,7 @@ interface IProps {
 function ChakraLayout({children}:IProps):JSX.Element {
   return (
     <ChakraProvider theme={theme}>
-        {children}
+      {children}
     </ChakraProvider>
   )
 }

@@ -6,6 +6,8 @@ import { Button, Flex, Input } from "@chakra-ui/react"
 import { ChangeEvent, useState } from "react"
 import { createTask } from "@/components/api/mutation/task/createTask"
 import {motion} from 'framer-motion';
+import { setTaskAction } from "@/components/model/actions/setTaskAction"
+import { useFormStatus } from "react-dom"
 
 interface IProps {
   tasks:ITask[],
@@ -15,34 +17,29 @@ interface IProps {
 
 function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
   const [mutTasks,setMutTasks] = useState<ITask[]>(tasks);
-  const [title,setTitle] = useState<string>("");
-  
-  const change = (e:ChangeEvent<HTMLInputElement>):void => {
-    setTitle(e.target.value);
-  }
-
-  const addTask = async ():Promise<void> => {
-    const data:ITask = await createTask(title);
-    setMutTasks((prv:ITask[]) => ([...prv,data]));
-  }
+  const taskAction = setTaskAction.bind(null,{setMutTasks});
+  const {pending} = useFormStatus();
 
   return (
     <>
       {(adminId == userId) && (
-       <Flex mt={5} w={400}>
-         <Input w={320}
-          onChange={change}
-          bg="rgb(200,200,200)"
-          placeholder="write task"
-          borderRightRadius={0}
-         />
-         <Button w="80px"
-          colorScheme="blue"
-          borderLeftRadius={0}
-          onClick={addTask}>
-           add
-         </Button>
-       </Flex>
+        <form action={taskAction}>
+          <Flex mt={5} w={400}>
+            <Input w={320}
+             bg="rgb(200,200,200)"
+             placeholder="write task"
+             borderRightRadius={0}
+             name="title"
+            />
+            <Button w="80px"
+             colorScheme="blue"
+             borderLeftRadius={0}
+             isDisabled={pending}
+             type="submit">
+              add
+           </Button>
+         </Flex>
+       </form>
       )}
       {mutTasks.map((t:ITask,idx:number):JSX.Element => (
        <motion.div key={t.id}

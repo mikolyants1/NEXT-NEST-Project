@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { AuthService } from "src/auth/auth.service";
-import { UpdateAccessDto, UserBodyDto, UserCreateDto, UserResDto } from "src/dto/user.dto";
-import { User } from "src/entity/user.entity";
+import { UpdateAccessDto, UserBodyDto, UserCreateDto, UserResDto } from "../dto/user.dto";
 import { DeleteResult, Repository } from "typeorm";
-import * as bc from 'bcrypt';
-import { Comment } from "src/entity/comment.entity";
+import * as bc from 'bcryptjs';
+import { AuthService } from "../auth/auth.service";
+import { User } from "../entity/user.entity";
+import { Comment } from "../entity/comment.entity";
 
 @Injectable()
 export class UserService {
@@ -19,6 +19,7 @@ export class UserService {
 
     async getUsers():Promise<User[]>{
       return this.users.find();
+      
     }
 
     async getUser(id:string):Promise<User>{
