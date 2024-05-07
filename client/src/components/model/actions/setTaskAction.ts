@@ -9,8 +9,8 @@ interface IProps {
 export async function setTaskAction({
     setMutTasks
 }:IProps,form:FormData):Promise<void> {
-  const title:Null<FormDataEntryValue> = form.get("title");
+  const title = form.get("title") as string;
   if (!title) return;
   const data:ITask = await createTask(title);
-  setMutTasks((prv:ITask) => ([...prv,data]));
+  setMutTasks((prv:ITask[]) => ([...prv,data]));
 }

@@ -1,7 +1,6 @@
 import { getAccess } from "@/components/api/query/user/getAccess";
 import { Null } from "@/components/libs/types/type";
 import { checkUserSchema } from "@/components/libs/types/zod";
-import { revalidatePath } from "next/cache";
 import { Dispatch, SetStateAction } from "react";
 
 interface IProps {
