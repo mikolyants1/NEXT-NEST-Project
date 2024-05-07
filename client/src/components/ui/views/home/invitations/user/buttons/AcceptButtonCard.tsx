@@ -6,9 +6,10 @@ import { EFriendAction } from '@/components/libs/enums/enum'
 import { Button } from '@chakra-ui/react'
 
 interface IProps {
-    friendId:string,
-    inviteId:string
+  friendId:string,
+  inviteId:string
 }
+
 function AcceptButtonCard({friendId,inviteId}:IProps):JSX.Element {
   const addNewFriend = async ():Promise<void> => {
     await actionWithFriend({

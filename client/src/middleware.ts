@@ -9,9 +9,9 @@ export function middleware(req:NextRequest){
     notFound();
   }
   const userId = cookieStore.get("userId")?.value;
-  const reg = new RegExp(/[main]|[/{0,2}]|[invitation]|[profile]/gi);
+  const reg = new RegExp(/main|[/]|invitation|profile/g);
   const id = req.nextUrl.pathname.replace(reg,"");
-  if (id == userId){
+  if (id !== userId){
     const url = new URL(`/main/${id}`,req.nextUrl.origin);
     return NextResponse.redirect(url);
   }
@@ -19,5 +19,8 @@ export function middleware(req:NextRequest){
 }
 
 export const config = {
-  matcher:["/invitation/:id","/main/:id/profile"]
+  matcher:[
+    "/invitation/:id",
+    "/main/:id/profile"
+  ]
 }

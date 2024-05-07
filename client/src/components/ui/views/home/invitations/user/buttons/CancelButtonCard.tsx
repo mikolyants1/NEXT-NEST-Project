@@ -6,14 +6,11 @@ import { Button } from "@chakra-ui/react";
 interface IProps {
   id:string
 }
+
 function CancelButtonCard({id}:IProps):JSX.Element {
- const cancelInvite = ():void => {
-    delInvite(id);
- }
   return (
-    <Button
-     onClick={cancelInvite}
-     colorScheme="red">
+    <Button colorScheme="red"
+     onClick={() => delInvite(id)}>
       cancel
     </Button>
   )

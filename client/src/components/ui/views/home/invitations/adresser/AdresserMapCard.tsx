@@ -3,7 +3,6 @@ import { type Invitation } from '@/components/libs/types/type'
 import EmptyInviteCard from '../empty/EmptyInviteCard';
 import UserInviteCard from '../user/UserInviteCard';
 import { EInvite } from '@/components/libs/enums/enum';
-import {motion} from 'framer-motion';
 import UserInviteWrapper from '../user/wrappers/UserInviteWrapper';
 
 async function AdresserMapCard():Promise<JSX.Element> {
