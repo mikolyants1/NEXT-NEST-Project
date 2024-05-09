@@ -10,10 +10,11 @@ import { FriendContext } from '@/components/model/context/friend';
 function SearchItemCard({username,id}:IUser):JSX.Element {
   const isFriend = useContext<boolean>(FriendContext);
   const [show,setShow] = useState<boolean>(false);
-
+ 
   const hover = (e:MouseEvent<HTMLDivElement>):void => {
     setShow(e.type == "mouseover");
   }
+
   return (
     <Flex w="90%" mt={2}
      justifyContent="space-between"
@@ -31,7 +32,7 @@ function SearchItemCard({username,id}:IUser):JSX.Element {
         />
        <Box>{username}</Box>
       </Flex>
-      {show && <SetUserCard id={id} />}
+      {show &&  <SetUserCard id={id} />}
     </Flex>
   )
 }

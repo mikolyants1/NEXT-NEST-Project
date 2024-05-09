@@ -11,16 +11,16 @@ function UserInviteWrapper({children,idx}:IProps):JSX.Element{
   return (
     <motion.div
      initial={{
-       translateX:"-300px",
-       opacity:0
+      translateX:-300,
+      opacity:0
      }}
      animate={{
-       translateX:0,
-       opacity:1
+      translateX:0,
+      opacity:1
      }}
      transition={{
-       delay:idx * 0.3,
-       type:"spring"
+      delay:idx * 0.3,
+      type:"spring"
      }}>
       {children}
     </motion.div>

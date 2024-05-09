@@ -1,19 +1,21 @@
 import { getAccess } from "@/components/api/query/user/getAccess";
-import { Null } from "@/components/libs/types/type";
+import {type Null } from "@/components/libs/types/type";
 import { checkUserSchema } from "@/components/libs/types/zod";
-import { Dispatch, SetStateAction } from "react";
+import {type Dispatch,type SetStateAction } from "react";
 
 interface IProps {
   next:() => void,
   setError:Dispatch<SetStateAction<string>>
 }
 
+type TForm = Null<FormDataEntryValue>;
+
 export async function checkUserAction({
-   next,setError
+  next,setError
 }:IProps,formData:FormData):Promise<void> {
   try {
-    const username:Null<FormDataEntryValue> = formData.get("username");
-    const password:Null<FormDataEntryValue> = formData.get("password");
+    const username:TForm = formData.get("username");
+    const password:TForm = formData.get("password");
     if (!username || !password){
       return setError("all fields shouldn't be empty");
     }
@@ -29,7 +31,7 @@ export async function checkUserAction({
     });
     if (res) next();
     else return setError("incorrect data");
-  } catch (e) {
+  } catch {
     return setError("server error");
   }
 }

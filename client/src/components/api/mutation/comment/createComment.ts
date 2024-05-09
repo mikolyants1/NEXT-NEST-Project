@@ -13,7 +13,7 @@ export async function createComment({taskId,...body}:ICommBody):Promise<IComment
   return apiClient.post<IComment>(
   `comments/${taskId}?userId=${userId}`,body,{
     headers:{
-      authorization:`Bearer ${token}`
+      authorization:`Bearer ${token}`,
     }
   })
   .then(({data}:AxiosResponse<IComment>)=>data)

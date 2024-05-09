@@ -4,7 +4,7 @@ import {type Invitation, } from "@/components/libs/types/type";
 import { apiClient } from "../../apiClient";
 import { cookies } from "next/headers";
 import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function delInvite(id:string):Promise<Invitation> {
   const cookieStore:ReadonlyRequestCookies = cookies();
@@ -17,6 +17,6 @@ export async function delInvite(id:string):Promise<Invitation> {
       }
     }
   );
-  revalidatePath("/invitation/[id]","page");
+  revalidateTag("adresser");
   return data;
 }

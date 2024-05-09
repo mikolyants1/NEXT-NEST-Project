@@ -1,7 +1,6 @@
 import { updateUser } from "@/components/api/mutation/user/updateUser";
 import { Null } from "@/components/libs/types/type";
 import { updateUserSchema } from "@/components/libs/types/zod";
-import { revalidatePath } from "next/cache";
 import { Dispatch, SetStateAction } from "react";
 
 interface IProps {
@@ -9,13 +8,14 @@ interface IProps {
   onClose:()=>void
 }
 
+type TForm = Null<FormDataEntryValue>;
+
 export async function updateUserAction({
-    setError,
-    onClose
+  setError,onClose
 }:IProps,form:FormData):Promise<void> {
-  const tag:Null<FormDataEntryValue> = form.get("tag");
-  const username:Null<FormDataEntryValue> = form.get("username");
-  const password:NUll<FormDataEntryValue> = form.get("password");
+  const tag:TForm = form.get("tag");
+  const username:TForm = form.get("username");
+  const password:TForm = form.get("password");
   if (!tag || !username || !password){
     return setError("all fields shouldn't be empty");
   }

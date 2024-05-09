@@ -1,16 +1,14 @@
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { ReactNode } from 'react'
 
-
 function layout({
-    children
+  children
 }:Readonly<{
-    children:ReactNode
-}>):JSX.Element {
-    const cookieStore:ReadonlyRequestCookies = cookies();
-    const userId = cookieStore.has("userId");
-    const token = cookieStore.has("token");
+  children:ReactNode
+}>):ReactNode {
+    const userId = cookies().has("userId");
+    const token = cookies().has("token");
     if (!userId || !token){
       redirect("/unauthorized");
     }

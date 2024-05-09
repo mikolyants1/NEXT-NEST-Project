@@ -9,7 +9,7 @@ export function middleware(req:NextRequest){
     notFound();
   }
   const userId = cookieStore.get("userId")?.value;
-  const reg = new RegExp(/main|[/]|invitation|profile/g);
+  const reg = new RegExp(/\/|main|invitation|profile/g);
   const id = req.nextUrl.pathname.replace(reg,"");
   if (id !== userId){
     const url = new URL(`/main/${id}`,req.nextUrl.origin);

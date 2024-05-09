@@ -1,6 +1,6 @@
 import { createTask } from "@/components/api/mutation/task/createTask";
-import { ITask, Null } from "@/components/libs/types/type";
-import { Dispatch, SetStateAction } from "react";
+import {type ITask } from "@/components/libs/types/type";
+import {type Dispatch,type SetStateAction } from "react";
 
 interface IProps {
   setMutTasks:Dispatch<SetStateAction<ITask[]>>

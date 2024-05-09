@@ -64,7 +64,7 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
           <Input w='100%'
            onChange={change}
            bg="rgb(200,200,200)"
-           placeholder="write task"
+           placeholder="write comment"
            borderRightRadius={0}
            />
           <Button minW="80px"

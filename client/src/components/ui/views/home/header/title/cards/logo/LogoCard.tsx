@@ -1,13 +1,12 @@
 "use client"
 
-import { useStore } from '@/components/model/store/store';
-import {type ILogo,type IStore } from '@/components/libs/types/type';
+import {type ILogo} from '@/components/libs/types/type';
 import { Box } from '@chakra-ui/react';
 import React, { memo } from 'react'
 import { createLogo } from '@/components/model/functions/create/logo';
 import { useRouter } from 'next/navigation';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { ERoles } from '@/components/libs/enums/enum';
+import { styles } from '@/components/libs/style/style';
 
 interface IProps {
   username:string,
@@ -23,17 +22,17 @@ function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
  const {one,two}:ILogo = createLogo();
  
   return (
-    <Box w={size == "xl" ? "80px" : 12}
+    <Box w={styles.getSize("w",size)}
      onClick={ allow ? () => router.push(
       isHeader ? `/main/${id}/profile` : `/main/${id}`
      ) : () => null}
      background={`linear-gradient(45deg,${one},${two})`}
+     boxSizing="border-box" color="white"
      textAlign='center' borderRadius='50%'
-     fontSize={size == "xl" ? 37 : 21}
-     boxSizing="border-box"
-     p={size == "xl" ? "13px" : "8px"}
-     h={size == "xl" ? "80px" : 12}
-     color="white" fontWeight="bold">
+     fontSize={styles.getSize("fs",size)}
+     p={styles.getSize("p",size)}
+     h={styles.getSize("h",size)}
+     fontWeight="bold">
       {lett.toUpperCase()}
     </Box>
   );

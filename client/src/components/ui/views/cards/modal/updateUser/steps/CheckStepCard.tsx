@@ -27,16 +27,13 @@ function CheckStepCard({next}:IProps):JSX.Element {
          color="white">
           At first,verify your data
         </Box>
-        <Input w="70%"
-         bg="rgb(200,200,200)"
-         placeholder='username'
-         name='username'
+        {["username","password"].map((el):JSX.Element => (
+          <Input w="70%" key={el}
+           bg="rgb(200,200,200)"
+           placeholder={el}
+           name={el}
         />
-        <Input w="70%"
-         bg="rgb(200,200,200)"
-         placeholder='password'
-         name='password'
-        />
+        ))}
         {error && (
           <Box w="100%"
            textAlign="center"

@@ -17,7 +17,7 @@ export const getFriendStatus = async (friendId:string):Promise<EFriendStatus> =>
   const resInvites:Invitation[] = await getInviteLikeRecipient();
   const addInvites:Invitation[] = await getInviteLikeAdresser();
   const searchResInvite = resInvites.some((i:Invitation) => (
-     i.recipient == userId && i.addresser == friendId
+    i.recipient == userId && i.addresser == friendId
   ));
   const searchAddInvite = addInvites.some((i:Invitation) => (
     i.addresser == userId && i.recipient == friendId

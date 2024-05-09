@@ -3,6 +3,7 @@ import Header from '@/components/ui/views/home/header/Header'
 import { cookies } from 'next/headers'
 import { ReactNode } from 'react'
 
+
 export default function layout({
     children
 }:Readonly<{
