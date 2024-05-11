@@ -10,10 +10,10 @@ export async function createTask(title:string):Promise<ITask> {
   const cookieStore:ReadonlyRequestCookies = cookies();
   const token = cookieStore.get("token")?.value;
   const userId = cookieStore.get("userId")?.value;
-  return apiClient.post<ITask>(
-  `task?userId=${userId}`,{title},{
+  return apiClient.post<ITask>("task",{title},{
     headers:{
-      authorization:`Bearer ${token}`
+      authorization:`Bearer ${token}`,
+      "x-user":userId
     }
   })
   .then(({data}:AxiosResponse<ITask>)=>data)

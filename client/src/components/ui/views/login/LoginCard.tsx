@@ -48,7 +48,7 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
       username,password,isLogin:isHome
     });
     if (response(check.id,isHome)){
-      setError("login error");
+      setError("username should be unique");
       methods.reset();
       return;
     };

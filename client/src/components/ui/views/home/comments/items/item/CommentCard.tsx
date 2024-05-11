@@ -43,7 +43,7 @@ function CommentCard({id,text,change,...props}:IProps):JSX.Element {
        onClick={updateOpen}
        alignItems='center'
        fontSize={18}
-       h={12} gap={5}>
+       h={10} gap={5}>
          <Box>{text}</Box>
          <Flex columnGap={1}
           alignItems="center">

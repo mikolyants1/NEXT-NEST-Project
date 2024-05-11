@@ -10,10 +10,10 @@ export async function delComment(id:string):Promise<IComment> {
   const cookieStore:ReadonlyRequestCookies = cookies();
   const token = cookieStore.get("token")?.value;
   const userId = cookieStore.get("userId")?.value;
-  return apiClient.delete<IComment>(
-  `comments/${id}?userId=${userId}`,{
+  return apiClient.delete<IComment>(`comments/${id}`,{
     headers:{
-      authorization:`Bearer ${token}`
+      authorization:`Bearer ${token}`,
+      "x-user":userId
     }
   })
   .then(({data}:AxiosResponse<IComment>)=>data)

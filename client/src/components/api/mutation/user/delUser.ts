@@ -10,9 +10,10 @@ export async function delUser():Promise<IUser> {
   const cookieStore:ReadonlyRequestCookies = cookies();
   const token = cookieStore.get("token")?.value;
   const id = cookieStore.get("userId")?.value;
-    return apiClient.delete<IUser>(`user/${id}?userId=${id}`,{
+    return apiClient.delete<IUser>(`user/${id}`,{
       headers:{
-        authorization:`Bearer ${token}`
+        authorization:`Bearer ${token}`,
+        "x-user":id
       }
     })
     .then(({data}:AxiosResponse<IUser>)=>data);

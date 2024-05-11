@@ -10,10 +10,10 @@ export async function updateComment({id,text}:ICommUpdateBody):Promise<IComment>
   const cookieStore:ReadonlyRequestCookies = cookies();
   const token = cookieStore.get("token")?.value;
   const userId = cookieStore.get("userId")?.value;
-  return apiClient.put<IComment>(
-  `comments/${id}?userId=${userId}`,{text},{
+  return apiClient.put<IComment>(`comments/${id}`,{text},{
     headers:{
-      authorization:`Bearer ${token}`
+      authorization:`Bearer ${token}`,
+      "x-user":userId
     }
   })
   .then(({data}:AxiosResponse<IComment>)=>data)

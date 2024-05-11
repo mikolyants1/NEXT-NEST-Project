@@ -10,10 +10,11 @@ import { revalidatePath } from "next/cache";
 export async function updateUser(body:IUserBody):Promise<IUser> {
   const cookieStore:ReadonlyRequestCookies = cookies();
   const token = cookieStore.get("token")?.value;
-  const id = cookieStore.get("userId")?.value;
-    return apiClient.put<IUser>(`user/${id}?userId=${id}`,body,{
+  const userId = cookieStore.get("userId")?.value;
+    return apiClient.put<IUser>(`user/${userId}`,body,{
       headers:{
-        authorization:`Bearer ${token}`
+        authorization:`Bearer ${token}`,
+        "x-user":userId
       }
     })
     .then(({data}:AxiosResponse<IUser>)=>{

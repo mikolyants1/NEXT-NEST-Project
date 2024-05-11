@@ -10,10 +10,11 @@ export async function actionWithFriend(body:IFriendBody):Promise<IFriend>{
   const token = cookies().get("token")?.value;
   const userId = cookies().get("userId")?.value;
   revalidatePath("/main","layout");
-  return apiClient.post<IFriend>(`friend?userId=${userId}`,body,{
+  return apiClient.post<IFriend>(`friend`,body,{
     headers:{
-      authorization:`Bearer ${token}`
+      authorization:`Bearer ${token}`,
+      "x-user":userId
     }
   })
-  .then(({data}:AxiosResponse<IFriend>)=>data)
+  .then(({data}:AxiosResponse<IFriend>) => data);
 }

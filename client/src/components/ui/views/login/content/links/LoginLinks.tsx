@@ -7,7 +7,7 @@ interface IProps {
 }
 
 function LoginLink({isHome}:IProps):JSX.Element {
-  const href:string = isHome ? '/regist' : '/';
+  const href:string = isHome ? '/sign-on' : '/';
   const text:string = isHome ? 'registration' : 'back';
   return (
     <Box mt={5}
