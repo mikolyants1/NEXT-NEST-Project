@@ -1,5 +1,5 @@
 import { ConfigModule } from "@nestjs/config";
-import { Test } from "@nestjs/testing";
+import { Test, TestingModule } from "@nestjs/testing";
 import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
 import { AuthModule } from "../auth/auth.module";
 import { PgConfig } from "../configs/pg.config";
@@ -20,7 +20,7 @@ describe('friendService', () => {
   let friendSource:Repository<Friend>;
   
   beforeEach(async () => {
-    const module = await Test.createTestingModule({
+    const module:TestingModule = await Test.createTestingModule({
       imports:[
         AuthModule,
         TypeOrmModule.forFeature([User,Friend,Invitation]),

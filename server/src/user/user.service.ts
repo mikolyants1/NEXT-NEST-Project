@@ -40,14 +40,22 @@ export class UserService {
 
     async checkUser({username,password,isLogin}:UserBodyDto):Promise<UserResDto>{
       const users:User[] = await this.users.find();
-      const user:User = users.find((i:User) => (
-        i.username == username && bc.compare(password,i.password)
-      ));
+      const user = users.find((u:User) => u.username == username);
+      if (!isLogin){
+        return {
+          id:"",
+          success:!Boolean(user),
+          tag:"",
+          token:""
+        }
+      }
+      const user_password = user.password || "";
+      const success = await bc.compare(password,user_password);
       const token:string = user ? this.jwt.sign(user) : "";
       return {
         id: user ? user.id : "",
         token,
-        success:Boolean(user) == isLogin,
+        success,
         tag:user ? user.tag : ""
       }
     }
@@ -68,7 +76,7 @@ export class UserService {
       const user:User = await this.users.findOneBy({id});
       if (username && username !== user.username){
         await this.comments.update({author:user.username},{
-          author:user.username
+          author:username
         });
       }
        await this.users.update({id},{

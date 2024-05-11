@@ -27,7 +27,7 @@ export class InviteController {
   @UseGuards(AuthGuard)
   @Post()
   async createInvitation(
-    @Headers("userId") userId:string,
+    @Headers("x-user") userId:string,
     @Body() body:InviteBodyDto
   ):Promise<Invitation>{
     return this.service.createInvite(userId,body);

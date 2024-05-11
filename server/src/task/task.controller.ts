@@ -20,7 +20,7 @@ export class TaskController {
     @UseGuards(AuthGuard)
     @Post()
     async createUserTask(
-      @Headers("userId") id:string,
+      @Headers("x-user") id:string,
       @Body() body:TaskBodyDto
     ):Promise<Task>{
       return this.service.createUserTasks(id,body.title);
@@ -30,7 +30,7 @@ export class TaskController {
     @Delete(":id")
     async deleteTask(
       @Param("id") taskId:string,
-      @Headers("userId") userId:string
+      @Headers("x-user") userId:string
     ):Promise<number>{
       return this.service.deleteUserTasks(taskId,userId);
     }

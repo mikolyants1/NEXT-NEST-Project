@@ -17,7 +17,7 @@ export class FriendController {
     @UseGuards(AuthGuard)
     @Post()
     async actionWithFriend(
-      @Headers("userId") userId:string,
+      @Headers("x-user") userId:string,
       @Body() {action,friendId}:FriendBodyDto
     ):Promise<Friend[]|number>{
       if (action == EFriendAction.ADD){

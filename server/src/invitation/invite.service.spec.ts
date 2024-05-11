@@ -37,7 +37,6 @@ describe("InviteService",() => {
     service = module.get<InviteService>(InviteService);
     userSource = module.get<Repository<User>>(getRepositoryToken(User));
     inviteSource = module.get<Repository<Invitation>>(getRepositoryToken(Invitation));
-
   });
 
   it("invite defined",() => {

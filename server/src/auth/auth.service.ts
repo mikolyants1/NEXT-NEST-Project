@@ -13,7 +13,7 @@ export class AuthService {
 
   verify(token:string,id:string):boolean{
     const decoded:AuthUserDto = this.service.verify(token);
-    return decoded.id == id ;
+    return decoded.id == id;
   }
 
    getToken({headers}:Request):string{

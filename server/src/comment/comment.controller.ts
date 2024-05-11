@@ -16,7 +16,7 @@ export class CommentController {
     @UseGuards(AuthGuard)
     @Post(":id")
     async createComment(
-      @Headers("userId") userId:string,
+      @Headers("x-user") userId:string,
       @Param("id") id:string,
       @Body() body:CommBodyDto
     ):Promise<Comment>{

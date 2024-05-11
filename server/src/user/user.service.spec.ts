@@ -11,6 +11,7 @@ import { Repository} from "typeorm";
 
 describe("UserService", () => {
   const array_id:string[] = [];
+  
   let service:UserService;
   let userDatabase:Repository<User>;
 
@@ -40,23 +41,25 @@ describe("UserService", () => {
   });
 
   it("create user",async () => {
-    const user = await service.createUser({
+    const user:User = await service.createUser({
       username:"test_name",
       password:"test_password",
       tag:"@test_tag"
     });
     array_id.push(user.id);
+    await userDatabase.save(user);
     expect(user.username).toBe("test_name");
     expect(user.tag).toBe("@test_tag");
   });
 
   it("find user",async () => {
-    const user = await service.createUser({
+    const user:User = await service.createUser({
       username:"test_name1",
       password:"test_password1",
       tag:"@test_tag1"
     });
     array_id.push(user.id);
+    await userDatabase.save(user);
     expect(await service.getUser(user.id)).toBeDefined();
   });
 
@@ -66,6 +69,7 @@ describe("UserService", () => {
       password:"test_password2",
       tag:"@test_tag2"
     });
+    await userDatabase.save(user)
     const del_res = await service.deleteUser(user.id);
     expect(del_res).toEqual(1);
   });
@@ -77,6 +81,7 @@ describe("UserService", () => {
       tag:"@test_tag3"
     });
     array_id.push(user.id);
+    await userDatabase.save(user);
     const result = await service.updateUser(user.id,{
       username:"new_username1",
       password:"new_password",
@@ -93,6 +98,7 @@ describe("UserService", () => {
       tag:"@test_tag3"
     });
     array_id.push(user.id);
+    await userDatabase.save(user);
     jest.spyOn(service,"getUsers")
     .mockImplementation(async () => [user]);
     jest.spyOn(service,"getUserTags")
