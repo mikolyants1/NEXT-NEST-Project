@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
      try {
         const req:Request = ctx.switchToHttp().getRequest();
         const token:string = this.jwt.getToken(req);
-        const id = req.query.userId as string;
+        const id = req.headers.userId as string;
         if (!token) throw new UnauthorizedException('Bearer not found');
         return this.jwt.verify(token,id);
      } catch (e) {

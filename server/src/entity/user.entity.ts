@@ -20,15 +20,15 @@ export class User {
   @Column({name:"raiting",type:"integer",default:0})
   raiting:number;
 
-  @OneToMany(()=>Task,({user}:Task)=>user)
+  @OneToMany(() => Task,({user}:Task) => user)
   @JoinColumn({name:"tasks"})
   tasks:Task[];
 
-  @OneToMany(()=>Friend,({user}:Friend)=>user)
+  @OneToMany(() => Friend,({user}:Friend) => user)
   @JoinColumn({name:"friends"})
   friends:Friend[];
 
-  @OneToMany(()=>Invitation,({user}:Invitation)=>user)
+  @OneToMany(() => Invitation,({user}:Invitation) => user)
   @JoinColumn({name:"invitations"})
   invitations:Invitation[];
 }

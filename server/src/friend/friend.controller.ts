@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Headers, Param, Post, UseGuards } from "@nestjs/common";
 import { FriendService } from "./friend.service";
-import { AuthGuard } from "src/guards/auth.guard";
-import { Friend } from "src/entity/friend.entity";
-import { FriendBodyDto } from "src/dto/friend.dto";
-import { EFriendAction } from "src/enums/friend.enum";
+import { AuthGuard } from "../guards/auth.guard";
+import { Friend } from "../entity/friend.entity";
+import { FriendBodyDto } from "../dto/friend.dto";
+import { EFriendAction } from "../enums/friend.enum";
 
 @Controller("friend")
 export class FriendController {
@@ -17,9 +17,9 @@ export class FriendController {
     @UseGuards(AuthGuard)
     @Post()
     async actionWithFriend(
-      @Query("userId") userId:string,
+      @Headers("userId") userId:string,
       @Body() {action,friendId}:FriendBodyDto
-    ):Promise<Friend[]|Friend>{
+    ):Promise<Friend[]|number>{
       if (action == EFriendAction.ADD){
         return this.service.addFriend(userId,friendId);
       }

@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Headers, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CommentService } from "./comment.service";
-import { Comment } from "src/entity/comment.entity";
-import { CommBodyDto } from "src/dto/comm.dto";
-import { AuthGuard } from "src/guards/auth.guard";
+import { Comment } from "../entity/comment.entity";
+import { CommBodyDto } from "../dto/comm.dto";
+import { AuthGuard } from "../guards/auth.guard";
 
 @Controller("comments")
 export class CommentController {
@@ -16,7 +16,7 @@ export class CommentController {
     @UseGuards(AuthGuard)
     @Post(":id")
     async createComment(
-      @Query("userId") userId:string,
+      @Headers("userId") userId:string,
       @Param("id") id:string,
       @Body() body:CommBodyDto
     ):Promise<Comment>{
@@ -25,7 +25,7 @@ export class CommentController {
 
     @UseGuards(AuthGuard)
     @Delete(":id")
-    async deleteComment(@Param("id") commId:string):Promise<Comment>{
+    async deleteComment(@Param("id") commId:string):Promise<number>{
       return this.service.deleteTaskComment(commId);
     }
 

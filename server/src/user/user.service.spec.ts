@@ -1,15 +1,18 @@
 import { Test, TestingModule } from "@nestjs/testing"
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
 import { Comment } from "../entity/comment.entity";
 import { User } from "../entity/user.entity";
 import { AuthModule } from "../auth/auth.module";
 import { PgConfig } from "../configs/pg.config";
 import { ConfigModule } from "@nestjs/config";
+import { Repository} from "typeorm";
 
 describe("UserService", () => {
+  const array_id:string[] = [];
   let service:UserService;
+  let userDatabase:Repository<User>;
 
   beforeEach(async () => {
     const module:TestingModule = await Test.createTestingModule({
@@ -22,13 +25,14 @@ describe("UserService", () => {
           ]
         }),
         TypeOrmModule.forRootAsync(PgConfig()),
-        TypeOrmModule.forFeature([User,Comment])
+        TypeOrmModule.forFeature([Comment,User])
       ],
       controllers:[UserController],
       providers:[UserService]
     }).compile();
 
     service = module.get<UserService>(UserService);
+    userDatabase = module.get<Repository<User>>(getRepositoryToken(User));
   });
   
   it("service should be defined", () => {
@@ -37,39 +41,42 @@ describe("UserService", () => {
 
   it("create user",async () => {
     const user = await service.createUser({
-      username:"test_name1",
-      password:"test_password1",
-      tag:"@test_tag1"
-    });
-    expect(user.username).toBe("test_name1");
-    expect(user.tag).toBe("@test_tag1")
-  });
-
-  it("find user",async () => {
-    const user = await service.createUser({
       username:"test_name",
       password:"test_password",
       tag:"@test_tag"
     });
+    array_id.push(user.id);
+    expect(user.username).toBe("test_name");
+    expect(user.tag).toBe("@test_tag");
+  });
+
+  it("find user",async () => {
+    const user = await service.createUser({
+      username:"test_name1",
+      password:"test_password1",
+      tag:"@test_tag1"
+    });
+    array_id.push(user.id);
     expect(await service.getUser(user.id)).toBeDefined();
   });
 
   it("remove user",async () => {
     const user = await service.createUser({
-      username:"test_name",
-      password:"test_password",
-      tag:"@test_tag"
+      username:"test_name2",
+      password:"test_password2",
+      tag:"@test_tag2"
     });
-    await service.deleteUser(user.id);
-    expect(await service.getUser(user.id)).not.toBeDefined();
+    const del_res = await service.deleteUser(user.id);
+    expect(del_res).toEqual(1);
   });
 
   it("update user",async () => {
     const user = await service.createUser({
-      username:"test_name",
-      password:"test_password",
-      tag:"@test_tag"
+      username:"test_name3",
+      password:"test_password3",
+      tag:"@test_tag3"
     });
+    array_id.push(user.id);
     const result = await service.updateUser(user.id,{
       username:"new_username1",
       password:"new_password",
@@ -77,5 +84,23 @@ describe("UserService", () => {
     });
     expect(result.username).toBe("new_username1");
     expect(result.tag).toBe("@new_tag1");
+  });
+
+  it("get all users",async () => {
+    const user = await service.createUser({
+      username:"test_name3",
+      password:"test_password3",
+      tag:"@test_tag3"
+    });
+    array_id.push(user.id);
+    jest.spyOn(service,"getUsers")
+    .mockImplementation(async () => [user]);
+    jest.spyOn(service,"getUserTags")
+    .mockImplementation(async () => [user.tag]);
+  });
+  afterAll(async () => {
+    for (const id of array_id) {
+      userDatabase.delete({id});
+    }
   });
 })

@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Friend } from "src/entity/friend.entity";
-import { Invitation } from "src/entity/invite.entity";
-import { User } from "src/entity/user.entity";
+import { Friend } from "../entity/friend.entity";
+import { Invitation } from "../entity/invite.entity";
+import { User } from "../entity/user.entity";
 import { DataSource, DeleteResult, QueryRunner, Repository } from "typeorm";
 
 @Injectable()
@@ -46,7 +46,7 @@ export class FriendService {
       }
     }
 
-    async delFriend(userId:string,friendId:string):Promise<Friend>{
+    async delFriend(userId:string,friendId:string):Promise<number>{
       const query:QueryRunner = this.connect.createQueryRunner();
       await query.connect();
       await query.startTransaction();
@@ -65,7 +65,7 @@ export class FriendService {
         friend_id:friendId
       });
       await query.commitTransaction();
-      return res.raw;
+      return res.affected;
       } catch (e){
         console.log("friend transaction error",e);
         await query.rollbackTransaction();

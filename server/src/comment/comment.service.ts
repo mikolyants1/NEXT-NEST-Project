@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CommBodyDto, UpdateCommDto } from "src/dto/comm.dto";
-import { Comment } from "src/entity/comment.entity";
-import { Task } from "src/entity/task.entity";
+import { CommBodyDto, UpdateCommDto } from "../dto/comm.dto";
+import { Comment } from "../entity/comment.entity";
+import { Task } from "../entity/task.entity";
 import { DeleteResult, Repository } from "typeorm";
 
 @Injectable()
@@ -19,9 +19,9 @@ export class CommentService {
       return this.comments.findBy({task});
     }
 
-    async deleteTaskComment(commId:string):Promise<Comment>{
+    async deleteTaskComment(commId:string):Promise<number>{
       const comment:DeleteResult = await this.comments.delete({id:commId});
-      return comment.raw;
+      return comment.affected;
     }
 
     async createComment(id:string,userId:string,body:CommBodyDto):Promise<Comment>{

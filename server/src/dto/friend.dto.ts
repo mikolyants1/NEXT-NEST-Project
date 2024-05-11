@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from "class-validator";
-import { EFriendAction } from "src/enums/friend.enum";
+import { EFriendAction } from "../enums/friend.enum";
 
 export class FriendBodyDto {
    @IsString()

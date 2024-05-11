@@ -9,14 +9,16 @@ import { User } from '../entity/user.entity';
 export const PgConfig = ():TypeOrmModuleAsyncOptions => ({
   imports:[ConfigModule],
   inject:[ConfigService],
-  useFactory:(service:ConfigService)=>({
-    type:'postgres',
-    host:service.get("PG_HOST"),
-    port:service.get("PG_PORT"),
-    username:service.get("PG_USERNAME"),
-    password:service.get("PG_PASSWORD"),
-    database:service.get("PG_DATABASE"),
-    entities:[User,Comment,Task,Invitation,Friend],
-    synchronize:true
-  })
+  useFactory:(service:ConfigService) => {
+    return {
+      type:"postgres",
+      username:service.get("PG_USERNAME"),
+      password:service.get("PG_PASSWORD"),
+      host:service.get("PG_HOST"),
+      port:+service.get("PG_PORT"),
+      database:service.get("PG_DATABASE"),
+      entities:[Comment,Friend,Invitation,Task,User],
+      synchronize:true
+    }
+  }
 });

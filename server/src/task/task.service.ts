@@ -1,8 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { TaskBodyDto } from "src/dto/task.dto";
-import { Task } from "src/entity/task.entity";
-import { User } from "src/entity/user.entity";
+import { TaskBodyDto } from "../dto/task.dto";
+import { Task } from "../entity/task.entity";
+import { User } from "../entity/user.entity";
 import { DeleteResult, Repository } from "typeorm";
 
 @Injectable()
@@ -23,13 +23,13 @@ export class TaskService {
       return this.tasks.findOneBy({id});
     }
 
-    async deleteUserTasks(taskId:string,userId:string):Promise<Task>{
+    async deleteUserTasks(taskId:string,userId:string):Promise<number>{
       const task:DeleteResult = await this.tasks.delete({id:taskId});
       const user:User = await this.users.findOneBy({id:userId});
       await this.users.update({id:userId},{
         raiting:user.raiting + 1
       });
-      return task.raw;
+      return task.affected;
     }
 
     async createUserTasks(id:string,title:string):Promise<Task>{

@@ -34,6 +34,7 @@ export class UserService {
         password:hash_pass,
         raiting:0,
       });
+  
       return this.users.save(newUser);
     }
 
@@ -51,9 +52,9 @@ export class UserService {
       }
     }
 
-    async deleteUser(id:string):Promise<User>{
+    async deleteUser(id:string):Promise<number>{
       const user:DeleteResult = await this.users.delete({id});
-      return user.raw;
+      return user.affected;
     }
 
     async updateAccess(id:string,{check_name,check_pass}:UpdateAccessDto):Promise<boolean>{
