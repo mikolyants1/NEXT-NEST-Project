@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Logger, Module, OnModuleInit } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthModule } from "../auth/auth.module";
 import { User } from "../entity/user.entity";
@@ -15,4 +15,9 @@ import { Invitation } from "../entity/invite.entity";
   controllers:[FriendController],
   providers:[FriendService]
 })
-export class FriendModule {}
+export class FriendModule implements OnModuleInit {
+   onModuleInit() {
+     const logger = new Logger(FriendModule.name);
+     logger.log("module init");
+   }
+}

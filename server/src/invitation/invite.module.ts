@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Logger, Module, OnModuleInit } from "@nestjs/common";
 import { InviteController } from "./invite.controller";
 import { InviteService } from "./invite.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -14,4 +14,9 @@ import { AuthModule } from "../auth/auth.module";
   controllers:[InviteController],
   providers:[InviteService]
 })
-export class InviteModule {}
+export class InviteModule implements OnModuleInit {
+  onModuleInit() {
+    const logger = new Logger(InviteModule.name);
+    logger.log("module init");
+  }
+}

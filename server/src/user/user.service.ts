@@ -42,21 +42,25 @@ export class UserService {
       const users:User[] = await this.users.find();
       const user = users.find((u:User) => u.username == username);
       if (!isLogin){
+        const success = !Boolean(user);
         return {
           id:"",
-          success:!Boolean(user),
+          success,
+          message:success ? "" : "username should be unique",
           tag:"",
           token:""
         }
       }
       const user_password = user.password || "";
       const success = await bc.compare(password,user_password);
-      const token:string = user ? this.jwt.sign(user) : "";
+      const token = success ? this.jwt.sign(user) : "";
+      const right_user = user && success;
       return {
-        id: user ? user.id : "",
+        id: right_user ? user.id : "",
         token,
         success,
-        tag:user ? user.tag : ""
+        tag:right_user ? user.tag : "",
+        message:success ? "" : "user not found"
       }
     }
 

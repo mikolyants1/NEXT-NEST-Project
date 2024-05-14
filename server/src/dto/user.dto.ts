@@ -38,6 +38,9 @@ export class UserBodyDto {
     @IsNotEmpty()
     tag:string;
 
+    @IsString()
+    @IsNotEmpty()
+    message:string;
   }
 
   export class UpdateAccessDto {

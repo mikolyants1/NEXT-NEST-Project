@@ -40,6 +40,28 @@ describe("UserService", () => {
     expect(service).toBeDefined();
   });
 
+  it("check user",async () => {
+    const user:User = await service.createUser({
+      username:"check_name",
+      password:"check_password",
+      tag:"@check_tag"
+    });
+    array_id.push(user.id);
+    await userDatabase.save(user);
+    const check_login = await service.checkUser({
+      username:user.username,
+      password:user.password,
+      isLogin:true
+    });
+    const check_regist = await service.checkUser({
+      username:user.username,
+      password:user.password,
+      isLogin:false
+    });
+    expect(check_login.success).toBeTruthy();
+    expect(check_regist.message).toBe("username should be unique");
+  });
+
   it("create user",async () => {
     const user:User = await service.createUser({
       username:"test_name",
@@ -104,6 +126,7 @@ describe("UserService", () => {
     jest.spyOn(service,"getUserTags")
     .mockImplementation(async () => [user.tag]);
   });
+  
   afterAll(async () => {
     for (const id of array_id) {
       userDatabase.delete({id});

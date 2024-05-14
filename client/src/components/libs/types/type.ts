@@ -35,7 +35,8 @@ export interface ICheckRes {
   id:string,
   token:string,
   success:boolean,
-  tag:string
+  tag:string,
+  message:string
 }
 
 export interface ITask {

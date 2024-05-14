@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Logger, Module, OnModuleInit } from "@nestjs/common";
 import { TaskService } from "./task.service";
 import { TaskController } from "./task.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -14,4 +14,9 @@ import { AuthModule } from "../auth/auth.module";
   controllers:[TaskController],
   providers:[TaskService]
 })
-export class TaskModule {}
+export class TaskModule implements OnModuleInit {
+  onModuleInit() {
+    const logger = new Logger(TaskModule.name);
+    logger.log("module init");
+  }
+}

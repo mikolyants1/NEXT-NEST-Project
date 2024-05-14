@@ -3,7 +3,7 @@ import { CommentService } from "./comment.service";
 import { User } from "../entity/user.entity";
 import { Task } from "../entity/task.entity";
 import { Comment } from "../entity/comment.entity";
-import { Test } from "@nestjs/testing";
+import { Test, TestingModule } from "@nestjs/testing";
 import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
 import { AuthModule } from "../auth/auth.module";
 import { CommentController } from "./comment.controller";
@@ -21,7 +21,7 @@ describe("CommentService",() => {
     let commentSource:Repository<Comment>;
     
     beforeEach(async () => {
-      const module = await Test.createTestingModule({
+      const module:TestingModule = await Test.createTestingModule({
         imports:[
           AuthModule,
           TypeOrmModule.forFeature([Task,Comment,User]),

@@ -11,7 +11,6 @@ import { createFields } from '@/components/model/functions/maps/fields';
 import LoginInputs from './content/inputs/LoginInputs';
 import { checkUser } from '@/components/api/query/user/checkUser';
 import { createUser } from '@/components/api/mutation/user/createUser';
-import { response } from '@/components/model/functions/compare/response';
 
 interface IProps {
   isHome:boolean,
@@ -45,8 +44,8 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     const check:ICheckRes = await checkUser({
       username,password,isLogin:isHome
     });
-    if (response(check.id,isHome)){
-      setError("username should be unique");
+    if (!check.success){
+      setError(check.message);
       methods.reset();
       return;
     };

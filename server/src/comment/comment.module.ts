@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { Logger, Module, OnModuleInit } from "@nestjs/common";
 import { CommentController } from "./comment.controller";
 import { CommentService } from "./comment.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -15,4 +15,9 @@ import { User } from "../entity/user.entity";
   controllers:[CommentController],
   providers:[CommentService]
 })
-export class CommentModule {}
+export class CommentModule implements OnModuleInit {
+  onModuleInit() {
+    const logger = new Logger(CommentModule.name);
+    logger.log("module init");
+  }
+}

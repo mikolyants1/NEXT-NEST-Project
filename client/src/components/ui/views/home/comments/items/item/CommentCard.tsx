@@ -3,7 +3,6 @@ import { EModal } from "@/components/libs/enums/enum";
 import { IComment, IModalContext} from "@/components/libs/types/type"
 import { ModalContext } from "@/components/model/context/modal"
 import { getTime } from "@/components/model/functions/find/getTime";
-import { Box, Flex } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useContext } from "react"
 
 interface IProps extends IComment {
