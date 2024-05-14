@@ -18,15 +18,10 @@ function CheckStepCard({next}:IProps):JSX.Element {
   return (
     <form action={checkAction}
      style={{width:"100%"}}>
-      <Flex w="100%"
-       justifyContent="center"
-       flexDir="column" gap={4}
-       alignItems="center">
-        <Box fontSize={20}
-         fontWeight="bold"
-         color="white">
+      <div className="w-[100%] flex justify-center flex-col items-center gap-4">
+        <div className="text-xl font-bold text-white">
           At first,verify your data
-        </Box>
+        </div>
         {["username","password"].map((el):JSX.Element => (
           <Input w="70%" key={el}
            bg="rgb(200,200,200)"
@@ -35,22 +30,18 @@ function CheckStepCard({next}:IProps):JSX.Element {
         />
         ))}
         {error && (
-          <Box w="100%"
-           textAlign="center"
-           fontSize={18}
-           color="red">
+          <div className="w-[100%] text-center text-red-600 text-xl">
             {error}
-          </Box>
+          </div>
         )}
-        <Flex w="70%" mb={5}
-         justifyContent="end">
+        <div className="w-[70%] mb-5 flex justify-end">
           <Button colorScheme='blue'
            isDisabled={pending}
            type="submit">
              next step
           </Button>
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </form>
   )
 }

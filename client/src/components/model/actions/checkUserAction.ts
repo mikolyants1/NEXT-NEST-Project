@@ -20,7 +20,8 @@ export async function checkUserAction({
       return setError("all fields shouldn't be empty");
     }
     const parse = checkUserSchema.safeParse({
-      username,password
+      username,
+      password
     });
     if (!parse.data) {
       return setError("inccorect type of data");

@@ -24,10 +24,7 @@ function InviteLinkCard({id}:IProps):JSX.Element {
   if (isError || !data) return <Error />;
   
     return (
-       <Flex w="90%"
-        fontSize={22}
-        fontWeight="bold" m="auto"
-        justifyContent="space-between">
+       <div className="w-[90%] text-xl font-bold justify-between m-auto flex">
           <Link href={`/main/${id}`}
            style={{
               fontSize:20,
@@ -36,17 +33,16 @@ function InviteLinkCard({id}:IProps):JSX.Element {
              back to main
           </Link>
           <Link href={`/invitation/${id}`}>
-            <Box pos="relative">
-              <Box>invitations</Box>
-              <Box pos="absolute"
-               top={-1} right={-4}>
+            <div className="relative">
+              <div>invitations</div>
+              <div className="absolute top-[-6px] right-[-10px]">
                 <InviteCount
                  length={data.length}
                  />
-              </Box>
-            </Box>
+              </div>
+            </div>
           </Link>
-        </Flex>
+        </div>
   )
 }
 

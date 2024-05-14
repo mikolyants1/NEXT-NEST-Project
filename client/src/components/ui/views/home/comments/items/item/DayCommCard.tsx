@@ -1,6 +1,5 @@
 
 import { getDayOfComment } from '@/components/model/functions/find/getDayOfComm';
-import { Box } from '@chakra-ui/react';
 
 interface IProps {
   time:string
@@ -9,11 +8,9 @@ interface IProps {
 function DayCommCard({time}:IProps):JSX.Element {
  const date:string = getDayOfComment(time);
   return (
-    <Box w='100%'
-     textAlign="center"
-     fontSize={18}>
+    <div className="w-[100%] text-center text-xl">
       {date}
-    </Box>
+    </div>
   )
 }
 

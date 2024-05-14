@@ -2,7 +2,7 @@
 
 import { ITask } from "@/components/libs/types/type"
 import UserTaskCard from "./item/UserTaskCard"
-import { Button, Flex, Input } from "@chakra-ui/react"
+import { Button, Input } from "@chakra-ui/react"
 import { useState } from "react"
 import {motion} from 'framer-motion';
 import { setTaskAction } from "@/components/model/actions/setTaskAction"
@@ -23,7 +23,7 @@ function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
     <>
       {(adminId == userId) && (
         <form action={taskAction}>
-          <Flex mt={5} w={400}>
+          <div className="mt-[5px] w-100 flex">
             <Input w={320}
              bg="rgb(200,200,200)"
              placeholder="write task"
@@ -37,7 +37,7 @@ function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
              type="submit">
               add
            </Button>
-         </Flex>
+         </div>
        </form>
       )}
       {mutTasks.map((t:ITask,idx:number):JSX.Element => (

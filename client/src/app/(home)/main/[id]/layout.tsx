@@ -7,11 +7,12 @@ function layout({
 }:Readonly<{
   children:ReactNode
 }>):ReactNode {
-    const userId = cookies().has("userId");
-    const token = cookies().has("token");
-    if (!userId || !token){
-      redirect("/unauthorized");
-    }
+  const userId = cookies().has("userId");
+  const token = cookies().has("token");
+  if (!userId || !token){
+    redirect("/unauthorized");
+  }
+  
   return children;
 }
 

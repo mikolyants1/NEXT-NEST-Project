@@ -6,14 +6,13 @@ interface IProps {
 }
 function LoginErrorCard({error}:IProps):JSX.Element {
   return (
-        <Box>
-          {error&&(
-            <Box color='red'
-             mt={5} textAlign='center'>
-               {error}
-            </Box>
-            )}
-        </Box>
+    <div>
+      {error&&(
+      <div className="text-red-500 text-center mt-[10px]">
+        {error}
+      </div>
+      )}
+    </div>
   )
 }
 

@@ -34,15 +34,14 @@ async function page({params}:IProps):Promise<JSX.Element> {
       <CommentTilteCard
        title={task.title}
        />
-      <Grid w="100%" h={500}
-       gridTemplateRows="1fr 60px">
+      <div className="w-[100%] h-[500px] grid grid-rows-[1fr_60px]">
         <CommentMapCard
          data={comments}
          taskId={params.id}
          userId={id}
          author={user.username}
          />
-      </Grid>
+      </div>
     </>
   )
 }

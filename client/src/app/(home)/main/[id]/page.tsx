@@ -24,20 +24,17 @@ async function page({params}:IProps):Promise<JSX.Element> {
   const {id,username}:IUser = await getUser(params.id);
   
   return (
-    <Flex w="100%" mt={10}
-     justifyContent="center"
-     alignItems="center"
-     flexDir="column">
-      <Box fontSize={30} fontWeight="bold">
+    <div className="flex w-[100%] mt-10 justify-center items-center flex-col">
+      <div className="text-2xl font-bold">
         {`${adminId == id ? "Your" : username}'s `}
         task list
-      </Box>
+      </div>
       <UserTaskMapCard
        tasks={tasks}
        userId={params.id}
        adminId={adminId || ""}
        />
-    </Flex>
+    </div>
   );
 }
 

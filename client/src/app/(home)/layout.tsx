@@ -10,7 +10,7 @@ export default function layout({
     children:ReactNode
 }>):JSX.Element {
   const id = cookies().get("userId")?.value;
-
+  console.log("id: ",id)
   return (
     <ModalLayout>
       <Header id={id || ""} />

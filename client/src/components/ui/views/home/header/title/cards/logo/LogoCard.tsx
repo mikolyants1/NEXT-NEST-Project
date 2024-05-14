@@ -22,19 +22,19 @@ function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
  const {one,two}:ILogo = createLogo();
  
   return (
-    <Box w={styles.getSize("w",size)}
+    <div className="text-center box-border rounded-[50%] font-bold text-white"
      onClick={ allow ? () => router.push(
       isHeader ? `/main/${id}/profile` : `/main/${id}`
      ) : () => null}
-     background={`linear-gradient(45deg,${one},${two})`}
-     boxSizing="border-box" color="white"
-     textAlign='center' borderRadius='50%'
-     fontSize={styles.getSize("fs",size)}
-     p={styles.getSize("p",size)}
-     h={styles.getSize("h",size)}
-     fontWeight="bold">
+     style={{
+       background:`linear-gradient(45deg,${one},${two})`,
+       width:styles.getSize("w",size),
+       height:styles.getSize("h",size),
+       padding:styles.getSize("p",size),
+       fontSize:styles.getSize("fs",size)
+     }}>
       {lett.toUpperCase()}
-    </Box>
+    </div>
   );
 }
 

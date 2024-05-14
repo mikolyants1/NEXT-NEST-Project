@@ -4,7 +4,7 @@ import { updateTask } from '@/components/api/mutation/task/updateTask';
 import { EModal } from '@/components/libs/enums/enum';
 import { IComment, IModalContext,ITask, IUpdateTaskOrCommState } from '@/components/libs/types/type';
 import { ModalContext } from '@/components/model/context/modal';
-import { Box, Button, Flex, Input } from '@chakra-ui/react'
+import { Button, Input } from '@chakra-ui/react'
 import React, { ChangeEvent, useContext, useState } from 'react'
 
 
@@ -43,27 +43,17 @@ function UpdateTaskOrCommentCard():JSX.Element {
 
   return (
     <>
-     <Box w="100%"
-      fontSize={20}
-      fontWeight="bold"
-      textAlign="center"
-      color="white" mb={2}>
+     <div className="w-[100%] text-xl font-bold text-center text-white mb-2">
         Update {state.type == EModal.UPDATE_TASK ? "task" : "comment"}
-     </Box>
-     <Flex w="100%"
-      justifyContent="center"
-      alignItems="center">
+     </div>
+     <div className="w-[100%] justify-center items-center flex">
       <Input w="80%"
        onChange={change}
        bg="rgb(200,200,200)"
        defaultValue={text}
       />
-     </Flex>
-     <Flex w="80%"
-      columnGap={5}
-      justifyContent="center"
-      alignItems="center"
-      m="10px auto">
+     </div>
+     <div className="w-[80%] gap-x-5 justify-center items-center flex m-[10px_auto_5px_auto]">
        {state.type == EModal.CHANGE_COMMENT && (
        <Button
         colorScheme="red"
@@ -77,7 +67,7 @@ function UpdateTaskOrCommentCard():JSX.Element {
         onClick={update}>
          update
        </Button>
-     </Flex>
+     </div>
     </>
   )
 }

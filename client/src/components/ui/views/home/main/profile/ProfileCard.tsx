@@ -45,25 +45,24 @@ function ProfileCard({user}:IProps):JSX.Element {
        allow={false}
        size="xl"
       />
-      <Box fontSize={22} mt={4}>
+      <div className="text-xl mt-4">
          {`username: ${user.username}`}
-      </Box>
-      <Box fontSize={22} mt={1}>
+      </div>
+      <div className="text-xl mt-1">
          {`tag: ${user.tag}`}
-      </Box>
-      <Box fontSize={22} mt={1}>
+      </div>
+      <div className="text-xl mt-1">
          raiting:
-         <Text as="span"
-          color="green">
+         <span className="text-green-600">
            {` ${user.raiting}`}
-         </Text>
-      </Box>
+         </span>
+      </div>
       <Button mt={5} w={150}
          colorScheme="blue"
          onClick={updateOpen}>
           change data
         </Button>
-      <Flex gap={2} mt={2}>
+      <div className="gap-2 mt-2 flex">
         <Button
          colorScheme="red"
          onClick={removeOpen}>
@@ -74,7 +73,7 @@ function ProfileCard({user}:IProps):JSX.Element {
          onClick={() => router.push("/")}>
            exit
         </Button>
-      </Flex>
+      </div>
     </>
   )
 }

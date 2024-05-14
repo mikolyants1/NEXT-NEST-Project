@@ -35,11 +35,8 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
 
   return (
       <>
-        <Box
-         w={isWidth ? "100%" : "80%"}
-         overflowY="scroll"
-         boxSizing="border-box"
-         pl={5} m="10px auto">
+        <div style={{width:isWidth ? "100%" : "80%"}}
+         className={`w-[80%] overflow-y-scroll box-border pl-5 mt-10 ml-auto mr-auto`}>
           {mutComment.map((c:IComment,idx:number):JSX.Element => {
              const isNewDay:boolean = checkData(data,idx);
              return (
@@ -56,11 +53,9 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
               </>
              )
           })}
-        </Box>
-        <Flex m='10px auto'
-         w={isWidth ? "100%" : "80%"}
-         justifyContent="center"
-         alignItems="center">
+        </div>
+        <div style={{width:isWidth ? "100%" : "80%"}}
+         className="mt-10 ml-auto mr-auto justify-center items-center flex">
           <Input w='100%'
            onChange={change}
            bg="rgb(200,200,200)"
@@ -73,7 +68,7 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
            onClick={addComment}>
             add
           </Button>
-        </Flex>
+        </div>
       </>
   )
 }

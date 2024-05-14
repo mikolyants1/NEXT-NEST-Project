@@ -18,24 +18,19 @@ function SearchCard():JSX.Element {
   }
   
   return (
-    <Flex w="100%"
-     justifyContent="center"
-     alignItems="center"
-     flexDir="column"
-     overflowY="scroll"
-     h="100%">
+    <div className="w-[100%] justify-center items-center flex-col flex overflow-scroll h-[100%]">
      <FriendContext.Provider value={false}>
        <Input w="90%"
-       bg="rgb(230,230,230)"
-       onChange={change}
-       placeholder='tag'
+        bg="rgb(230,230,230)"
+        onChange={change}
+        placeholder='tag'
       />
       {sortUsers.map((u:IUser):JSX.Element=>(
         <SearchItemCard key={u.id} {...u} />
       ))}
      </FriendContext.Provider>
 
-    </Flex>
+    </div>
   )
 }
 

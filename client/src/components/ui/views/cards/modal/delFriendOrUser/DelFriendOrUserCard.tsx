@@ -3,7 +3,7 @@ import { delUser } from '@/components/api/mutation/user/delUser';
 import { EFriendAction, EModal } from '@/components/libs/enums/enum';
 import { IModalContext, IRemUserState } from '@/components/libs/types/type';
 import { ModalContext } from '@/components/model/context/modal';
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 import React, { useContext } from 'react'
@@ -26,21 +26,16 @@ function DelFriendOrUserCard():JSX.Element {
   }
 
   return (
-    <Flex w="100%"
-     color="white"
-     flexDir='column'
-     justifyContent='center'
-     alignItems='center'
-     gap={2}>
-      <Box fontSize={20}>
+    <div className="w-[100%] text-white flex flex-col justify-center items-center gap-2">
+      <div className="text-xl">
         Are you sure ?
-      </Box>
+      </div>
       <Button onClick={del}
        colorScheme="red"
        mb={2}>
          yes
       </Button>
-    </Flex>
+    </div>
   )
 }
 

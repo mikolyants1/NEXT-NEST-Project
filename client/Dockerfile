@@ -1,10 +1,13 @@
-FROM node:14
-WORKDIR /usr/app
-COPY package*.json ./
-RUN npm install
+FROM node:latest
+
+WORKDIR /app
+
+COPY package*.json .
+
+RUN yarn
 
 COPY . .
 
 EXPOSE 3000
 
-CMD [ "npm", "run" , "dev" ]
+CMD yarn run dev

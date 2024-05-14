@@ -2,7 +2,6 @@ import { getTaskComments } from '@/components/api/query/comment/getComments'
 import { IComment } from '@/components/libs/types/type'
 import Error from '@/components/ui/load/Error'
 import Loading from '@/components/ui/load/Loading'
-import { Box, Flex } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import React from 'react'
@@ -21,14 +20,13 @@ function CommLinkCard({taskId}:IProps):JSX.Element {
   if (isError || !data) return <Error />;
 
   return (
-    <Flex w={390}
-     justifyContent="end">
-      <Box color="grey">
+    <div className="flex justify-end w-[390px]">
+      <div className="text-zinc-500">
         <Link href={`/comments/${taskId}`}>
            comments {data.length}
         </Link>
-      </Box>
-    </Flex>
+      </div>
+    </div>
   )
 }
 

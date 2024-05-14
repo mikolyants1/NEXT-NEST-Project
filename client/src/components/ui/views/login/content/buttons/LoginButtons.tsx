@@ -1,6 +1,6 @@
-import {type TForm } from '@/components/libs/types/type'
+import {type TForm } from '@/components/libs/types/type';
 import { Button, Flex } from '@chakra-ui/react';
-import { SubmitHandler, useFormContext } from 'react-hook-form'
+import {type SubmitHandler, useFormContext } from 'react-hook-form';
 
 interface IProps {
   isHome:boolean,
@@ -10,14 +10,14 @@ interface IProps {
 function LoginButton({isHome,submit}:IProps):JSX.Element {
  const {handleSubmit} = useFormContext<TForm>();
   return (
-    <Flex mt={8} 
-     justifyContent='center'>
+    <div className="flex mt-2 justify-center">
      <Button w={150}
       colorScheme='green'
-      onClick={handleSubmit(submit)}>
+      onClick={handleSubmit(submit)}
+      mt={2} mb={1}>
        {isHome ? 'login' : 'regist'}
      </Button>
-   </Flex>
+   </div>
   )
 }
 

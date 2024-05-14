@@ -3,13 +3,7 @@ import {type IModalContext } from '@/components/libs/types/type';
 import { updateUserAction } from '@/components/model/actions/updateUserAction';
 import { ModalContext } from '@/components/model/context/modal';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
-import React, { ChangeEvent, useContext, useState } from 'react'
-
-interface IState {
-  username:string,
-  password:string,
-  tag:string
-}
+import React, { useContext, useState } from 'react'
 
 function UpdateStepCard():JSX.Element {
   const {onClose} = useContext<IModalContext>(ModalContext);
@@ -22,15 +16,10 @@ function UpdateStepCard():JSX.Element {
   return (
       <form action={updateAction}
        style={{width:"100%"}}>
-        <Flex w="100%"
-         justifyContent="center"
-         flexDir="column" gap={4}
-         alignItems="center">
-          <Box fontSize={20}
-           fontWeight="bold"
-           color="white">
+        <div className="w-[100%] flex justify-center gap-4 flex-col items-center">
+          <div className="text-xl text-white font-bold">
             {"update your's data"}
-          </Box>
+          </div>
           {["username","password","tag"].map((n):JSX.Element => (
             <Input key={n} w="70%"
              bg="rgb(200,200,200)"
@@ -39,21 +28,17 @@ function UpdateStepCard():JSX.Element {
              />
           ))}
           {error && (
-           <Box w="100%"
-            textAlign="center"
-            fontSize={18}
-            color="red">
+           <div className="w-[100%] text-center text-red-600 text-xl">
              {error}
-           </Box>
+           </div>
           )}
-          <Flex w="70%" mb={5}
-           justifyContent="end">
+          <div className="w-[70%] mb-5 flex justify-end">
             <Button colorScheme='blue'
-             type='submit'>
+              type="submit">
                update
             </Button>
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </form>
     );
 }

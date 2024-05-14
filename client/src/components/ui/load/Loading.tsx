@@ -1,12 +1,11 @@
 "use client"
 
-import { Flex, Spinner } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 import { memo } from "react";
 
 function Loader():JSX.Element { 
   return (
-    <Flex w='100%' mt="70px"
-     justifyContent='center'>
+    <div className="w-[100%] flex mt-[70px] justify-center">
        <Spinner
         margin="10px auto"
         thickness='4px'
@@ -15,7 +14,7 @@ function Loader():JSX.Element {
         color='blue.500'
         size='xl'
        />
-    </Flex>
+    </div>
   );
 }
 export default memo(Loader);

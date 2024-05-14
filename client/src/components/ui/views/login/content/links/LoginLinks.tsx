@@ -7,15 +7,14 @@ interface IProps {
 }
 
 function LoginLink({isHome}:IProps):JSX.Element {
-  const href:string = isHome ? '/sign-on' : '/';
+  const href:string = isHome ? '/sign-up' : '/';
   const text:string = isHome ? 'registration' : 'back';
   return (
-    <Box mt={5}
-    textAlign='center'>
+    <div className="mt-[10px] text-center">
      <Link href={href}>
       {text}
      </Link>
-   </Box>
+   </div>
   )
 }
 

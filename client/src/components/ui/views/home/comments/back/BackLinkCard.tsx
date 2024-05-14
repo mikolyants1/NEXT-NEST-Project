@@ -9,12 +9,10 @@ function BackLinkCard():JSX.Element {
   const router:AppRouterInstance = useRouter();
 
   return (
-    <Box fontSize={20} ml={10}
-     onClick={router.back.bind(router)}
-     textDecor="underline" mt={5}
-     color="blueviolet">
+    <div className="text-xl ml-10 underline text-violet-800 mt-5"
+     onClick={router.back.bind(router)}>
       back home
-    </Box>
+    </div>
   )
 }
 

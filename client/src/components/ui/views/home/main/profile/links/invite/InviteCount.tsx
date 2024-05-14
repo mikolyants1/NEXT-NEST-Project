@@ -1,24 +1,24 @@
-import { Box } from '@chakra-ui/react'
 
 interface IProps {
   length:number
 }
 
 function InviteCount({length}:IProps):JSX.Element {
- const size:string = length ?
-  length >= 10 ? "23px" : "20px" : "20px";
+ const size = length ? length >= 10 ? "23px" : "20px" : "20px";
+ const pt = length >= 10 ? 0.5 : 0;
+ const count = `${length > 10 ? "10+" : length}`;
+ const bg = length ? "red-500" : "black";
 
-  const count = `${length > 10 ? "10+" : length}`;
-  
   return (
-    <Box fontSize={14}
-     borderRadius="50%" h={size}
-     bg={length ? "red" : "black"}
-     color="white" textAlign="center"
-     w={size}
-     pt={length >= 10 ? 0.5 : 0}>
+    <div className={`rounded-[50%] text-white text-center text-sm`}
+     style={{
+      width:size,
+      height:size,
+      paddingTop:pt,
+      backgroundColor:bg
+     }}>
       {count}
-   </Box>
+   </div>
   )
 }
 

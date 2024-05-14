@@ -1,14 +1,14 @@
-import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req:NextRequest){
-  const cookieStore:ReadonlyRequestCookies = cookies();
-  if (!cookieStore.has("userId")){
+  const store:ReadonlyRequestCookies = cookies();
+  if (!store.has("userId")){
     notFound();
   }
-  const userId = cookieStore.get("userId")?.value;
+  const userId = store.get("userId")?.value;
   const reg = new RegExp(/\/|main|invitation|profile/g);
   const id = req.nextUrl.pathname.replace(reg,"");
   if (id !== userId){

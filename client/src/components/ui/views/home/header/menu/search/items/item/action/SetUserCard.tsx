@@ -18,6 +18,7 @@ function SetUserCard({id}:IProps):JSX.Element {
   const isFriend = useContext<boolean>(FriendContext);
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   const [isWait,setWait] = useState<boolean>(false);
+  const color = isFriend ? "red-500" : "white";
   const {data,isError,isLoading} = useQuery<EFriendStatus>({
     queryKey:["status",id],
     queryFn:() => getFriendStatus(id)
@@ -42,13 +43,12 @@ function SetUserCard({id}:IProps):JSX.Element {
   if (isError || !data) return <Error />;
 
   return (
-    <Box color={isFriend ? "red" : "green"}
-     onClick={() => isFriend ? delFriend() : create(data)}
-     fontSize={25}>
+    <div className={`text-${color} text-xl`}
+     onClick={() => isFriend ? delFriend() : create(data)}>
       {(data == EFriendStatus.ADD && !isWait) && <>+</>}
       {(data == EFriendStatus.WAIT || isWait) && <>&#10003;</>}
       {isFriend && "-"}
-    </Box>
+    </div>
   );
 }
 

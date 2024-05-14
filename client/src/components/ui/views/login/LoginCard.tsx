@@ -1,11 +1,9 @@
 'use client'
 
-import { Box} from '@chakra-ui/react';
 import {type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { FormProvider,type SubmitHandler, useForm } from 'react-hook-form';
-import LoginCardWrapper from './content/LoginCardWrapper';
 import LoginButton from './content/buttons/LoginButtons';
 import LoginErrorCard from './content/error/LoginErrorCard';
 import {type ICheckRes,type IFields,type TForm} from '@/components/libs/types/type';
@@ -86,13 +84,10 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
 
   return (
     <FormProvider {...methods}>
-      <LoginCardWrapper>
-        <Box fontSize={25}
-         fontWeight='bold'
-         textAlign='center'
-         mt={5}>
+      <div className="w-[400px] mr-auto ml-auto mt-20 bg-[rgb(90,90,90)] text-white absolute right-0 left-0 min-h-75 rounded-xl overflow-hidden">
+        <div className="text-3xl font-bold text-center mt-[10px] ">
           {isHome ? "Entrance" : "Registration"}
-        </Box>
+        </div>
         <>
          {fields.map((i:IFields):JSX.Element=>(
            <LoginInputs
@@ -109,7 +104,7 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
           />
         <LoginErrorCard error={error} />
           {children}
-      </LoginCardWrapper>
+      </div>
     </FormProvider>
   )
 };

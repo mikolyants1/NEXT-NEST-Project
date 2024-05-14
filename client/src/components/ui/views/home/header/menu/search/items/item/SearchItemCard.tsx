@@ -1,7 +1,6 @@
 "use client"
 
 import { IUser } from '@/components/libs/types/type'
-import { Box, Flex } from '@chakra-ui/react';
 import LogoCard from '../../../../title/cards/logo/LogoCard';
 import SetUserCard from './action/SetUserCard';
 import { MouseEvent, useContext, useState } from 'react';
@@ -16,13 +15,10 @@ function SearchItemCard({username,id}:IUser):JSX.Element {
   }
 
   return (
-    <Flex w="90%" mt={2}
-     justifyContent="space-between"
-     alignItems="center" gap={2}
+    <div className="flex w-[90%] mt-4 justify-between items-center gap-2"
      onMouseOver={hover}
      onMouseOut={hover}>
-      <Flex alignItems="center"
-       columnGap={2}>
+      <div className="flex items-center gap-x-2">
        <LogoCard
         username={username}
         allow={isFriend}
@@ -30,10 +26,10 @@ function SearchItemCard({username,id}:IUser):JSX.Element {
         id={id}
         size='xs'
         />
-       <Box>{username}</Box>
-      </Flex>
-      {show &&  <SetUserCard id={id} />}
-    </Flex>
+       <div>{username}</div>
+      </div>
+      {show && <SetUserCard id={id} />}
+    </div>
   )
 }
 

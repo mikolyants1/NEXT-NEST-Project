@@ -14,15 +14,13 @@ const RecipientCard = dynamic(() => import("@/components/ui/views/home/invitatio
 
 export default function page():JSX.Element {
   return (
-    <Flex w="100%"
-     justifyContent="center"
-     alignItems="center">
-       <Tabs defaultIndex={0}
-         display="flex" w="100%"
-         justifyContent="center"
-         flexDir="column"
-         alignItems="center"
-         h="100%" mb={2}>
+    <div className="w-[100%] justify-center items-center flex">
+      <Tabs defaultIndex={0}
+       display="flex" w="100%"
+       justifyContent="center"
+       flexDir="column"
+       alignItems="center"
+       h="100%" mb={2}>
         <TabList w="100%" display="flex"
          justifyContent="space-around">
           {["Adresser","Recipient"].map((t):JSX.Element => (
@@ -41,6 +39,6 @@ export default function page():JSX.Element {
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </Flex>
+    </div>
   )
 }

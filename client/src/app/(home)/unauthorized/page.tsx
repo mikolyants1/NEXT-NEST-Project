@@ -1,13 +1,9 @@
-import { Box } from '@chakra-ui/react'
 
 function page():JSX.Element {
   return (
-    <Box w="100%"
-     textAlign="center"
-     fontSize={23}
-     mt={10}>
+    <div className="w-[100%] text-center mt-10 text-xl">
        You are unauthorized
-    </Box>
+    </div>
   )
 }
 

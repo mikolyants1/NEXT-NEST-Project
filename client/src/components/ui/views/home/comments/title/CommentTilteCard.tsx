@@ -5,11 +5,9 @@ interface IProps {
 }
 function CommentTilteCard({title}:IProps):JSX.Element {
   return (
-    <Box w="100%" mt={3}
-     textAlign="center"
-     fontSize={30} mb={3}>
+    <div className="w-[100%] mt-3 text-center text-3xl mb-3">
        Comments for {`"${title}"`}
-    </Box>
+    </div>
   )
 }
 

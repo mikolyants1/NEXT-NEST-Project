@@ -23,12 +23,8 @@ export default function page({params}:IProps):JSX.Element {
   const user:IUser = use(getUser(params.id));
   
   return (
-    <Flex w='100%'
-     justifyContent="center"
-     alignItems="center"
-     flexDir="column"
-     mt={10}>
+    <div className="w-[100%] flex justify-center items-center flex-col mt-10">
       <ProfileCard user={user} />
-    </Flex>
+    </div>
   )
 }

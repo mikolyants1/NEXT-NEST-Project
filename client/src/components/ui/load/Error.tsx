@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState,memo } from "react";
-import { Flex } from "@chakra-ui/react";
 
 function Error():JSX.Element {
  const [err,setErr] = useState<string>('');
@@ -16,13 +15,9 @@ function Error():JSX.Element {
   },[]);
   
   return (
-    <Flex
-     width ='100%'
-     justifyContent='center'
-     textAlign='center'
-     color='black'>
+    <div className="w-[100%] justify-center text-center text-black flex">
        error {err}
-    </Flex>
+    </div>
   );
 }
 

@@ -1,7 +1,5 @@
-import { Box} from '@chakra-ui/react'
 import { memo } from 'react'
 import LogoCard from './logo/LogoCard'
-import HeaderWrapper from '../HeaderWrapper';
 import { getInviteLikeRecipient } from '@/components/api/query/invite/getInviteLikeRecipient'
 import InviteCount from '../../../main/profile/links/invite/InviteCount'
 import { getUser } from '@/components/api/query/user/getUser'
@@ -29,24 +27,21 @@ function HeaderTitleCard({onOpen,id}:IProps):JSX.Element {
   if (user.isLoading || invites.isLoading) return <Loading />;
   if (user.isError || invites.isError) return <Error />;
   if (!user.data || !invites.data) return <Error />;
-
   return (
-    <Box w='100%'
-     fontWeight='bold'
-     bg='rgb(90,90,90)'>
-      <HeaderWrapper>
-        <Box onClick={onOpen}
-         fontSize={20}>
+    <div className="w-[100%] font-bold bg-[rgb(90,90,90)]">
+      <div className="text-white flex w-[90%] items-center h-[80px] justify-between m-auto">
+        <div className="text-xl"
+         onClick={onOpen}>
           Menu
-        </Box>
-        <Box fontSize={30}>
+        </div>
+        <div className="text-3xl">
           {`Karma's duary`}
-        </Box>
-        <Box pos="relative">
+        </div>
+        <div className="relative">
           {invites.data.length ? (
-           <Box right={-2} pos='absolute'>
+           <div className="right-[-2px] absolute">
              <InviteCount length={invites.data.length} />
-           </Box>
+           </div>
           ) : <></>}
           <LogoCard
            username={user.data.username}
@@ -55,9 +50,9 @@ function HeaderTitleCard({onOpen,id}:IProps):JSX.Element {
            allow
            id={id}
          />
-        </Box>
-      </HeaderWrapper>
-    </Box>
+        </div>
+      </div>
+    </div>
   )
 }
 

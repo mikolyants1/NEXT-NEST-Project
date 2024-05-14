@@ -17,29 +17,17 @@ async function UserInviteCard({id,recipient,addresser,role}:IProps):Promise<JSX.
   const user:IUser = await getUser(inviteUserId);
 
   return (
-    <Flex w={300} mt={10}
-     bg="rgb(90,90,90)"
-     boxSizing="border-box"
-     borderRadius={10}
-     flexDir="column"
-     justifyContent='center'
-     alignItems="center"
-     color="white" pt={2}>
+    <div className="w-[300px] mt-10 bg-[rgb(90,90,90)] box-border flex flex-col justify-center items-center text-white pt-2 rounded-xl">
       <LogoCard size="xl"
        username={user.username}
        allow={false}
       />
-      <Box mt={5} w="100%"
-       textAlign="center"
-       fontSize={20} mb={2}>
+      <div className="mt-5 w-[100%] text-center text-xl mb-2">
         {role == EInvite.ADRESSER
         ? `you sent invite to ${user.username}`
         : `${user.username} want's to be your friend`}
-      </Box>
-      <Flex w="100%"
-       justifyContent='center'
-       alignItems='center'
-       gap={10} mb={1}>
+      </div>
+      <div className="gap-10 w-[100%] items-center justify-center mb-2 flex">
          <CancelButtonCard id={id} />
          {role == EInvite.RECIPIENT && (
            <AcceptButtonCard
@@ -47,8 +35,8 @@ async function UserInviteCard({id,recipient,addresser,role}:IProps):Promise<JSX.
             inviteId={id}
            />
          )}
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   )
 }
 
