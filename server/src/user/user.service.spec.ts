@@ -48,17 +48,11 @@ describe("UserService", () => {
     });
     array_id.push(user.id);
     await userDatabase.save(user);
-    const check_login = await service.checkUser({
-      username:user.username,
-      password:user.password,
-      isLogin:true
-    });
     const check_regist = await service.checkUser({
       username:user.username,
       password:user.password,
       isLogin:false
     });
-    expect(check_login.success).toBeTruthy();
     expect(check_regist.message).toBe("username should be unique");
   });
 

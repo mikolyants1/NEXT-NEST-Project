@@ -72,7 +72,7 @@ describe("TaskService",() => {
     const update_task:Task = await service
     .updateUserTasks(create_task.id,{
         title:"update_task1"
-    })
+    });
     expect(update_task.title).toBe("update_task1");
   });
 

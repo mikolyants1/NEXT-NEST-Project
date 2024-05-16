@@ -19,7 +19,6 @@ export class UserService {
 
     async getUsers():Promise<User[]>{
       return this.users.find();
-      
     }
 
     async getUser(id:string):Promise<User>{
@@ -39,8 +38,7 @@ export class UserService {
     }
 
     async checkUser({username,password,isLogin}:UserBodyDto):Promise<UserResDto>{
-      const users:User[] = await this.users.find();
-      const user = users.find((u:User) => u.username == username);
+      const user = await this.users.findOneBy({username});
       if (!isLogin){
         const success = !Boolean(user);
         return {
