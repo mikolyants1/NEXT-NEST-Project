@@ -1,6 +1,6 @@
 
-import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import {type Metadata } from 'next'
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
 export const metadata:Metadata = {
@@ -8,9 +8,9 @@ export const metadata:Metadata = {
   description:"user invitations page" 
 }
 
-const AdresserCard = dynamic(() => import("@/components/ui/views/home/invitations/adresser/AdresserMapCard"));
+const AdresserCard = dynamic(() => import("@/ui/views/home/invitations/adresser/AdresserMapCard"));
 
-const RecipientCard = dynamic(() => import("@/components/ui/views/home/invitations/recipient/RecipientMapCard"));
+const RecipientCard = dynamic(() => import("@/ui/views/home/invitations/recipient/RecipientMapCard"));
 
 export default function page():JSX.Element {
   return (

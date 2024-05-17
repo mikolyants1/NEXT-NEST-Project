@@ -1,5 +1,5 @@
-import LoginCard from "@/components/ui/views/login/LoginCard";
-import LoginLinks from "@/components/ui/views/login/content/links/LoginLinks";
+import LoginCard from "@/ui/views/login/LoginCard";
+import LoginLinks from "@/ui/views/login/content/links/LoginLinks";
 
 export default function Home() {
   return (

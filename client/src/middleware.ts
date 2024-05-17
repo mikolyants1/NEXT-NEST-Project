@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req:NextRequest){
   const store:ReadonlyRequestCookies = cookies();
+  console.log("middleware")
   if (!store.has("userId")){
     notFound();
   }

@@ -1,6 +1,6 @@
-import { getTags } from "@/components/api/query/user/getTags";
-import LoginLinks from "@/components/ui/views/login/content/links/LoginLinks";
-import LoginCard from "@/components/ui/views/login/LoginCard";
+import { getTags } from "@/api/query/user/getTags";
+import LoginLinks from "@/ui/views/login/content/links/LoginLinks";
+import LoginCard from "@/ui/views/login/LoginCard";
 import {type Metadata } from "next";
 
 export const metadata:Metadata = {

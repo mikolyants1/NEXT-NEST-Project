@@ -1,8 +1,7 @@
-import { getUser } from '@/components/api/query/user/getUser'
-import { IUser } from '@/components/libs/types/type'
-import ProfileCard from '@/components/ui/views/home/main/profile/ProfileCard'
-import { Flex } from '@chakra-ui/react'
-import {type Metadata } from 'next'
+import { getUser } from '@/api/query/user/getUser'
+import type { IUser } from '@/libs/types/type'
+import ProfileCard from '@/ui/views/home/main/profile/ProfileCard'
+import type { Metadata } from 'next'
 import { use } from 'react'
 
 interface IProps {

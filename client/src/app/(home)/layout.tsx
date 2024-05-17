@@ -1,7 +1,7 @@
-import ModalLayout from '@/components/model/layouts/ModalLayout'
-import Header from '@/components/ui/views/home/header/Header'
+import ModalLayout from '@/model/layouts/ModalLayout'
+import Header from '@/ui/views/home/header/Header'
 import { cookies } from 'next/headers'
-import { ReactNode } from 'react'
+import {type ReactNode } from 'react'
 
 
 export default function layout({
@@ -10,7 +10,6 @@ export default function layout({
     children:ReactNode
 }>):JSX.Element {
   const id = cookies().get("userId")?.value;
-  console.log("id: ",id)
   return (
     <ModalLayout>
       <Header id={id || ""} />

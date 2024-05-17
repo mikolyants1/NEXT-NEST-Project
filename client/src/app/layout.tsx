@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import QueryLayout from "@/components/model/layouts/QueryLayout";
-import ChakraLayout from "@/components/model/layouts/ChakraLayout";
+import QueryLayout from "@/model/layouts/QueryLayout";
+import ChakraLayout from "@/model/layouts/ChakraLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 

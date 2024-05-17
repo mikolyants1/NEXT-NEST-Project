@@ -1,9 +1,8 @@
-import { getUserTasks } from "@/components/api/query/task/getUserTasks";
-import { getUser } from "@/components/api/query/user/getUser";
-import { ITask, IUser } from "@/components/libs/types/type";
-import UserTaskMapCard from "@/components/ui/views/home/main/tasks/UserTaskMapCard";
-import { Box, Flex } from "@chakra-ui/react";
-import { Metadata } from "next";
+import { getUserTasks } from "@/api/query/task/getUserTasks";
+import { getUser } from "@/api/query/user/getUser";
+import {type ITask,type IUser } from "@/libs/types/type";
+import UserTaskMapCard from "@/ui/views/home/main/tasks/UserTaskMapCard";
+import {type Metadata } from "next";
 import { cookies } from "next/headers";
 
 interface IProps {
@@ -24,7 +23,7 @@ async function page({params}:IProps):Promise<JSX.Element> {
   const {id,username}:IUser = await getUser(params.id);
   
   return (
-    <div className="flex w-[100%] mt-10 justify-center items-center flex-col">
+    <main className="flex w-[100%] mt-10 justify-center items-center flex-col">
       <div className="text-2xl font-bold">
         {`${adminId == id ? "Your" : username}'s `}
         task list
@@ -34,7 +33,7 @@ async function page({params}:IProps):Promise<JSX.Element> {
        userId={params.id}
        adminId={adminId || ""}
        />
-    </div>
+    </main>
   );
 }
 

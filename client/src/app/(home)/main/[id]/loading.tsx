@@ -1,5 +1,4 @@
-import Loading from '@/components/ui/load/Loading'
-import React from 'react'
+import Loading from '@/ui/load/Loading'
 
 export default function loading():JSX.Element {
   return <Loading />;
