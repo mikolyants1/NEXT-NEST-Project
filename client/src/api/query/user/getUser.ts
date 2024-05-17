@@ -1,4 +1,4 @@
-import type { IUser } from "@/components/libs/types/type";
+import type { IUser } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import type{ AxiosResponse } from "axios";
 

@@ -7,6 +7,7 @@ import AcceptButtonCard from "./buttons/AcceptButtonCard";
 import LogoCard from "../../header/title/cards/logo/LogoCard";
 import { Button } from "@chakra-ui/react";
 import { delInvite } from "@/api/mutation/invite/delInvite";
+import CancelButtonCard from "./buttons/CancelButtonCard";
 
 interface IProps extends Invitation {
     role:EInvite
@@ -28,10 +29,7 @@ async function UserInviteCard({id,recipient,addresser,role}:IProps):Promise<JSX.
         : `${user.username} want's to be your friend`}
       </div>
       <div className="gap-10 w-[100%] items-center justify-center mb-2 flex">
-        <Button colorScheme="red"
-         onClick={() => delInvite(id)}>
-           cancel
-        </Button>
+         <CancelButtonCard id={id} />
          {role == EInvite.RECIPIENT && (
            <AcceptButtonCard
             friendId={addresser}

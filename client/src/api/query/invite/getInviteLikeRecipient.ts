@@ -1,6 +1,6 @@
 "use server"
 
-import type { Invitation } from "@/components/libs/types/type";
+import type { Invitation } from "@/libs/types/type";
 import { cookies } from "next/headers";
 
 export async function getInviteLikeRecipient():Promise<Invitation[]> {

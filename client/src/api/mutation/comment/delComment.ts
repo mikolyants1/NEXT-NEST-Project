@@ -1,6 +1,6 @@
 "use server"
 
-import {type IComment } from "@/components/libs/types/type";
+import {type IComment } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
 import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";

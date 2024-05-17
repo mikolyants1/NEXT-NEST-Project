@@ -1,4 +1,4 @@
-import {type IFriend } from "@/components/libs/types/type";
+import {type IFriend } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
 

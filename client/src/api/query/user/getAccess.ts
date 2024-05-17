@@ -1,6 +1,6 @@
 "use server"
 
-import type { IAccessBody } from "@/components/libs/types/type";
+import type { IAccessBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import type { AxiosResponse } from "axios";
 import { cookies } from "next/headers";

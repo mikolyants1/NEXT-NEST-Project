@@ -1,6 +1,6 @@
 "use server"
 
-import {type IFriend,type IFriendBody } from "@/components/libs/types/type";
+import {type IFriend,type IFriendBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
 import { cookies } from "next/headers";

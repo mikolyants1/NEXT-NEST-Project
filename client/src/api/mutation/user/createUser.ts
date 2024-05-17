@@ -1,4 +1,4 @@
-import {type IUser,type IUserBody } from "@/components/libs/types/type";
+import {type IUser,type IUserBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
 

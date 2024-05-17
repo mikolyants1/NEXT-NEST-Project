@@ -1,6 +1,6 @@
 "use server"
 
-import {type Invitation } from "@/components/libs/types/type";
+import {type Invitation } from "@/libs/types/type";
 import { cookies } from "next/headers";
 import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { revalidateTag } from "next/cache";
