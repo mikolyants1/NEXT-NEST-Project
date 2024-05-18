@@ -20,8 +20,8 @@ function ProfileCard({user}:IProps):JSX.Element {
   
   const updateOpen = () => {
     dispatch({
-       type:EModal.UPDATE_USER,
-       payload:{
+      type:EModal.UPDATE_USER,
+      payload:{
         username:user.username,
         id:user.id,
         tag:user.tag
@@ -41,6 +41,7 @@ function ProfileCard({user}:IProps):JSX.Element {
   return (
     <>
       <InviteLinkCard id={user.id} />
+
       <LogoCard
        username={user.username}
        allow={false}

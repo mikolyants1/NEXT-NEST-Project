@@ -5,10 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req:NextRequest){
   const store:ReadonlyRequestCookies = cookies();
-  console.log("middleware")
-  if (!store.has("userId")){
-    notFound();
-  }
+  if (!store.has("userId")) notFound();
   const userId = store.get("userId")?.value;
   const reg = new RegExp(/\/|main|invitation|profile/g);
   const id = req.nextUrl.pathname.replace(reg,"");

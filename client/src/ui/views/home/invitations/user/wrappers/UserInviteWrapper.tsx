@@ -11,12 +11,12 @@ function UserInviteWrapper({children,idx}:IProps):JSX.Element{
   return (
     <motion.div
      initial={{
-      translateX:-300,
-      opacity:0
+      opacity:0,
+      scale:0
      }}
      animate={{
-      translateX:0,
-      opacity:1
+      opacity:1,
+      scale:1
      }}
      transition={{
       delay:idx * 0.3,

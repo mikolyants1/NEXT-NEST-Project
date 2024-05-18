@@ -20,7 +20,7 @@ function ModalLayout({
       dispatch,
       onClose,
       onOpen
-    }}>
+     }}>
         {children}
     </ModalContext.Provider>
   )

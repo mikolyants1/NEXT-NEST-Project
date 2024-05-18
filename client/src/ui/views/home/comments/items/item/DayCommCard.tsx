@@ -1,4 +1,3 @@
-
 import { getDayOfComment } from '@/model/functions/find/getDayOfComm';
 
 interface IProps {

@@ -7,6 +7,7 @@ import { ModalContext } from '@/model/context/modal';
 import { EModal } from '@/libs/enums/enum';
 import CommLinkCard from './comment/CommLinkCard';
 import Image from 'next/image';
+import bask from '../../../../../../../public/bask.webp';
 
 interface IProps extends ITask {
     userId:string,
@@ -46,13 +47,14 @@ function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
         {(userId == adminId) && show && (
           <motion.div
            initial={{transform:`translate(45px)`}}
-           animate={{transform:`translate(${show ? 0 : 45}px)`}}
-           style={{width:45,height:45}}>
+           animate={{transform:`translate(${show ? 0 : 45}px)`}}>
             <Image
-             className="z-101 w-[100%] h-[100%]"
+             className="z-101"
+             width={45}
+             height={45}
              onClick={deleteTask}
-             src='https://thumbs.dreamstime.com/b/trashcan-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D1%81%D0%B8%D0%BC%D0%B2%D0%BE-%D0%BC%D1%83%D1%81%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D0%BA%D0%BE%D1%80%D0%B7%D0%B8%D0%BD%D1%8B-%D0%BF-%D0%BE%D1%81%D0%BA%D0%BE-78673675.jpg'
-             alt=''
+             src={bask}
+             alt="none"
             />
          </motion.div>
         )}

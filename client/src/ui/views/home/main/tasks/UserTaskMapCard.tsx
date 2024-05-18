@@ -44,7 +44,7 @@ function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
        <motion.div key={t.id}
         initial={{opacity:0,translateY:-50}}
         animate={{opacity:1,translateY:0}}
-        transition={{delay:idx * 0.3}}>
+        transition={{delay:idx * 0.3,type:"spring"}}>
           <UserTaskCard
            adminId={adminId}
            change={setMutTasks}
