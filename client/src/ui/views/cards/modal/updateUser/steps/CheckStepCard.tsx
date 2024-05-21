@@ -13,8 +13,7 @@ function CheckStepCard({next}:IProps):JSX.Element {
   const checkAction = checkUserAction.bind(null,{next,setError});
 
   return (
-    <form action={checkAction}
-     style={{width:"100%"}}>
+    <form action={checkAction} style={{width:"100%"}}>
       <div className="w-[100%] flex justify-center flex-col items-center gap-4">
         <div className="text-xl font-bold text-white">
           At first,verify your data

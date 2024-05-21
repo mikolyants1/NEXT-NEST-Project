@@ -15,7 +15,7 @@ export async function createComment({
   const userId = cookieStore.get("userId")?.value;
   return apiClient.post<IComment>(`comments/${taskId}`,body,{
     headers:{
-      authorization:`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
       "x-user":userId
     }
   })

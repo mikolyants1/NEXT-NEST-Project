@@ -4,16 +4,18 @@ import { CommentService } from "./comment.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Task } from "../entity/task.entity";
 import { Comment } from "../entity/comment.entity";
-import { AuthModule } from "../auth/auth.module";
 import { User } from "../entity/user.entity";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtConfig } from "../configs/jwt.config";
+import { JwtStrategy } from "../strategy/jwt.strategy";
 
 @Module({
   imports:[
-    AuthModule,
+    JwtModule.registerAsync(JwtConfig()),
     TypeOrmModule.forFeature([Task,Comment,User])
   ],
   controllers:[CommentController],
-  providers:[CommentService]
+  providers:[CommentService,JwtStrategy]
 })
 export class CommentModule implements OnModuleInit {
   onModuleInit() {

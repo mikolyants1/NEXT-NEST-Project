@@ -12,11 +12,11 @@ export const PgConfig = ():TypeOrmModuleAsyncOptions => ({
   useFactory:(service:ConfigService) => {
     return {
       type:"postgres",
-      username:service.get("PG_USERNAME"),
-      password:service.get("PG_PASSWORD"),
-      host:service.get("PG_HOST"),
-      port:+service.get("PG_PORT"),
-      database:service.get("PG_DATABASE"),
+      username:"postgres" ||"test_name",
+      password:"belek5002"||"test_pass",
+      host:"localhost",
+      port:5432 ,
+      database:"testdb2"||"test_base",
       entities:[Comment,Friend,Invitation,Task,User],
       synchronize:true
     }

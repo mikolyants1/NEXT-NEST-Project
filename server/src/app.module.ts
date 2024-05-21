@@ -1,4 +1,4 @@
-import { Logger, Module, OnApplicationBootstrap } from '@nestjs/common';
+import { Logger, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import {ConfigModule} from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PgConfig } from './configs/pg.config';
@@ -25,9 +25,13 @@ import { CommentModule } from './comment/comment.module';
     CommentModule
   ],
 })
-export class AppModule implements OnApplicationBootstrap {
+export class AppModule implements OnApplicationBootstrap,OnModuleInit {
+  private readonly logger:Logger = new Logger(AppModule.name);
+  
+  onModuleInit() {
+    this.logger.log("app module init");
+  }
   onApplicationBootstrap() {
-    const logger = new Logger(AppModule.name);
-    logger.log("all modules success init");
+    this.logger.log("all modules success init");
   }
 }

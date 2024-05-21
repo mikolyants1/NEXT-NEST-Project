@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Headers, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Headers, Param, Post, Put } from "@nestjs/common";
 import { CommentService } from "./comment.service";
 import { Comment } from "../entity/comment.entity";
 import { CommBodyDto } from "../dto/comm.dto";
-import { AuthGuard } from "../guards/auth.guard";
+import { Auth } from "../guards/apply.guard";
 
 @Controller("comments")
 export class CommentController {
@@ -13,7 +13,7 @@ export class CommentController {
       return this.service.getTaskComments(id);
     }
 
-    @UseGuards(AuthGuard)
+    @Auth()
     @Post(":id")
     async createComment(
       @Headers("x-user") userId:string,
@@ -23,13 +23,13 @@ export class CommentController {
       return this.service.createComment(id,userId,body);
     }
 
-    @UseGuards(AuthGuard)
+    @Auth()
     @Delete(":id")
     async deleteComment(@Param("id") commId:string):Promise<number>{
       return this.service.deleteTaskComment(commId);
     }
 
-    @UseGuards(AuthGuard)
+    @Auth()
     @Put(":id")
     async updateComment(
       @Param("id") id:string,

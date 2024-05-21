@@ -13,8 +13,7 @@ function UpdateStepCard():JSX.Element {
   });
 
   return (
-      <form action={updateAction}
-       style={{width:"100%"}}>
+      <form action={updateAction} style={{width:"100%"}}>
         <div className="w-[100%] flex justify-center gap-4 flex-col items-center">
           <div className="text-xl text-white font-bold">
             {"update your's data"}

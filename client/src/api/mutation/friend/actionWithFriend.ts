@@ -12,7 +12,7 @@ export async function actionWithFriend(body:IFriendBody):Promise<IFriend>{
   revalidatePath("/main","layout");
   return apiClient.post<IFriend>(`friend`,body,{
     headers:{
-      authorization:`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
       "x-user":userId
     }
   })

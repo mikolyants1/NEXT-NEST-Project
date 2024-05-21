@@ -27,8 +27,8 @@ export const styles:IStyle = {
   },
   getSize(key:keyof IStyle,s:TSize){
     if (key in this){
-    const elem = this[key] as Record<TSize,string>;
-    return elem[s];
+      const elem = this[key] as Record<TSize,string>;
+      return elem[s];
     }
     return "";
   }

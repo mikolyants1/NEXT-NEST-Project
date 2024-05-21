@@ -4,10 +4,12 @@ import { UserService } from "./user.service";
 import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
 import { Comment } from "../entity/comment.entity";
 import { User } from "../entity/user.entity";
-import { AuthModule } from "../auth/auth.module";
 import { PgConfig } from "../configs/pg.config";
 import { ConfigModule } from "@nestjs/config";
 import { Repository} from "typeorm";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtConfig } from "src/configs/jwt.config";
+import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("UserService", () => {
   const array_id:string[] = [];
@@ -18,18 +20,19 @@ describe("UserService", () => {
   beforeEach(async () => {
     const module:TestingModule = await Test.createTestingModule({
       imports:[
-        AuthModule,
+        JwtModule.registerAsync(JwtConfig()),
         ConfigModule.forRoot({
-          isGlobal:true,
           envFilePath:[
-           "./src/env/.pg.env"
-          ]
+            "./src/env/.jwt.env",
+            "./src/env/.pg.env"
+          ],
+          isGlobal:true
         }),
         TypeOrmModule.forRootAsync(PgConfig()),
         TypeOrmModule.forFeature([Comment,User])
       ],
       controllers:[UserController],
-      providers:[UserService]
+      providers:[UserService,JwtStrategy]
     }).compile();
 
     service = module.get<UserService>(UserService);

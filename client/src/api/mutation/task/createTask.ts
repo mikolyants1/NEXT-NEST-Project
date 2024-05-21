@@ -12,7 +12,7 @@ export async function createTask(title:string):Promise<ITask> {
   const userId = cookieStore.get("userId")?.value;
   return apiClient.post<ITask>("task",{title},{
     headers:{
-      authorization:`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
       "x-user":userId
     }
   })

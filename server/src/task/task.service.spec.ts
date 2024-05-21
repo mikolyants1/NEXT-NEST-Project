@@ -7,7 +7,9 @@ import { Task } from "../entity/task.entity";
 import { TaskController } from "./task.controller";
 import { Repository } from "typeorm";
 import { ConfigModule } from "@nestjs/config";
-import { AuthModule } from "../auth/auth.module";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtConfig } from "../configs/jwt.config";
+import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("TaskService",() => {
   const user_array_id:string[] = [];
@@ -20,18 +22,19 @@ describe("TaskService",() => {
   beforeEach(async () => {
    const module:TestingModule = await Test.createTestingModule({
     imports:[
-      AuthModule,
+      JwtModule.registerAsync(JwtConfig()),
       ConfigModule.forRoot({
-        isGlobal:true,
         envFilePath:[
+          "./src/env/.jwt.env",
           "./src/env/.pg.env"
-        ]
+        ],
+        isGlobal:true
       }),
       TypeOrmModule.forRootAsync(PgConfig()),
       TypeOrmModule.forFeature([User,Task])
     ],
     controllers:[TaskController],
-    providers:[TaskService]
+    providers:[TaskService,JwtStrategy]
    }).compile();
    service = module.get<TaskService>(TaskService);
    userSource = module.get<Repository<User>>(getRepositoryToken(User));

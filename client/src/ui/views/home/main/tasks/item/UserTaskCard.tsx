@@ -38,25 +38,19 @@ function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
     <>
      <div
       className="w-100 mt-5 h-[45px] rounded-lg justify-between pl-1 flex items-center box-border gap-x-[3px] overflow-hidden text-white bg-[rgb(100,100,100)]"
-      onMouseOver={() => setShow(true)}
-      onMouseOut={() => setShow(false)}>
+      onMouseOver={() =>setShow(true)}
+      onMouseOut={()=>setShow(false)}>
         <div className="text-lg"
          onClick={updateOpen}>
           {title}
         </div>
-        {(userId == adminId) && show && (
-          <motion.div
-           initial={{transform:`translate(45px)`}}
-           animate={{transform:`translate(${show ? 0 : 45}px)`}}>
-            <Image
-             className="z-101"
-             width={45}
-             height={45}
-             onClick={deleteTask}
-             src={bask}
-             alt="none"
-            />
-         </motion.div>
+        {(userId == adminId) && (
+          <Image src={bask} alt="none"
+           className="z-101 transition ease-in-out duration-300 transform translate-x-[45px]"
+           style={{transform:`translateX(${show ? 0 : 45}px)`}}
+           width={45} height={45}
+           onClick={deleteTask}
+          />
         )}
       </div>
       <CommLinkCard taskId={id} />

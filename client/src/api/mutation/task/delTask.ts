@@ -14,7 +14,7 @@ export async function delTask(id:string):Promise<ITask> {
   revalidatePath("/main/[id]","page");
   return apiClient.delete<ITask>(`task/${id}`,{
     headers:{
-      authorization:`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
       "x-user":userId
     }
   })

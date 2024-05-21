@@ -12,7 +12,7 @@ export async function delComment(id:string):Promise<IComment> {
   const userId = cookieStore.get("userId")?.value;
   return apiClient.delete<IComment>(`comments/${id}`,{
     headers:{
-      authorization:`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
       "x-user":userId
     }
   })

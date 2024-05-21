@@ -12,7 +12,7 @@ export async function delUser():Promise<IUser> {
   const id = cookieStore.get("userId")?.value;
     return apiClient.delete<IUser>(`user/${id}`,{
       headers:{
-        authorization:`Bearer ${token}`,
+        Authorization:`Bearer ${token}`,
         "x-user":id
       }
     })

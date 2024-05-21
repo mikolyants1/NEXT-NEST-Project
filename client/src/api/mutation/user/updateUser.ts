@@ -13,7 +13,7 @@ export async function updateUser(body:IUserBody):Promise<IUser> {
   const userId = cookieStore.get("userId")?.value;
     return apiClient.put<IUser>(`user/${userId}`,body,{
       headers:{
-        authorization:`Bearer ${token}`,
+        Authorization:`Bearer ${token}`,
         "x-user":userId
       }
     })

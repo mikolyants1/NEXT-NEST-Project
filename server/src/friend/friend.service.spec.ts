@@ -1,7 +1,6 @@
 import { ConfigModule } from "@nestjs/config";
 import { Test, TestingModule } from "@nestjs/testing";
 import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
-import { AuthModule } from "../auth/auth.module";
 import { PgConfig } from "../configs/pg.config";
 import { Friend } from "../entity/friend.entity";
 import { Invitation } from "../entity/invite.entity";
@@ -9,6 +8,9 @@ import { User } from "../entity/user.entity";
 import { FriendController } from "./friend.controller";
 import { FriendService } from "./friend.service";
 import { Repository } from "typeorm";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtConfig } from "../configs/jwt.config";
+import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe('friendService', () => { 
   const array_user_id:string[] = [];
@@ -22,18 +24,19 @@ describe('friendService', () => {
   beforeEach(async () => {
     const module:TestingModule = await Test.createTestingModule({
       imports:[
-        AuthModule,
+        JwtModule.registerAsync(JwtConfig()),
         TypeOrmModule.forFeature([User,Friend,Invitation]),
         TypeOrmModule.forRootAsync(PgConfig()),
         ConfigModule.forRoot({
-            isGlobal:true,
-            envFilePath:[
-              "./src/env/.pg.env"
-            ]
+          envFilePath:[
+            "./src/env/.jwt.env",
+            "./src/env/.pg.env"
+          ],
+          isGlobal:true
         })
       ],
       controllers:[FriendController],
-      providers:[FriendService]
+      providers:[FriendService,JwtStrategy]
     }).compile();
 
     service = module.get<FriendService>(FriendService);

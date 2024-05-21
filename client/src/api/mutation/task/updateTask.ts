@@ -12,7 +12,7 @@ export async function updateTask({taskId,title}:ITaskUpdateBody):Promise<ITask> 
   const userId = cookieStore.get("userId")?.value;
   return apiClient.put<ITask>(`task/${taskId}`,{title},{
     headers:{
-      authorization:`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
       "x-user":userId
     }
   })

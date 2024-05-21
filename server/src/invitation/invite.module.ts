@@ -4,15 +4,17 @@ import { InviteService } from "./invite.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Invitation } from "../entity/invite.entity";
 import { User } from "../entity/user.entity";
-import { AuthModule } from "../auth/auth.module";
+import { JwtStrategy } from "src/strategy/jwt.strategy";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtConfig } from "../configs/jwt.config";
 
 @Module({
   imports:[
-    AuthModule,
+    JwtModule.registerAsync(JwtConfig()),
     TypeOrmModule.forFeature([Invitation,User])
   ],
   controllers:[InviteController],
-  providers:[InviteService]
+  providers:[InviteService,JwtStrategy]
 })
 export class InviteModule implements OnModuleInit {
   onModuleInit() {

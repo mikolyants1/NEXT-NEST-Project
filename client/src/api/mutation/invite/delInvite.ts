@@ -13,11 +13,11 @@ export async function delInvite(id:string):Promise<Invitation> {
   const userId = cookieStore.get("userId")?.value;
   return apiClient.delete<Invitation>(`invitation/${id}`,{
       headers:{
-        authorization:`Bearer ${token}`,
+        Authorization:`Bearer ${token}`,
         "x-user":userId
       }
     }
-  ).then(({data}:AxiosResponse<Invitation>) =>{
+  ).then(({data}:AxiosResponse<Invitation>) => {
     revalidateTag("adresser");
     return data;
   });

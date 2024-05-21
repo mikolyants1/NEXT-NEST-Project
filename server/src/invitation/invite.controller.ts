@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Headers, Param, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Headers, Param, Post } from "@nestjs/common";
 import { InviteService } from "./invite.service";
 import { Invitation } from "../entity/invite.entity";
-import { AuthGuard } from "../guards/auth.guard";
 import { InviteBodyDto } from "../dto/invite.dto";
+import { Auth } from "src/guards/apply.guard";
 
 @Controller("invitation")
 export class InviteController {
@@ -18,13 +18,13 @@ export class InviteController {
     return this.service.getInviteAdresser(id);
   }
 
-  @UseGuards(AuthGuard)
+  @Auth()
   @Delete(":id")
   async deleteInvitation(@Param("id") id:string):Promise<number>{
     return this.service.deleteInvite(id);
   }
 
-  @UseGuards(AuthGuard)
+  @Auth()
   @Post()
   async createInvitation(
     @Headers("x-user") userId:string,

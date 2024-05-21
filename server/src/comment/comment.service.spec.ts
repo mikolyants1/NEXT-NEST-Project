@@ -5,10 +5,12 @@ import { Task } from "../entity/task.entity";
 import { Comment } from "../entity/comment.entity";
 import { Test, TestingModule } from "@nestjs/testing";
 import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
-import { AuthModule } from "../auth/auth.module";
 import { CommentController } from "./comment.controller";
 import { PgConfig } from "../configs/pg.config";
 import { ConfigModule } from "@nestjs/config";
+import { JwtConfig } from "../configs/jwt.config";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("CommentService",() => {
     const array_user_id:string[] = [];
@@ -23,18 +25,19 @@ describe("CommentService",() => {
     beforeEach(async () => {
       const module:TestingModule = await Test.createTestingModule({
         imports:[
-          AuthModule,
+          JwtModule.registerAsync(JwtConfig()),
           TypeOrmModule.forFeature([Task,Comment,User]),
           TypeOrmModule.forRootAsync(PgConfig()),
           ConfigModule.forRoot({
-            isGlobal:true,
             envFilePath:[
+              "./src/env/.jwt.env",
               "./src/env/.pg.env"
-            ]
-          })
+            ],
+            isGlobal:true
+          }),
         ],
         controllers:[CommentController],
-        providers:[CommentService]
+        providers:[CommentService,JwtStrategy]
       }).compile();
 
       service = module.get<CommentService>(CommentService);

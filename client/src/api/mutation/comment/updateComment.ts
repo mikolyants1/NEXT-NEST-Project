@@ -12,7 +12,7 @@ export async function updateComment({id,text}:ICommUpdateBody):Promise<IComment>
   const userId = cookieStore.get("userId")?.value;
   return apiClient.put<IComment>(`comments/${id}`,{text},{
     headers:{
-      authorization:`Bearer ${token}`,
+      Authorization:`Bearer ${token}`,
       "x-user":userId
     }
   })

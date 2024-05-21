@@ -1,21 +1,26 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger, OnApplicationShutdown } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UpdateAccessDto, UserBodyDto, UserCreateDto, UserResDto } from "../dto/user.dto";
 import { DeleteResult, Repository } from "typeorm";
 import * as bc from 'bcryptjs';
-import { AuthService } from "../auth/auth.service";
 import { User } from "../entity/user.entity";
 import { Comment } from "../entity/comment.entity";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
-export class UserService {
+export class UserService implements OnApplicationShutdown {
     constructor(
       @InjectRepository(User)
       private readonly users:Repository<User>,
       @InjectRepository(Comment)
       private readonly comments:Repository<Comment>,
-      private readonly jwt:AuthService
+      private readonly jwt:JwtService
     ){}
+
+    onApplicationShutdown(signal?: string) {
+      const logger = new Logger(UserService.name);
+      logger.log(signal);
+    }
 
     async getUsers():Promise<User[]>{
       return this.users.find();
@@ -33,7 +38,6 @@ export class UserService {
         password:hash_pass,
         raiting:0,
       });
-  
       return this.users.save(newUser);
     }
 
@@ -51,7 +55,7 @@ export class UserService {
       }
       const user_password = user.password || "";
       const success = await bc.compare(password,user_password);
-      const token = success ? this.jwt.sign(user) : "";
+      const token = success ? this.jwt.sign({id:user.id}) : "";
       const right_user = user && success;
       return {
         id: right_user ? user.id : "",

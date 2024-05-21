@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Task } from "./task.entity";
 
 @Entity({name:"task_comments"})
@@ -26,6 +26,5 @@ export class Comment {
     onUpdate:"CASCADE"
   })
   @JoinColumn({name:"task_id"})
-  @Index()
   task:Task;
 }

@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Headers, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Headers, Param, Post, Put } from "@nestjs/common";
 import { TaskService } from "./task.service";
 import { Task } from "../entity/task.entity";
 import { TaskBodyDto } from "../dto/task.dto";
-import { AuthGuard } from "../guards/auth.guard";
+import { Auth } from "../guards/apply.guard";
 
 @Controller("task")
 export class TaskController {
@@ -17,7 +17,7 @@ export class TaskController {
       return this.service.getUserTasks(id);
     }
     
-    @UseGuards(AuthGuard)
+    @Auth()
     @Post()
     async createUserTask(
       @Headers("x-user") id:string,
@@ -26,7 +26,7 @@ export class TaskController {
       return this.service.createUserTasks(id,body.title);
     }
 
-    @UseGuards(AuthGuard)
+    @Auth()
     @Delete(":id")
     async deleteTask(
       @Param("id") taskId:string,
@@ -35,7 +35,7 @@ export class TaskController {
       return this.service.deleteUserTasks(taskId,userId);
     }
 
-    @UseGuards(AuthGuard)
+    @Auth()
     @Put(":id")
     async updateTask(
       @Param("id") id:string,

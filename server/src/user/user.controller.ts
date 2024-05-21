@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { User } from "../entity/user.entity";
-import { AuthGuard } from "../guards/auth.guard";
 import { UpdateAccessDto,UserBodyDto, UserCreateDto, UserResDto } from "../dto/user.dto";
-import { HidePassInterceptor } from "src/interceptors/users.interceptor";
+import { HidePassInterceptor } from "../interceptors/users.interceptor";
+import { Auth } from "../guards/apply.guard";
 
 @Controller("user")
 export class UserController {
@@ -32,13 +32,13 @@ export class UserController {
     return this.service.checkUser(body);
   }
 
-  @UseGuards(AuthGuard)
+  @Auth()
   @Delete(":id")
   async deleteUser(@Param("id") id:string):Promise<number>{
     return this.service.deleteUser(id);
   }
 
-  @UseGuards(AuthGuard)
+  @Auth()
   @UseInterceptors(HidePassInterceptor)
   @Put(":id")
   async updateUser(

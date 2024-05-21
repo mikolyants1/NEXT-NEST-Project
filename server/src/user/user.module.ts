@@ -3,16 +3,18 @@ import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "../entity/user.entity";
-import { AuthModule } from "../auth/auth.module";
 import { Comment } from "../entity/comment.entity";
+import { JwtStrategy } from "../strategy/jwt.strategy";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtConfig } from "../configs/jwt.config";
 
 @Module({
   imports:[
-    AuthModule,
+    JwtModule.registerAsync(JwtConfig()),
     TypeOrmModule.forFeature([User,Comment])
   ],
   controllers:[UserController],
-  providers:[UserService]
+  providers:[UserService,JwtStrategy]
 })
 export class UserModule implements OnModuleInit {
   onModuleInit() {

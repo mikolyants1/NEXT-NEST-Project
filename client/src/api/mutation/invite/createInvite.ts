@@ -13,7 +13,7 @@ export async function createInvite(recipient:string):Promise<Invitation> {
       method:"POST",
       headers:{
         "Content-type":"application/json",
-        authorization:`Bearer ${token}`,
+        Authorization:`Bearer ${token}`,
         "x-user":userId || ""
       },
       body:JSON.stringify({recipient}),
@@ -23,6 +23,6 @@ export async function createInvite(recipient:string):Promise<Invitation> {
       }
     }
   );
-  revalidateTag("adresser")
+  revalidateTag("adresser");
   return data.json();
 }

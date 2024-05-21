@@ -10,7 +10,7 @@ import { delInvite } from "@/api/mutation/invite/delInvite";
 import CancelButtonCard from "./buttons/CancelButtonCard";
 
 interface IProps extends Invitation {
-    role:EInvite
+  role:EInvite
  }
  
 async function UserInviteCard({id,recipient,addresser,role}:IProps):Promise<JSX.Element> {

@@ -4,15 +4,17 @@ import { TaskController } from "./task.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "../entity/user.entity";
 import { Task } from "../entity/task.entity";
-import { AuthModule } from "../auth/auth.module";
+import { JwtModule } from "@nestjs/jwt";
+import { JwtConfig } from "../configs/jwt.config";
+import { JwtStrategy } from "../strategy/jwt.strategy";
 
 @Module({
   imports:[
-    AuthModule,
+    JwtModule.registerAsync(JwtConfig()),
     TypeOrmModule.forFeature([User,Task])
   ],
   controllers:[TaskController],
-  providers:[TaskService]
+  providers:[TaskService,JwtStrategy]
 })
 export class TaskModule implements OnModuleInit {
   onModuleInit() {
