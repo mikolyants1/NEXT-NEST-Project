@@ -2,7 +2,7 @@
 
 import {type IUser } from "@/libs/types/type";
 import { FriendContext } from "@/model/context/friend";
-import SearchItemCard from "../search/items/item/SearchItemCard";
+import { SearchItemCard } from "../search/items/item/SearchItemCard";
 import { getFriendUsers } from "@/model/functions/compare/friendUsers"
 import { useQuery } from "@tanstack/react-query";
 import Loading from "@/ui/load/Loading";
