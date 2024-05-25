@@ -55,21 +55,21 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
           })}
         </div>
         <div style={{width:isWidth ? "100%" : "80%"}}
-         className="mt-10 ml-auto mr-auto justify-center items-center flex">
-          <Input w='100%'
-           onChange={change}
-           bg="rgb(200,200,200)"
-           placeholder="write comment"
-           borderRightRadius={0}
-           />
-          <Button minW="80px"
-           colorScheme="blue"
-           borderLeftRadius={0}
-           onClick={addComment}>
-            add
-          </Button>
-        </div>
-      </>
+        className="mt-10 ml-auto mr-auto justify-center items-center flex">
+        <Input w='100%'
+          onChange={change}
+          bg="rgb(200,200,200)"
+          placeholder="write comment"
+          borderRightRadius={0}
+         />
+        <Button minW="80px"
+          colorScheme="blue"
+          borderLeftRadius={0}
+          onClick={addComment}>
+          add
+        </Button>
+      </div>
+    </>
   )
 }
 
