@@ -1,10 +1,7 @@
 "use client"
 
-import { useStore } from '@/model/store/store'
-import {type ILinks,type IStore } from '@/libs/types/type'
-import { Drawer, DrawerBody,DrawerCloseButton,DrawerContent,
- DrawerHeader,Image,Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
-import SearchCard from './search/SearchCard'
+import { Drawer,DrawerCloseButton,DrawerContent,DrawerHeader,
+Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
 import Loading from '@/ui/load/Loading'
 import { Suspense, lazy, useState } from 'react'
 
