@@ -18,7 +18,8 @@ async function UserInviteCard({id,recipient,addresser,role}:IProps):Promise<JSX.
   const user:IUser = await getUser(inviteUserId);
 
   return (
-    <div className="w-[300px] mt-10 bg-[rgb(90,90,90)] box-border flex flex-col justify-center items-center text-white pt-2 rounded-xl">
+    <div className="w-[300px] mt-10 bg-[rgb(90,90,90)] box-border flex
+     flex-col justify-center items-center text-white pt-2 rounded-xl">
       <LogoCard size="xl"
        username={user.username}
        allow={false}
