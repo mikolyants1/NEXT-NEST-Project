@@ -1,8 +1,7 @@
 "use client"
 
-
-import { Drawer,DrawerCloseButton,DrawerContent,
- DrawerHeader,Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
+import { Drawer,DrawerCloseButton,DrawerContent,DrawerHeader,
+Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
 import Loading from '@/ui/load/Loading'
 import { Suspense, lazy, useState } from 'react'
 

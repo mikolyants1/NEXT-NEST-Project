@@ -2,7 +2,7 @@
 
 import { FriendContext } from '@/model/context/friend';
 import { Input } from '@chakra-ui/react';
-import SearchItemCard from './items/item/SearchItemCard';
+import { SearchItemCard } from './items/item/SearchItemCard';
 import {type IUser } from '@/libs/types/type';
 import { getUsersByTag } from '@/model/functions/find/getUsersByTag';
 import {type ChangeEvent, startTransition, useState } from 'react';
