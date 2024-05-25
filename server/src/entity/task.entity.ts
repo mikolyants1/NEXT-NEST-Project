@@ -4,7 +4,7 @@ import { Comment } from "./comment.entity";
 
 @Entity({name:"user_tasks"})
 export class Task {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("uuid",{name:"id"})
   id:string;
 
   @Column({name:"title",type:"varchar",length:255,nullable:false})
@@ -14,7 +14,7 @@ export class Task {
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
   })
-  @JoinColumn({name:"user_id"})
+  @JoinColumn({name:"user_id",referencedColumnName:"id"})
   user:User;
 
   @OneToMany(()=>Comment,({task}:Comment)=>task)

@@ -3,7 +3,7 @@ import { Task } from "./task.entity";
 
 @Entity({name:"task_comments"})
 export class Comment {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("uuid",{name:"id"})
   id:string;
 
   @Column({name:"text",type:"varchar",length:255,nullable:false})
@@ -18,13 +18,13 @@ export class Comment {
   @Column({name:"author_id",type:"varchar",length:255,nullable:false})
   author_id:string;
 
-  @Column({name:"date",type:"bigint",nullable:false})
+  @Column({name:"date",type:"bigint",nullable:false,default:Date.now()})
   date:number;
 
   @ManyToOne(() => Task,({comments}:Task) => comments,{
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
   })
-  @JoinColumn({name:"task_id"})
+  @JoinColumn({name:"task_id",referencedColumnName:"id"})
   task:Task;
 }

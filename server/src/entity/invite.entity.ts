@@ -3,7 +3,7 @@ import { User } from "./user.entity";
 
 @Entity({name:"user_invitations"})
 export class Invitation {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("uuid",{name:"id"})
   id:string;
 
   @Column({name:"addresser",type:"varchar",length:255,nullable:false})
@@ -16,6 +16,6 @@ export class Invitation {
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
   })
-  @JoinColumn({name:"user_id"})
+  @JoinColumn({name:"user_id",referencedColumnName:"id"})
   user:User;
 }

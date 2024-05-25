@@ -5,7 +5,7 @@ import { Friend } from './friend.entity';
 
 @Entity({name:"users"})
 export class User {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("uuid",{name:"id"})
   id:string;
 
   @Column({name:"username",type:"varchar",length:255,nullable:false})
