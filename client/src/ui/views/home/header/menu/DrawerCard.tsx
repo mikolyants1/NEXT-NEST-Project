@@ -13,6 +13,7 @@ interface IProps {
   onClose:()=>void
 }
 
+
 const Search = lazy(() => import("../menu/search/SearchCard"));
 const Friend = lazy(() => import("../menu/friends/FriendCard"));
 
