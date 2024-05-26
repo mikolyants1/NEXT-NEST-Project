@@ -2,7 +2,7 @@
 
 import {type IComment } from '@/libs/types/type'
 import { Box, Button, Flex, Input, useMediaQuery } from '@chakra-ui/react'
-import  {type ChangeEvent, useState } from 'react'
+import  {type ChangeEvent, useState, KeyboardEvent } from 'react'
 import CommentCard from './item/CommentCard'
 import { createComment } from '@/api/mutation/comment/createComment'
 import DayCommCard from './item/DayCommCard'
@@ -25,12 +25,17 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
   }
 
   const addComment = async ():Promise<void> => {
+    if (!comment) return;
     const newComm:IComment = await createComment({
       taskId,
       text:comment,
       author
     });
     setMutComment((prv:IComment[]) => ([...prv,newComm]));
+  }
+
+  const keyHandler = (e:KeyboardEvent<HTMLInputElement>):void => {
+    if (e.key === "enter") addComment();
   }
 
   return (
@@ -58,6 +63,7 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
         className="mt-10 ml-auto mr-auto justify-center items-center flex">
         <Input w='100%'
           onChange={change}
+          onKeyUp={keyHandler}
           bg="rgb(200,200,200)"
           placeholder="write comment"
           borderRightRadius={0}
