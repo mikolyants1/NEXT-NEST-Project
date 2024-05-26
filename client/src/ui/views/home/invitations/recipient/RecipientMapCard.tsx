@@ -1,6 +1,6 @@
 import { getInviteLikeRecipient } from '@/api/query/invite/getInviteLikeRecipient';
 import {type Invitation } from '@/libs/types/type';
-import EmptyInviteCard from '../empty/EmptyInviteCard';
+import { EmptyInviteCard } from '../empty/EmptyInviteCard';
 import UserInviteCard from '../user/UserInviteCard';
 import { EInvite } from '@/libs/enums/enum';
 import UserInviteWrapper from '../user/wrappers/UserInviteWrapper';
