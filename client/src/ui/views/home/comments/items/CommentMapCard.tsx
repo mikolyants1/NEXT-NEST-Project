@@ -1,7 +1,7 @@
 "use client"
 
 import {type IComment } from '@/libs/types/type'
-import { Box, Button, Flex, Input, useMediaQuery } from '@chakra-ui/react'
+import { Button, Input, useMediaQuery } from '@chakra-ui/react'
 import  {type ChangeEvent, useState } from 'react'
 import CommentCard from './item/CommentCard'
 import { createComment } from '@/api/mutation/comment/createComment'
