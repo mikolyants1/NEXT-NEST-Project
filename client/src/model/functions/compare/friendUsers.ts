@@ -6,8 +6,7 @@ import {type IFriend,type IUser } from "@/libs/types/type"
 import { cookies } from "next/headers";
 
 export const getFriendUsers = async ():Promise<IUser[]> => {
-  const id = cookies().get("userId")?.value;
-  if (!id) return [];
+  const id = cookies().get("userId")?.value as string;
   const friends:IFriend[] = await getFriends(id);
   const users:IUser[] = await getUsers();
   return users.filter((u:IUser) => (

@@ -8,7 +8,7 @@ import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
 import { PgConfig } from "../configs/pg.config";
 import { ConfigModule } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
-import { JwtConfig } from "src/configs/jwt.config";
+import { JwtConfig } from "../configs/jwt.config";
 import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("InviteService",() => {
@@ -47,7 +47,7 @@ describe("InviteService",() => {
   });
 
   it("create invite",async () => {
-    const users = await userSource.create([
+    const users = userSource.create([
       {
         username:"invite_name",
         password:"invite_pass",
@@ -74,15 +74,15 @@ describe("InviteService",() => {
   it("del invite",async () => {
     const users = userSource.create([
       {
-        username:"invite_name2",
-        password:"invite_pass2",
-        tag:"@invite2",
+        username:"invite_name",
+        password:"invite_pass",
+        tag:"@invite",
         raiting:0
       },
       {
-        username:"invite_name3",
-        password:"invite_pass3",
-        tag:"@invite3",
+        username:"invite_name1",
+        password:"invite_pass1",
+        tag:"@invite1",
         raiting:0
       }
     ]);
@@ -95,7 +95,7 @@ describe("InviteService",() => {
     expect(del_res).toEqual(1);
   });
   
-  afterAll(() => {
+  afterEach(() => {
     for (const id of array_invite_id) {
       inviteSource.delete({id})
     }

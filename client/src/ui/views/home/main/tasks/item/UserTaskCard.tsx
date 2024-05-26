@@ -36,8 +36,8 @@ function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
 
   return (
     <>
-     <div
-      className="w-100 mt-5 h-[45px] rounded-lg justify-between pl-1 flex items-center box-border gap-x-[3px] overflow-hidden text-white bg-[rgb(100,100,100)]"
+     <div className="w-100 mt-5 h-[45px] rounded-lg justify-between pl-1 flex items-center
+      box-border gap-x-[3px] overflow-hidden text-white bg-[rgb(100,100,100)]"
       onMouseOver={() =>setShow(true)}
       onMouseOut={()=>setShow(false)}>
         <div className="text-lg"

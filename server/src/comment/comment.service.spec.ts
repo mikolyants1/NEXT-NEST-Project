@@ -77,9 +77,9 @@ describe("CommentService",() => {
 
     it("delete task comment",async () => {
         const user = userSource.create({
-          username:"comm_name1",
-          password:"comm_pass1",
-          tag:"@comm1",
+          username:"comm_name",
+          password:"comm_pass",
+          tag:"@comm",
           raiting:0
         });
         await userSource.save(user);
@@ -102,9 +102,9 @@ describe("CommentService",() => {
 
       it("update task comment",async () => {
         const user = userSource.create({
-          username:"comm_name2",
-          password:"comm_pass2",
-          tag:"@comm2",
+          username:"comm_name",
+          password:"comm_pass",
+          tag:"@comm",
           raiting:0
         });
         await userSource.save(user);
@@ -127,7 +127,7 @@ describe("CommentService",() => {
         expect(update_com.was_update).toBeTruthy();
       });
 
-    afterAll(() => {
+    afterEach(() => {
       for (const id of array_comment_id) {
         commentSource.delete({id});
       }

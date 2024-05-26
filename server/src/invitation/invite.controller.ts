@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Headers, Param, Post } from "@nestjs/com
 import { InviteService } from "./invite.service";
 import { Invitation } from "../entity/invite.entity";
 import { InviteBodyDto } from "../dto/invite.dto";
-import { Auth } from "src/guards/apply.guard";
+import { Auth } from "../guards/apply.guard";
 
 @Controller("invitation")
 export class InviteController {

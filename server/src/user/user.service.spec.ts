@@ -8,7 +8,7 @@ import { PgConfig } from "../configs/pg.config";
 import { ConfigModule } from "@nestjs/config";
 import { Repository} from "typeorm";
 import { JwtModule } from "@nestjs/jwt";
-import { JwtConfig } from "src/configs/jwt.config";
+import { JwtConfig } from "../configs/jwt.config";
 import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("UserService", () => {
@@ -73,9 +73,9 @@ describe("UserService", () => {
 
   it("find user",async () => {
     const user:User = await service.createUser({
-      username:"test_name1",
-      password:"test_password1",
-      tag:"@test_tag1"
+      username:"test_name",
+      password:"test_password",
+      tag:"@test_tag"
     });
     array_id.push(user.id);
     await userDatabase.save(user);
@@ -84,9 +84,9 @@ describe("UserService", () => {
 
   it("remove user",async () => {
     const user = await service.createUser({
-      username:"test_name2",
-      password:"test_password2",
-      tag:"@test_tag2"
+      username:"test_name",
+      password:"test_password",
+      tag:"@test_tag"
     });
     await userDatabase.save(user)
     const del_res = await service.deleteUser(user.id);
@@ -95,9 +95,9 @@ describe("UserService", () => {
 
   it("update user",async () => {
     const user = await service.createUser({
-      username:"test_name3",
-      password:"test_password3",
-      tag:"@test_tag3"
+      username:"test_name",
+      password:"test_password",
+      tag:"@test_tag"
     });
     array_id.push(user.id);
     await userDatabase.save(user);
@@ -112,9 +112,9 @@ describe("UserService", () => {
 
   it("get all users",async () => {
     const user = await service.createUser({
-      username:"test_name3",
-      password:"test_password3",
-      tag:"@test_tag3"
+      username:"test_name",
+      password:"test_password",
+      tag:"@test_tag"
     });
     array_id.push(user.id);
     await userDatabase.save(user);
@@ -124,7 +124,7 @@ describe("UserService", () => {
     .mockImplementation(async () => [user.tag]);
   });
   
-  afterAll(async () => {
+  afterEach(async () => {
     for (const id of array_id) {
       userDatabase.delete({id});
     }

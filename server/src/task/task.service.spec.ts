@@ -55,50 +55,50 @@ describe("TaskService",() => {
      const create_user:User = await userSource.save(user);
      user_array_id.push(create_user.id);
      const create_task:Task = await service
-     .createUserTasks(create_user.id,"test_task1");
+     .createUserTasks(create_user.id,"test_task");
      task_array_id.push(create_task.id);
-     expect(create_task.title).toBe("test_task1");
+     expect(create_task.title).toBe("test_task");
    });
 
    it("update user tasks",async () => {
     const user:User = userSource.create({
-       username:"task_name1",
-       password:"task_pass1",
-       tag:"@task_tag1",
+       username:"task_name",
+       password:"task_pass",
+       tag:"@task_tag",
        raiting:0
     });
     const create_user:User = await userSource.save(user);
     user_array_id.push(create_user.id);
     const create_task:Task = await service
-    .createUserTasks(create_user.id,"test_task1");
+    .createUserTasks(create_user.id,"test_task");
     task_array_id.push(create_task.id);
     const update_task:Task = await service
     .updateUserTasks(create_task.id,{
-        title:"update_task1"
+        title:"update_task"
     });
-    expect(update_task.title).toBe("update_task1");
+    expect(update_task.title).toBe("update_task");
   });
 
    it("delete user tasks",async () => {
-    const user = userSource.create({
-       username:"task_name2",
-       password:"task_pass2",
-       tag:"@task_tag2",
+    const user:User = userSource.create({
+       username:"task_name",
+       password:"task_pass",
+       tag:"@task_tag",
        raiting:0
     });
-    const create_user = await userSource.save(user);
+    const create_user:User = await userSource.save(user);
     user_array_id.push(create_user.id);
-    const create_task = await service
-    .createUserTasks(create_user.id,"test_task2");
+    const create_task:Task = await service
+    .createUserTasks(create_user.id,"test_task");
     const del_res = await service
     .deleteUserTasks(create_task.id,create_user.id);
-    const get_user = await userSource
+    const get_user = await userSource 
     .findOneBy({id:create_user.id});
     expect(get_user.raiting).toEqual(user.raiting + 1);
     expect(del_res).toEqual(1);
   });
 
-   afterAll(async () => {
+   afterEach(async () => {
      for (const id of task_array_id) {
         taskSource.delete(id);
      }
