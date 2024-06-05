@@ -1,3 +1,4 @@
+
 import Loading from '@/ui/load/Loading';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import type { Metadata } from 'next'

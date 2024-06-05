@@ -22,9 +22,7 @@ export interface IFriend {
 export interface Invitation {
   id:string,
   addresser:string,
-  recipient:string,
-  is_adresser:boolean;
-  recipient_invite_id:string;
+  recipient:string
 }
 
 export interface ICheckBody {
