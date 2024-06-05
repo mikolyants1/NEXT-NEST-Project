@@ -17,7 +17,7 @@ interface IProps {
 
 function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
  const router:AppRouterInstance = useRouter();
- const lett:string = username.slice(0,1) || "";
+ const upName:string = username.slice(0,1) || "";
  const {one,two}:ILogo = createLogo();
  
   return (
@@ -32,7 +32,7 @@ function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
        padding:styles.getSize("p",size),
        fontSize:styles.getSize("fs",size)
      }}>
-      {lett.toUpperCase()}
+      {upName.toUpperCase()}
     </div>
   );
 }

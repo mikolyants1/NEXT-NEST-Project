@@ -14,18 +14,14 @@ interface IProps {
   user:IUser
 }
 
-function ProfileCard({user}:IProps):JSX.Element {
+function ProfileCard({user:{username,id,tag,raiting}}:IProps):JSX.Element {
   const router:AppRouterInstance = useRouter();
   const {dispatch,onOpen} = useContext<IModalContext>(ModalContext);
   
   const updateOpen = () => {
     dispatch({
       type:EModal.UPDATE_USER,
-      payload:{
-        username:user.username,
-        id:user.id,
-        tag:user.tag
-      }
+      payload:{username,id,tag}
     });
     onOpen();
   }
@@ -40,23 +36,22 @@ function ProfileCard({user}:IProps):JSX.Element {
 
   return (
     <>
-      <InviteLinkCard id={user.id} />
-
+      <InviteLinkCard id={id} />
       <LogoCard
-       username={user.username}
+       username={username}
        allow={false}
        size="xl"
       />
       <div className="text-xl mt-4">
-         {`username: ${user.username}`}
+         {`username: ${username}`}
       </div>
       <div className="text-xl mt-1">
-         {`tag: ${user.tag}`}
+         {`tag: ${tag}`}
       </div>
       <div className="text-xl mt-1">
          raiting:
          <span className="text-green-600">
-           {` ${user.raiting}`}
+           {` ${raiting}`}
          </span>
       </div>
       <Button mt={5} w={150}

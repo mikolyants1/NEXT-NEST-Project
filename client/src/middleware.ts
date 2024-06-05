@@ -2,11 +2,12 @@ import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
+import { getCookie } from "./model/hooks/useCookie";
 
 export function middleware(req:NextRequest){
   const store:ReadonlyRequestCookies = cookies();
   if (!store.has("userId")) notFound();
-  const userId = store.get("userId")?.value;
+  const userId = getCookie("userId");
   const reg = new RegExp(/\/|main|invitation|profile/g);
   const id = req.nextUrl.pathname.replace(reg,"");
   if (id !== userId){

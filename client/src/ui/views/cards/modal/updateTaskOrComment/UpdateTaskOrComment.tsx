@@ -55,10 +55,10 @@ function UpdateTaskOrCommentCard():JSX.Element {
      </div>
      <div className="w-[80%] gap-x-5 justify-center items-center flex m-[10px_auto_5px_auto]">
        {state.type == EModal.CHANGE_COMMENT && (
-       <Button colorScheme="red"
-        onClick={remove}>
-         delete
-       </Button>
+         <Button colorScheme="red"
+          onClick={remove}>
+           delete
+         </Button>
        )}
        <Button
         colorScheme="green"

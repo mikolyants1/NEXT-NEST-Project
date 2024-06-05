@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { getCookie } from '@/model/hooks/useCookie';
 import { redirect } from 'next/navigation';
 import {type ReactNode } from 'react'
 
@@ -7,8 +7,8 @@ function layout({
 }:Readonly<{
   children:ReactNode
 }>):ReactNode {
-  const userId = cookies().has("userId");
-  const token = cookies().has("token");
+  const userId = getCookie("userId");
+  const token = getCookie("token");
   if (!userId || !token){
     redirect("/unauthorized");
   }

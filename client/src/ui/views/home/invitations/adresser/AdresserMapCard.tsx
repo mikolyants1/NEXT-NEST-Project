@@ -5,7 +5,7 @@ import UserInviteCard from '../user/UserInviteCard';
 import { EInvite } from '@/libs/enums/enum';
 import UserInviteWrapper from '../user/wrappers/UserInviteWrapper';
 
-async function AdresserMapCard():Promise<JSX.Element> {
+export async function AdresserMapCard():Promise<JSX.Element> {
   const adressInvites:Invitation[] = await getInviteLikeAdresser();
   return (
     <>
@@ -25,5 +25,3 @@ async function AdresserMapCard():Promise<JSX.Element> {
     </>
   )
 }
-
-export default AdresserMapCard

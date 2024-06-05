@@ -1,7 +1,8 @@
 "use client"
 
-import { Drawer,DrawerCloseButton,DrawerContent,DrawerHeader,
-Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
+import { Drawer, DrawerBody,DrawerCloseButton,DrawerContent,
+ DrawerHeader,Image,Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
+import SearchCard from './search/SearchCard'
 import Loading from '@/ui/load/Loading'
 import { Suspense, lazy, useState } from 'react'
 
@@ -9,7 +10,6 @@ interface IProps {
   isOpen:boolean,
   onClose:()=>void
 }
-
 
 const Search = lazy(() => import("../menu/search/SearchCard"));
 const Friend = lazy(() => import("../menu/friends/FriendCard"));

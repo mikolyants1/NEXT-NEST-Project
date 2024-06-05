@@ -1,12 +1,12 @@
 import { getTaskComments } from '@/api/query/comment/getComments'
-import { getTask } from '@/api/query/task/getTask'
 import { getUser } from '@/api/query/user/getUser'
-import type { IComment, ITask, IUser } from '@/libs/types/type'
+import type { IComment, IUser } from '@/libs/types/type'
+import { getCookie } from '@/model/hooks/useCookie'
+import Loading from '@/ui/load/Loading'
 import BackLinkCard from '@/ui/views/home/comments/back/BackLinkCard'
 import CommentMapCard from '@/ui/views/home/comments/items/CommentMapCard'
-import CommentTilteCard from '@/ui/views/home/comments/title/CommentTilteCard'
 import type { Metadata } from 'next'
-import { cookies } from 'next/headers'
+import dynamic from 'next/dynamic'
 
 interface IProps {
   params:{
@@ -21,18 +21,23 @@ export const metadata:Metadata = {
 
 export const revalidate = 3600;
 
+const CommentTitleCard = dynamic(
+ () => import("@/ui/views/home/comments/title/CommentTilteCard"),
+ {
+   ssr:false,
+   loading:() => <Loading />
+ }
+);
+
 async function page({params}:IProps):Promise<JSX.Element> {
-  const id = cookies().get("userId")?.value || "";
+  const id = getCookie("userId");
   const comments:IComment[] = await getTaskComments(params.id);
   const user:IUser = await getUser(id);
-  const task:ITask = await getTask(params.id);
-
+  
   return (
     <>
       <BackLinkCard />
-      <CommentTilteCard
-       title={task.title}
-       />
+      <CommentTitleCard id={params.id} />
       <div className="w-[100%] h-[500px] grid grid-rows-[1fr_60px]">
         <CommentMapCard
          data={comments}

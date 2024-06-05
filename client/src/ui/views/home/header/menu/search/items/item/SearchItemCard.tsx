@@ -6,7 +6,7 @@ import SetUserCard from './action/SetUserCard';
 import { useContext, useState } from 'react';
 import { FriendContext } from '@/model/context/friend';
 
-export function SearchItemCard({username,id}:IUser):JSX.Element {
+function SearchItemCard({username,id}:IUser):JSX.Element {
   const isFriend = useContext<boolean>(FriendContext);
   const [show,setShow] = useState<boolean>(false);
  
@@ -28,3 +28,5 @@ export function SearchItemCard({username,id}:IUser):JSX.Element {
     </div>
   )
 }
+
+export default SearchItemCard

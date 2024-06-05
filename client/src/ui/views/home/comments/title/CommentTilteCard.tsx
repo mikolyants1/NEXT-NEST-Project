@@ -1,12 +1,15 @@
+import { getTask } from "@/api/query/task/getTask"
+import { ITask } from "@/libs/types/type";
 
 interface IProps {
-  title:string
+  id:string
 }
 
-function CommentTilteCard({title}:IProps):JSX.Element {
+async function CommentTilteCard({id}:IProps):Promise<JSX.Element> {
+  const task:ITask = await getTask(id);
   return (
     <div className="w-[100%] mt-3 text-center text-3xl mb-3">
-       Comments for {`"${title}"`}
+       Comments for {`"${task.title}"`}
     </div>
   )
 }

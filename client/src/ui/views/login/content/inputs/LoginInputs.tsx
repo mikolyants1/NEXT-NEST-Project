@@ -11,9 +11,10 @@ interface IProps {
 
 function LoginInput({name,err,focus}:IProps):JSX.Element{
   const {control} = useFormContext<TForm>();
-  const invalid:boolean = err.some((i:string)=>i == name);
+  const invalid:boolean = err.some(e => e == name);
   const color:string = invalid ? "red" : "white";
-   return (
+
+    return (
        <div className="w-[90%] align-center flex-column flex mt-5 mr-auto ml-auto">
           <Controller
            control={control}
@@ -31,7 +32,7 @@ function LoginInput({name,err,focus}:IProps):JSX.Element{
            )}
           />
        </div>
-   );
+    )
 }
 
 export default memo(LoginInput);

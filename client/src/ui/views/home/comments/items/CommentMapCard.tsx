@@ -2,7 +2,7 @@
 
 import {type IComment } from '@/libs/types/type'
 import { Box, Button, Flex, Input, useMediaQuery } from '@chakra-ui/react'
-import  {type ChangeEvent, useState, KeyboardEvent } from 'react'
+import  {type ChangeEvent, useState } from 'react'
 import CommentCard from './item/CommentCard'
 import { createComment } from '@/api/mutation/comment/createComment'
 import DayCommCard from './item/DayCommCard'
@@ -25,7 +25,6 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
   }
 
   const addComment = async ():Promise<void> => {
-    if (!comment) return;
     const newComm:IComment = await createComment({
       taskId,
       text:comment,
@@ -34,14 +33,10 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
     setMutComment((prv:IComment[]) => ([...prv,newComm]));
   }
 
-  const keyHandler = (e:KeyboardEvent<HTMLInputElement>):void => {
-    if (e.key === "enter") addComment();
-  }
-
   return (
       <>
         <div style={{width:isWidth ? "100%" : "80%"}}
-         className={`w-[80%] overflow-y-scroll box-border pl-5 mt-10 ml-auto mr-auto`}>
+         className='w-[80%] overflow-y-scroll box-border pl-5 mt-10 ml-auto mr-auto'>
           {mutComment.map((c:IComment,idx:number):JSX.Element => {
              const isNewDay:boolean = checkData(data,idx);
              return (
@@ -60,22 +55,21 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
           })}
         </div>
         <div style={{width:isWidth ? "100%" : "80%"}}
-        className="mt-10 ml-auto mr-auto justify-center items-center flex">
-        <Input w='100%'
-          onChange={change}
-          onKeyUp={keyHandler}
-          bg="rgb(200,200,200)"
-          placeholder="write comment"
-          borderRightRadius={0}
-         />
-        <Button minW="80px"
-          colorScheme="blue"
-          borderLeftRadius={0}
-          onClick={addComment}>
-          add
-        </Button>
-      </div>
-    </>
+         className="mt-10 ml-auto mr-auto justify-center items-center flex">
+          <Input w='100%'
+           onChange={change}
+           bg="rgb(200,200,200)"
+           placeholder="write comment"
+           borderRightRadius={0}
+           />
+          <Button minW="80px"
+           colorScheme="blue"
+           borderLeftRadius={0}
+           onClick={addComment}>
+            add
+          </Button>
+        </div>
+      </>
   )
 }
 

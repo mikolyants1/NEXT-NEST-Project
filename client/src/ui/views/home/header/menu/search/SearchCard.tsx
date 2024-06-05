@@ -2,7 +2,7 @@
 
 import { FriendContext } from '@/model/context/friend';
 import { Input } from '@chakra-ui/react';
-import { SearchItemCard } from './items/item/SearchItemCard';
+import SearchItemCard from './items/item/SearchItemCard';
 import {type IUser } from '@/libs/types/type';
 import { getUsersByTag } from '@/model/functions/find/getUsersByTag';
 import {type ChangeEvent, startTransition, useState } from 'react';
@@ -11,9 +11,9 @@ function SearchCard():JSX.Element {
   const [sortUsers,setSortUsers] = useState<IUser[]>([]);
 
   const change = async (e:ChangeEvent<HTMLInputElement>):Promise<void> => {
-    const newUsers = await getUsersByTag(e.target.value);
+    const users:IUser[] = await getUsersByTag(e.target.value);
     startTransition(() => {
-      setSortUsers(e.target.value ? newUsers : []);
+      setSortUsers(e.target.value ? users : []);
     });
   }
   
