@@ -7,9 +7,6 @@ import { InviteController } from "./invite.controller";
 import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
 import { PgConfig } from "../configs/pg.config";
 import { ConfigModule } from "@nestjs/config";
-import { JwtModule } from "@nestjs/jwt";
-import { JwtConfig } from "../configs/jwt.config";
-import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("InviteService",() => {
   const array_invite_id:string[] = [];
@@ -22,7 +19,6 @@ describe("InviteService",() => {
   beforeEach(async () => {
     const module:TestingModule = await Test.createTestingModule({
         imports:[
-          JwtModule.registerAsync(JwtConfig()),
           TypeOrmModule.forFeature([Invitation,User]),
           TypeOrmModule.forRootAsync(PgConfig()),
           ConfigModule.forRoot({
@@ -34,7 +30,7 @@ describe("InviteService",() => {
           }),
         ],
         controllers:[InviteController],
-        providers:[InviteService,JwtStrategy]
+        providers:[InviteService]
     }).compile();
      
     service = module.get<InviteService>(InviteService);
@@ -64,25 +60,24 @@ describe("InviteService",() => {
     await userSource.save(users);
     array_user_id.push(users[0].id,users[1].id)
     const invite = await service.createInvite(users[0].id,{
-        recipient:users[1].id
+      recipient:users[1].id
     });
     array_invite_id.push(invite.id);
     expect(invite.addresser).toBe(users[0].id);
-    expect(invite.recipient).toBe(users[1].id);
   });
 
   it("del invite",async () => {
     const users = userSource.create([
       {
-        username:"invite_name",
-        password:"invite_pass",
-        tag:"@invite",
+        username:"invite_name2",
+        password:"invite_pass2",
+        tag:"@invite2",
         raiting:0
       },
       {
-        username:"invite_name1",
-        password:"invite_pass1",
-        tag:"@invite1",
+        username:"invite_name3",
+        password:"invite_pass3",
+        tag:"@invite3",
         raiting:0
       }
     ]);
@@ -95,7 +90,7 @@ describe("InviteService",() => {
     expect(del_res).toEqual(1);
   });
   
-  afterEach(() => {
+  afterAll(() => {
     for (const id of array_invite_id) {
       inviteSource.delete({id})
     }

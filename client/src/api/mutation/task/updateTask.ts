@@ -3,13 +3,11 @@
 import {type ITask,type ITaskUpdateBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
-import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { cookies } from "next/headers";
+import { getCookie } from "@/model/hooks/useCookie";
 
 export async function updateTask({taskId,title}:ITaskUpdateBody):Promise<ITask> {
-  const cookieStore:ReadonlyRequestCookies = cookies();
-  const token = cookieStore.get("token")?.value;
-  const userId = cookieStore.get("userId")?.value;
+  const token = getCookie("token");
+  const userId = getCookie("userId");
   return apiClient.put<ITask>(`task/${taskId}`,{title},{
     headers:{
       Authorization:`Bearer ${token}`,

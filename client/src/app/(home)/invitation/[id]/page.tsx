@@ -1,4 +1,5 @@
 
+import { EInvite } from '@/libs/enums/enum';
 import Loading from '@/ui/load/Loading';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import type { Metadata } from 'next'
@@ -9,16 +10,9 @@ export const metadata:Metadata = {
   description:"user invitations page" 
 }
 
-const AdresserCard = dynamic(
-  () => import("@/ui/views/home/invitations/adresser/AdresserMapCard")
-  .then(res => res.AdresserMapCard),{
-  ssr:false,
-  loading:() => <Loading />
-});
-
-const RecipientCard = dynamic(
-  () => import("@/ui/views/home/invitations/recipient/RecipientMapCard")
-  .then(res => res.RecipientMapCard),{
+const InviteMapCard = dynamic(
+  () => import("@/ui/views/home/invitations/InvitationMapCard")
+  .then(res => res.InviteMapCard),{
   ssr:false,
   loading:() => <Loading />
 });
@@ -38,16 +32,15 @@ export default function page():JSX.Element {
             <Tab key={t}>{t}</Tab>
           ))}
         </TabList>
-        <TabPanels display="flex"
+        <TabPanels mt={10}
          justifyContent="center"
          alignItems="center"
-         mt={10}>
-          <TabPanel>
-            <AdresserCard />
+         display="flex">
+         {Object.values(EInvite).map(e => (
+          <TabPanel key={e}>
+            <InviteMapCard role={e} />
           </TabPanel>
-          <TabPanel>
-            <RecipientCard />
-          </TabPanel>
+         ))}
         </TabPanels>
       </Tabs>
     </div>

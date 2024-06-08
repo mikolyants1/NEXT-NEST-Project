@@ -1,11 +1,12 @@
 import { memo } from 'react'
 import LogoCard from './logo/LogoCard'
-import { getInviteLikeRecipient } from '@/api/query/invite/getInviteLikeRecipient'
 import InviteCount from '../../../main/profile/links/invite/InviteCount'
 import { getUser } from '@/api/query/user/getUser'
 import { useQueries } from '@tanstack/react-query'
 import Loading from '@/ui/load/Loading'
 import Error from '@/ui/load/Error'
+import { getInvite } from '@/api/query/invite/getInvite'
+import { EInvite } from '@/libs/enums/enum'
 
 interface IProps {
   onOpen:()=>void,
@@ -20,7 +21,7 @@ function HeaderTitleCard({onOpen,id}:IProps):JSX.Element {
     },
     {
       queryKey:["recipient"],
-      queryFn:() => getInviteLikeRecipient()
+      queryFn:() => getInvite(EInvite.RECIPIENT)
     }
   ]});
 

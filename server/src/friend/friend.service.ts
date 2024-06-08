@@ -1,17 +1,21 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Friend } from "../entity/friend.entity";
 import { Invitation } from "../entity/invite.entity";
 import { User } from "../entity/user.entity";
-import { DataSource, DeleteResult, QueryRunner, Repository } from "typeorm";
+import { DataSource, QueryRunner, Repository } from "typeorm";
 
 @Injectable()
 export class FriendService {
+  private readonly logger = new Logger(FriendService.name);
+
     constructor(
       @InjectRepository(User)
       private readonly users:Repository<User>,
       @InjectRepository(Friend)
       private readonly friends:Repository<Friend>,
+      @InjectRepository(Invitation)
+      private readonly invites:Repository<Invitation>,
       private readonly connect:DataSource
     ){}
 
@@ -25,21 +29,18 @@ export class FriendService {
       await query.connect();
       await query.startTransaction();
       try {
-        const users:Repository<User> = query.manager.getRepository(User);
-        const user:User = await users.findOneBy({id:userId});
-        const friend:User = await users.findOneBy({id:friendId});
-        await query.manager.getRepository(Invitation)
-        .delete({addresser:friendId});
+        const user:User = await this.users.findOneBy({id:userId});
+        const friend:User = await this.users.findOneBy({id:friendId});
+        await this.invites.delete({addresser:friendId});
         const friend_add:Friend[] = this.friends.create([
           {user,friend_id:friendId},
           {user:friend,friend_id:userId}
         ]);
-        const result:Friend[] = await query.manager
-        .getRepository(Friend).save(friend_add);
+        const result:Friend[] = await this.friends.save(friend_add);
         await query.commitTransaction();
         return result;
       } catch (e){
-        console.log("friend transaction error",e);
+        this.logger.error(e);
         await query.rollbackTransaction();
       } finally {
         await query.release();
@@ -51,23 +52,20 @@ export class FriendService {
       await query.connect();
       await query.startTransaction();
       try {
-      const user:User = await query.manager
-      .getRepository(User).findOneBy({id:userId});
-      const friend:User = await query.manager
-      .getRepository(User).findOneBy({id:friendId});
-      await query.manager.getRepository(Friend).delete({
+      const user:User = await this.users.findOneBy({id:userId});
+      const friend:User = await this.users.findOneBy({id:friendId});
+      await this.friends.delete({
         user:friend,
         friend_id:userId
       });
-      const res:DeleteResult = await query
-      .manager.getRepository(Friend).delete({
+      const res = await this.friends.delete({
         user,
         friend_id:friendId
       });
       await query.commitTransaction();
       return res.affected;
       } catch (e){
-        console.log("friend transaction error",e);
+        this.logger.error(e);
         await query.rollbackTransaction();
       } finally {
         await query.release();

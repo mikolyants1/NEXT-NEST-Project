@@ -10,14 +10,14 @@ export class Task {
   @Column({name:"title",type:"varchar",length:255,nullable:false})
   title:string;
 
-  @ManyToOne(()=>User,({tasks}:User)=>tasks,{
+  @ManyToOne(() => User,({tasks}:User) => tasks,{
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
   })
   @JoinColumn({name:"user_id",referencedColumnName:"id"})
   user:User;
 
-  @OneToMany(()=>Comment,({task}:Comment)=>task)
+  @OneToMany(() => Comment,({task}:Comment) => task)
   @JoinColumn({name:"comments"})
   comments:Comment[];
 }

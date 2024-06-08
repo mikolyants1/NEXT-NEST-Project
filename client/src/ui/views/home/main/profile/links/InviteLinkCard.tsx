@@ -1,13 +1,13 @@
 "use client"
 
-
 import {type Invitation} from '@/libs/types/type';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import Loading from '@/ui/load/Loading';
 import Error from '@/ui/load/Error';
 import InviteCount from './invite/InviteCount';
-import { getInviteLikeRecipient } from '@/api/query/invite/getInviteLikeRecipient';
+import { getInvite } from '@/api/query/invite/getInvite';
+import { EInvite } from '@/libs/enums/enum';
 
 interface IProps {
   id:string
@@ -16,7 +16,7 @@ interface IProps {
 function InviteLinkCard({id}:IProps):JSX.Element {
   const {data,isError,isLoading} = useQuery<Invitation[]>({
     queryKey:["invites"],
-    queryFn:() => getInviteLikeRecipient()
+    queryFn:() => getInvite(EInvite.RECIPIENT)
   });
 
   if (isLoading) return <Loading />;

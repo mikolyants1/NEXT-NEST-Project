@@ -14,8 +14,12 @@ export class UserController {
   async getUsers():Promise<User[]>{
     return this.service.getUsers();
   }
-
-  @Get("get_one/:id")
+  
+  @Get("tags")
+  async getTags():Promise<string[]>{
+    return this.service.getUserTags();
+  }
+  @Get(":id")
   @UseInterceptors(HidePassInterceptor)
   async getUser(@Param("id") id:string):Promise<User>{
     return this.service.getUser(id);
@@ -54,10 +58,5 @@ export class UserController {
     @Body() body:UpdateAccessDto
   ):Promise<boolean>{
     return this.service.updateAccess(id,body);
-  }
-
-  @Get("tags")
-  async getTags():Promise<string[]>{
-    return this.service.getUserTags();
   }
 }

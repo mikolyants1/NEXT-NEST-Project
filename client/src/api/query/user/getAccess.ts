@@ -3,10 +3,10 @@
 import type { IAccessBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import type { AxiosResponse } from "axios";
-import { cookies } from "next/headers";
+import { getCookie } from "@/model/hooks/useCookie";
 
 export async function getAccess(body:IAccessBody):Promise<boolean>{
-  const id = cookies().get("userId")?.value;
+  const id = getCookie("userId");
   return apiClient.post<boolean>(`user/access/${id}`,body)
   .then(({data}:AxiosResponse<boolean>)=>data);
 }

@@ -12,7 +12,7 @@ import LoginInputs from './content/inputs/LoginInputs';
 import { checkUser } from '@/api/query/user/checkUser';
 import { createUser } from '@/api/mutation/user/createUser';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { updateUserSchema } from '@/libs/types/zod';
+import { checkLoginSchema } from '@/libs/types/zod';
 import { z } from 'zod';
 
 interface IProps {
@@ -21,7 +21,7 @@ interface IProps {
   children:JSX.Element
 }
 
-type TForm = z.infer<typeof updateUserSchema>;
+type TForm = z.infer<typeof checkLoginSchema>;
 
 export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
  const [errArray,setErrArray] = useState<string[]>([]);
@@ -34,18 +34,18 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     password:"",
     tag:""
   },
-  resolver:zodResolver(updateUserSchema)
+  resolver:zodResolver(checkLoginSchema)
  });
  const fields:IFields[] = createFields(isHome);
 
  const submit:SubmitHandler<TForm> = async (values):Promise<void> => {
   setErrArray([]);
   const isTag = isHome || values.tag;
-  const parseUser = updateUserSchema.safeParse(values);
+  const parseUser = checkLoginSchema.safeParse(values);
   if (parseUser.error){
     return setError("invalid types of fields");
   }
-  const {username,password,tag} = parseUser.data;
+  const { username, password, tag } = parseUser.data;
   if (!username) errorHandler("name");
   if (!password) errorHandler("pass");
   if (!isHome && !tag) errorHandler("tag");
@@ -64,7 +64,7 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     };
     if (isHome) router.push(`/main/${check.id}`);
     else {
-      const trimTag = tag.trim().toLowerCase();
+      const trimTag = tag?.trim().toLowerCase() || "";
       if (trimTag[0] !== "@"){
         setError("first symbol should be @");
         return;

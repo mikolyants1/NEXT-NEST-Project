@@ -3,17 +3,15 @@
 import {type ICommBody,type IComment } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
-import { cookies } from "next/headers";
-import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { getCookie } from "@/model/hooks/useCookie";
 
 export async function createComment({
-  taskId,
-  ...body
+  taskId,...body
 }:ICommBody):Promise<IComment> {
-  const cookieStore:ReadonlyRequestCookies = cookies();
-  const token = cookieStore.get("token")?.value;
-  const userId = cookieStore.get("userId")?.value;
-  return apiClient.post<IComment>(`comments/${taskId}`,body,{
+  const token = getCookie("token");
+  const userId = getCookie("userId");
+  return apiClient.post<IComment>(
+    `comments/${taskId}`,body,{
     headers:{
       Authorization:`Bearer ${token}`,
       "x-user":userId

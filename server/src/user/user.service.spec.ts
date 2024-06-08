@@ -9,7 +9,6 @@ import { ConfigModule } from "@nestjs/config";
 import { Repository} from "typeorm";
 import { JwtModule } from "@nestjs/jwt";
 import { JwtConfig } from "../configs/jwt.config";
-import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("UserService", () => {
   const array_id:string[] = [];
@@ -32,9 +31,8 @@ describe("UserService", () => {
         TypeOrmModule.forFeature([Comment,User])
       ],
       controllers:[UserController],
-      providers:[UserService,JwtStrategy]
+      providers:[UserService]
     }).compile();
-
     service = module.get<UserService>(UserService);
     userDatabase = module.get<Repository<User>>(getRepositoryToken(User));
   });
@@ -44,7 +42,7 @@ describe("UserService", () => {
   });
 
   it("check user",async () => {
-    const user:User = await service.createUser({
+    const user = await service.createUser({
       username:"check_name",
       password:"check_password",
       tag:"@check_tag"
@@ -60,7 +58,7 @@ describe("UserService", () => {
   });
 
   it("create user",async () => {
-    const user:User = await service.createUser({
+    const user = await service.createUser({
       username:"test_name",
       password:"test_password",
       tag:"@test_tag"
@@ -72,10 +70,10 @@ describe("UserService", () => {
   });
 
   it("find user",async () => {
-    const user:User = await service.createUser({
-      username:"test_name",
-      password:"test_password",
-      tag:"@test_tag"
+    const user = await service.createUser({
+      username:"test_name1",
+      password:"test_password1",
+      tag:"@test_tag1"
     });
     array_id.push(user.id);
     await userDatabase.save(user);
@@ -84,9 +82,9 @@ describe("UserService", () => {
 
   it("remove user",async () => {
     const user = await service.createUser({
-      username:"test_name",
-      password:"test_password",
-      tag:"@test_tag"
+      username:"test_name2",
+      password:"test_password2",
+      tag:"@test_tag2"
     });
     await userDatabase.save(user)
     const del_res = await service.deleteUser(user.id);
@@ -95,9 +93,9 @@ describe("UserService", () => {
 
   it("update user",async () => {
     const user = await service.createUser({
-      username:"test_name",
-      password:"test_password",
-      tag:"@test_tag"
+      username:"test_name3",
+      password:"test_password3",
+      tag:"@test_tag3"
     });
     array_id.push(user.id);
     await userDatabase.save(user);
@@ -112,9 +110,9 @@ describe("UserService", () => {
 
   it("get all users",async () => {
     const user = await service.createUser({
-      username:"test_name",
-      password:"test_password",
-      tag:"@test_tag"
+      username:"test_name3",
+      password:"test_password3",
+      tag:"@test_tag3"
     });
     array_id.push(user.id);
     await userDatabase.save(user);
@@ -124,7 +122,7 @@ describe("UserService", () => {
     .mockImplementation(async () => [user.tag]);
   });
   
-  afterEach(async () => {
+  afterAll(async () => {
     for (const id of array_id) {
       userDatabase.delete({id});
     }

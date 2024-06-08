@@ -8,36 +8,32 @@ import { TypeOrmModule, getRepositoryToken } from "@nestjs/typeorm";
 import { CommentController } from "./comment.controller";
 import { PgConfig } from "../configs/pg.config";
 import { ConfigModule } from "@nestjs/config";
-import { JwtConfig } from "../configs/jwt.config";
-import { JwtModule } from "@nestjs/jwt";
-import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe("CommentService",() => {
-    const array_user_id:string[] = [];
-    const array_task_id:string[] = [];
-    const array_comment_id:string[] = [];
+  const array_user_id:string[] = [];
+  const array_task_id:string[] = [];
+  const array_comment_id:string[] = [];
 
-    let service:CommentService;
-    let userSource:Repository<User>;
-    let taskSource:Repository<Task>;
-    let commentSource:Repository<Comment>;
+  let service:CommentService;
+  let userSource:Repository<User>;
+  let taskSource:Repository<Task>;
+  let commentSource:Repository<Comment>;
     
-    beforeEach(async () => {
-      const module:TestingModule = await Test.createTestingModule({
-        imports:[
-          JwtModule.registerAsync(JwtConfig()),
-          TypeOrmModule.forFeature([Task,Comment,User]),
-          TypeOrmModule.forRootAsync(PgConfig()),
-          ConfigModule.forRoot({
-            envFilePath:[
-              "./src/env/.jwt.env",
-              "./src/env/.pg.env"
-            ],
-            isGlobal:true
-          }),
-        ],
+  beforeEach(async () => {
+    const module:TestingModule = await Test.createTestingModule({
+      imports:[
+        TypeOrmModule.forFeature([Task,Comment,User]),
+        TypeOrmModule.forRootAsync(PgConfig()),
+        ConfigModule.forRoot({
+          envFilePath:[
+            "./src/env/.jwt.env",
+            "./src/env/.pg.env"
+          ],
+          isGlobal:true
+        }),
+      ],
         controllers:[CommentController],
-        providers:[CommentService,JwtStrategy]
+        providers:[CommentService]
       }).compile();
 
       service = module.get<CommentService>(CommentService);
@@ -51,7 +47,7 @@ describe("CommentService",() => {
     });
 
     it("create task comment",async () => {
-      const user = userSource.create({
+      const user:User = userSource.create({
         username:"comm_name",
         password:"comm_pass",
         tag:"@comm",
@@ -59,7 +55,7 @@ describe("CommentService",() => {
       });
       await userSource.save(user);
       array_user_id.push(user.id);
-      const task = taskSource.create({
+      const task:Task = taskSource.create({
         title:"task_comment",
         user
       });
@@ -76,21 +72,21 @@ describe("CommentService",() => {
     });
 
     it("delete task comment",async () => {
-        const user = userSource.create({
-          username:"comm_name",
-          password:"comm_pass",
-          tag:"@comm",
+        const user:User = userSource.create({
+          username:"comm_name1",
+          password:"comm_pass1",
+          tag:"@comm1",
           raiting:0
         });
         await userSource.save(user);
         array_user_id.push(user.id);
-        const task = taskSource.create({
+        const task:Task = taskSource.create({
           title:"task_comment",
           user
         });
         await taskSource.save(task);
         array_task_id.push(task.id);
-        const comment = await service
+        const comment:Comment = await service
         .createComment(task.id,user.id,{
           author:user.username,
           text:"hello world"
@@ -102,9 +98,9 @@ describe("CommentService",() => {
 
       it("update task comment",async () => {
         const user = userSource.create({
-          username:"comm_name",
-          password:"comm_pass",
-          tag:"@comm",
+          username:"comm_name2",
+          password:"comm_pass2",
+          tag:"@comm2",
           raiting:0
         });
         await userSource.save(user);
@@ -127,12 +123,12 @@ describe("CommentService",() => {
         expect(update_com.was_update).toBeTruthy();
       });
 
-    afterEach(() => {
+    afterAll(() => {
       for (const id of array_comment_id) {
         commentSource.delete({id});
       }
       for (const id of array_task_id) {
-        taskSource.delete({id})
+        taskSource.delete({id});
       }
       for (const id of array_user_id) {
         userSource.delete({id});

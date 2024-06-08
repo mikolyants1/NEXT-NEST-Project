@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
 import { Observable, catchError, map, throwError } from "rxjs";
-import { User } from "src/entity/user.entity";
+import { User } from "../entity/user.entity";
 
 @Injectable()
 export class HidePassInterceptor implements NestInterceptor {

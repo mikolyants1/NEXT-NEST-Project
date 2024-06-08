@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnApplicationShutdown } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UpdateAccessDto, UserBodyDto, UserCreateDto, UserResDto } from "../dto/user.dto";
 import { DeleteResult, Repository } from "typeorm";
@@ -8,7 +8,7 @@ import { Comment } from "../entity/comment.entity";
 import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
-export class UserService implements OnApplicationShutdown {
+export class UserService {
     constructor(
       @InjectRepository(User)
       private readonly users:Repository<User>,
@@ -16,12 +16,7 @@ export class UserService implements OnApplicationShutdown {
       private readonly comments:Repository<Comment>,
       private readonly jwt:JwtService
     ){}
-
-    onApplicationShutdown(signal?: string) {
-      const logger = new Logger(UserService.name);
-      logger.log(signal);
-    }
-
+    
     async getUsers():Promise<User[]>{
       return this.users.find();
     }

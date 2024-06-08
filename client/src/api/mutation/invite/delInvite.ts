@@ -18,7 +18,7 @@ export async function delInvite(id:string):Promise<Invitation> {
       }
     }
   ).then(({data}:AxiosResponse<Invitation>) => {
-    revalidateTag("adresser");
+    revalidateTag("invite");
     return data;
   });
 }

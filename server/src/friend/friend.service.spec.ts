@@ -8,9 +8,6 @@ import { User } from "../entity/user.entity";
 import { FriendController } from "./friend.controller";
 import { FriendService } from "./friend.service";
 import { Repository } from "typeorm";
-import { JwtModule } from "@nestjs/jwt";
-import { JwtConfig } from "../configs/jwt.config";
-import { JwtStrategy } from "../strategy/jwt.strategy";
 
 describe('friendService', () => { 
   const array_user_id:string[] = [];
@@ -24,7 +21,6 @@ describe('friendService', () => {
   beforeEach(async () => {
     const module:TestingModule = await Test.createTestingModule({
       imports:[
-        JwtModule.registerAsync(JwtConfig()),
         TypeOrmModule.forFeature([User,Friend,Invitation]),
         TypeOrmModule.forRootAsync(PgConfig()),
         ConfigModule.forRoot({
@@ -36,7 +32,7 @@ describe('friendService', () => {
         })
       ],
       controllers:[FriendController],
-      providers:[FriendService,JwtStrategy]
+      providers:[FriendService]
     }).compile();
 
     service = module.get<FriendService>(FriendService);
@@ -81,18 +77,18 @@ describe('friendService', () => {
 
   it("del friend",async () => {
     const users =  userSource.create([
-      {
-        username:"friend_name",
-        password:"friend_pass",
-        tag:"@friend",
-        raiting:0
-      },
-      {
-        username:"friend_name1",
-        password:"friend_pass1",
-        tag:"@friend1",
-        raiting:0
-      }
+        {
+          username:"friend_name2",
+          password:"friend_pass2",
+          tag:"@friend2",
+          raiting:0
+        },
+        {
+          username:"friend_name3",
+          password:"friend_pass3",
+          tag:"@friend3",
+          raiting:0
+        }
     ]);
     await userSource.save(users);
     array_user_id.push(users[0].id,users[1].id);
@@ -111,7 +107,7 @@ describe('friendService', () => {
     expect(friend2.some(f => f.friend_id == user[0].id)).toBeFalsy();
   });
 
-  afterEach(() => {
+  afterAll(() => {
     for (const id of array_friend_id) {
       friendSource.delete({id});
     }

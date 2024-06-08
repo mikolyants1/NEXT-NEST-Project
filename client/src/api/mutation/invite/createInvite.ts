@@ -4,11 +4,11 @@ import {type Invitation } from "@/libs/types/type";
 import { cookies } from "next/headers";
 import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { revalidateTag } from "next/cache";
+import { getCookie } from "@/model/hooks/useCookie";
 
 export async function createInvite(recipient:string):Promise<Invitation> {
-  const cookieStore:ReadonlyRequestCookies = cookies();
-  const token = cookieStore.get("token")?.value;
-  const userId = cookieStore.get("userId")?.value;
+  const token = getCookie("token");
+  const userId = getCookie("userId");
   const data = await fetch(`http://localhost:5000/invitation`,{
       method:"POST",
       headers:{
@@ -23,6 +23,6 @@ export async function createInvite(recipient:string):Promise<Invitation> {
       }
     }
   );
-  revalidateTag("adresser");
+  revalidateTag("invite");
   return data.json();
 }

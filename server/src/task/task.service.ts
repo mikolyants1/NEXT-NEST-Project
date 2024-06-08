@@ -26,8 +26,9 @@ export class TaskService {
     async deleteUserTasks(taskId:string,userId:string):Promise<number>{
       const task:DeleteResult = await this.tasks.delete({id:taskId});
       const user:User = await this.users.findOneBy({id:userId});
-      const raiting:number = user.raiting + 1;
-      await this.users.update({id:userId},{raiting});
+      await this.users.update({id:userId},{
+        raiting:user.raiting + 1
+      });
       return task.affected;
     }
 

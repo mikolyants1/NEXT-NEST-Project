@@ -3,12 +3,12 @@
 import {type IFriend,type IFriendBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
-import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
+import { getCookie } from "@/model/hooks/useCookie";
 
 export async function actionWithFriend(body:IFriendBody):Promise<IFriend>{
-  const token = cookies().get("token")?.value;
-  const userId = cookies().get("userId")?.value;
+  const token = getCookie("token");
+  const userId = getCookie("userId");
   revalidatePath("/main","layout");
   return apiClient.post<IFriend>(`friend`,body,{
     headers:{

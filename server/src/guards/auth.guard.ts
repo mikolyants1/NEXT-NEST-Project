@@ -1,12 +1,15 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { HttpArgumentsHost } from "@nestjs/common/interfaces";
 import { Request } from "express";
+import { User } from "src/entity/user.entity";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  async canActivate(ctx: ExecutionContext): Promise<boolean> {
+  canActivate(ctx: ExecutionContext):boolean {
     try {
-      const req:Request = ctx.switchToHttp().getRequest();
-      const user = req.user as {id:string};
+      const http:HttpArgumentsHost = ctx.switchToHttp();
+      const req:Request = http.getRequest();
+      const user = req.user as Pick<User,"id">;
       const id = req.headers["x-user"] as string;
       return user.id == id;
     } catch (e) {

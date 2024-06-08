@@ -1,9 +1,8 @@
 "use server"
 
 import { getFriends } from "@/api/query/friend/getFriend";
-import { getInviteLikeAdresser } from "@/api/query/invite/getInviteLikeAdresser";
-import { getInviteLikeRecipient } from "@/api/query/invite/getInviteLikeRecipient";
-import { EFriendStatus } from "@/libs/enums/enum";
+import { getInvite } from "@/api/query/invite/getInvite";
+import { EFriendStatus, EInvite } from "@/libs/enums/enum";
 import { IFriend, Invitation } from "@/libs/types/type";
 import { getCookie } from "@/model/hooks/useCookie";
 
@@ -14,8 +13,8 @@ export const getFriendStatus = async (frId:string):Promise<EFriendStatus> => {
   if (already.some((f:IFriend) => f.friend_id == frId)){
     return EFriendStatus.FRIEND;
   }
-  const addInvites:Invitation[] = await getInviteLikeAdresser();
-  const resInvites:Invitation[] = await getInviteLikeRecipient();
+  const addInvites:Invitation[] = await getInvite(EInvite.ADRESSER);
+  const resInvites:Invitation[] = await getInvite(EInvite.RECIPIENT);
   const searchAddressInvite = addInvites.some((i:Invitation) => (
     i.addresser == userId && i.recipient == frId
   ));
