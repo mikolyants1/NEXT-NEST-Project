@@ -1,4 +1,4 @@
-import { getCookie } from '@/model/hooks/useCookie';
+import { getCookie } from '@/model/hooks/getCookie';
 import { redirect } from 'next/navigation';
 import {type ReactNode } from 'react'
 

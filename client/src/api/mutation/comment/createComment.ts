@@ -3,7 +3,7 @@
 import {type ICommBody,type IComment } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export async function createComment({
   taskId,...body

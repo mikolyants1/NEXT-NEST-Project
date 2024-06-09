@@ -3,7 +3,7 @@
 import { getFriends } from "@/api/query/friend/getFriend";
 import { getUsers } from "@/api/query/user/getUsers";
 import {type IFriend,type IUser } from "@/libs/types/type"
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export const getFriendUsers = async ():Promise<IUser[]> => {
   const id = getCookie("userId");

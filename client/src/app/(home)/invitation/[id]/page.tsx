@@ -36,7 +36,7 @@ export default function page():JSX.Element {
          justifyContent="center"
          alignItems="center"
          display="flex">
-         {Object.values(EInvite).map(e => (
+         {Object.values(EInvite).map((e):JSX.Element => (
           <TabPanel key={e}>
             <InviteMapCard role={e} />
           </TabPanel>

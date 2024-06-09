@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { InviteBodyDto } from "../dto/invite.dto";
 import { Invitation } from "../entity/invite.entity";
 import { User } from "../entity/user.entity";
-import { DataSource, DeleteResult, QueryRunner, Repository } from "typeorm";
+import { DataSource, QueryRunner, Repository } from "typeorm";
 
 @Injectable()
 export class InviteService {

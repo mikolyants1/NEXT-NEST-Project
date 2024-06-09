@@ -3,7 +3,7 @@
 import {type IUser } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export async function delUser():Promise<IUser> {
   const token = getCookie("token");

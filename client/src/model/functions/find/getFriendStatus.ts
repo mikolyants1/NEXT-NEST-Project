@@ -4,7 +4,7 @@ import { getFriends } from "@/api/query/friend/getFriend";
 import { getInvite } from "@/api/query/invite/getInvite";
 import { EFriendStatus, EInvite } from "@/libs/enums/enum";
 import { IFriend, Invitation } from "@/libs/types/type";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export const getFriendStatus = async (frId:string):Promise<EFriendStatus> => {
   const userId = getCookie("userId");

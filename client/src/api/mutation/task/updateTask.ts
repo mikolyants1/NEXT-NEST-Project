@@ -3,7 +3,7 @@
 import {type ITask,type ITaskUpdateBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export async function updateTask({taskId,title}:ITaskUpdateBody):Promise<ITask> {
   const token = getCookie("token");

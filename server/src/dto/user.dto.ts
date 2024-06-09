@@ -52,4 +52,7 @@ export class UserBodyDto {
     @IsNotEmpty()
     check_name:string;
 
+    @IsString()
+    @IsNotEmpty()
+    id:string;
   }

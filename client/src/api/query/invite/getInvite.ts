@@ -2,7 +2,7 @@
 
 import { EInvite } from "@/libs/enums/enum";
 import type { Invitation } from "@/libs/types/type";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export async function getInvite(type:EInvite):Promise<Invitation[]> {
   const id = getCookie("userId");

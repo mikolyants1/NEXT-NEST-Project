@@ -1,4 +1,4 @@
-import { getAccess } from "@/api/query/user/getAccess";
+import { getAccess } from "@/api/query/auth/getAccess";
 import {type Null } from "@/libs/types/type";
 import { checkUserSchema } from "@/libs/types/zod";
 import {type Dispatch,type SetStateAction } from "react";

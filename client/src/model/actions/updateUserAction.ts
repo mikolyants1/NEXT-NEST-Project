@@ -16,17 +16,14 @@ export async function updateUserAction({
   const tag:TForm = form.get("tag");
   const username:TForm = form.get("username");
   const password:TForm = form.get("password");
-  if (!tag || !username || !password){
-    return setError("all fields shouldn't be empty");
-  }
   try {
     const parse = updateUserSchema.safeParse({
       tag,username,password
     });
     if (!parse.data) {
-      return setError("inccorect type of data");
+      return setError(parse.error);
     }
-    if (parse.data.tag[0] !== "@"){
+    if (tag && parse.data.tag[0] !== "@"){
       return setError("first tag symbol must be @");
     }
     await updateUser({
@@ -34,8 +31,10 @@ export async function updateUserAction({
       username:parse.data.username,
       password:parse.data.password
     });
-   } catch {
-    return setError("server error");
-   }
+  } catch (e) {
+    if (e instanceof Error){
+      return setError(e.message);
+    }
+  }
    onClose();
 }

@@ -1,4 +1,4 @@
-import { getCookie } from '@/model/hooks/useCookie'
+import { getCookie } from '@/model/hooks/getCookie'
 import ModalLayout from '@/model/layouts/ModalLayout'
 import Header from '@/ui/views/home/header/Header'
 import {type ReactNode } from 'react'

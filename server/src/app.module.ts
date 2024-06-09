@@ -7,6 +7,7 @@ import { FriendModule } from './friend/friend.module';
 import { TaskModule } from './task/task.module';
 import { InviteModule } from './invitation/invite.module';
 import { CommentModule } from './comment/comment.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { CommentModule } from './comment/comment.module';
     FriendModule,
     TaskModule,
     InviteModule,
-    CommentModule
+    CommentModule,
+    AuthModule
   ],
 })
 export class AppModule implements OnApplicationBootstrap,OnModuleInit {

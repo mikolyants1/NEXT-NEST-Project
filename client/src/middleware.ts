@@ -2,7 +2,7 @@ import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
-import { getCookie } from "./model/hooks/useCookie";
+import { getCookie } from "./model/hooks/getCookie";
 
 export function middleware(req:NextRequest){
   const store:ReadonlyRequestCookies = cookies();

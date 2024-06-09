@@ -4,7 +4,7 @@ import {type ITask } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
 import { revalidatePath } from "next/cache";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export async function delTask(id:string):Promise<ITask> {
   const token = getCookie("token");

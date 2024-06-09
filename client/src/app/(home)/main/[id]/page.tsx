@@ -1,7 +1,7 @@
 import { getUserTasks } from "@/api/query/task/getUserTasks";
 import { getUser } from "@/api/query/user/getUser";
 import {type ITask,type IUser } from "@/libs/types/type";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 import UserTaskMapCard from "@/ui/views/home/main/tasks/UserTaskMapCard";
 import UserTitleCard from "@/ui/views/home/main/tasks/UserTitleCard";
 import {type Metadata } from "next";

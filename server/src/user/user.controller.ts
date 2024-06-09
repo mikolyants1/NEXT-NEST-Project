@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { User } from "../entity/user.entity";
-import { UpdateAccessDto,UserBodyDto, UserCreateDto, UserResDto } from "../dto/user.dto";
+import { UserCreateDto } from "../dto/user.dto";
 import { HidePassInterceptor } from "../interceptors/users.interceptor";
 import { Auth } from "../guards/apply.guard";
 
@@ -31,11 +31,6 @@ export class UserController {
     return this.service.createUser(body);
   }
 
-  @Post("check")
-  async checkUser(@Body() body:UserBodyDto):Promise<UserResDto>{
-    return this.service.checkUser(body);
-  }
-
   @Auth()
   @Delete(":id")
   async deleteUser(@Param("id") id:string):Promise<number>{
@@ -50,13 +45,5 @@ export class UserController {
     @Body() body:UserCreateDto
   ):Promise<User>{
     return this.service.updateUser(id,body);
-  }
-
-  @Post("access/:id")
-  async updateAccess(
-    @Param("id") id:string,
-    @Body() body:UpdateAccessDto
-  ):Promise<boolean>{
-    return this.service.updateAccess(id,body);
   }
 }

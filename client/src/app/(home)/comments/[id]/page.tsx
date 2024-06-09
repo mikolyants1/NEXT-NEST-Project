@@ -1,7 +1,7 @@
 import { getTaskComments } from '@/api/query/comment/getComments'
 import { getUser } from '@/api/query/user/getUser'
 import type { IComment, IUser } from '@/libs/types/type'
-import { getCookie } from '@/model/hooks/useCookie'
+import { getCookie } from '@/model/hooks/getCookie'
 import Loading from '@/ui/load/Loading'
 import BackLinkCard from '@/ui/views/home/comments/back/BackLinkCard'
 import CommentMapCard from '@/ui/views/home/comments/items/CommentMapCard'

@@ -4,7 +4,7 @@ import {type IUser,type IUserBody } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
 import { revalidatePath } from "next/cache";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export async function updateUser(body:IUserBody):Promise<IUser> {
   const token = getCookie("token");
@@ -16,7 +16,7 @@ export async function updateUser(body:IUserBody):Promise<IUser> {
     }
   })
   .then(({data}:AxiosResponse<IUser>)=>{
-    revalidatePath("/main/:id/profile");
+    revalidatePath("/main/[id]/profile");
     return data;
   });
 }

@@ -36,41 +36,9 @@ export class UserService {
       return this.users.save(newUser);
     }
 
-    async checkUser({username,password,isLogin}:UserBodyDto):Promise<UserResDto>{
-      const user = await this.users.findOneBy({username});
-      if (!isLogin){
-        const success = !Boolean(user);
-        return {
-          id:"",
-          success,
-          message:success ? "" : "username should be unique",
-          tag:"",
-          token:""
-        }
-      }
-      const user_password = user.password || "";
-      const success = await bc.compare(password,user_password);
-      const token = success ? this.jwt.sign({id:user.id}) : "";
-      const right_user = user && success;
-      return {
-        id: right_user ? user.id : "",
-        token,
-        success,
-        tag:right_user ? user.tag : "",
-        message:success ? "" : "user not found"
-      }
-    }
-
     async deleteUser(id:string):Promise<number>{
       const user:DeleteResult = await this.users.delete({id});
       return user.affected;
-    }
-
-    async updateAccess(id:string,{check_name,check_pass}:UpdateAccessDto):Promise<boolean>{
-      const {username,password}:User = await this.users.findOneBy({id});
-      const correctName:boolean = username == check_name;
-      const correctPass:boolean = bc.compareSync(check_pass,password);
-      return correctName && correctPass;
     }
 
     async updateUser(id:string,{password,username,tag}:UserCreateDto):Promise<User>{

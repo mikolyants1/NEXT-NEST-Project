@@ -9,7 +9,7 @@ import LoginErrorCard from './content/error/LoginErrorCard';
 import {type ICheckRes,type IFields} from '@/libs/types/type';
 import { createFields } from '@/model/functions/maps/fields';
 import LoginInputs from './content/inputs/LoginInputs';
-import { checkUser } from '@/api/query/user/checkUser';
+import { authUser } from '@/api/query/auth/authUser';
 import { createUser } from '@/api/mutation/user/createUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { checkLoginSchema } from '@/libs/types/zod';
@@ -54,7 +54,7 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     return;
   }
   try {
-    const check:ICheckRes = await checkUser({
+    const check:ICheckRes = await authUser({
       username,password,isLogin:isHome
     });
     if (!check.success){
@@ -76,8 +76,9 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
       createUser({username,password,tag:trimTag});
     }
   } catch(e) {
-    console.log(e);
-    setError("login error");
+    if (e instanceof Error){
+    return setError(e.message);
+    }
     methods.reset();
   }
  }

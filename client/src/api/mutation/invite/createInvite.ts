@@ -4,7 +4,7 @@ import {type Invitation } from "@/libs/types/type";
 import { cookies } from "next/headers";
 import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { revalidateTag } from "next/cache";
-import { getCookie } from "@/model/hooks/useCookie";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export async function createInvite(recipient:string):Promise<Invitation> {
   const token = getCookie("token");
