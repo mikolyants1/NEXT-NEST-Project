@@ -16,20 +16,16 @@ export class AuthService {
 
   async registAuthUser(username:string):Promise<UserResDto>{
     const user = await this.users.findOneBy({username});
-    const success = !Boolean(user);
     return {
       id:"",
-      success,
-      message:success ? "" : "username should be unique",
+      success:!Boolean(user),
+      message:user ? "" : "username should be unique",
       tag:"",
       token:""
     }
   }
 
-  async loginAuthUser({
-    username,
-    password
-  }:Omit<UserBodyDto,"isLogin">):Promise<UserResDto>{
+  async loginAuthUser({username,password}:UserBodyDto):Promise<UserResDto>{
     const user = await this.users.findOneBy({username});
     const user_password = user.password || "";
     const success = await bc.compare(password,user_password);
@@ -44,14 +40,10 @@ export class AuthService {
     }
   }
 
-  async updateAccess({
-    check_name,
-    check_pass,
-    id
-  }:UpdateAccessDto):Promise<boolean>{
-    const {username,password}:User = await this.users.findOneBy({id});
-    const correctName:boolean = username == check_name;
-    const correctPass:boolean = bc.compareSync(check_pass,password);
-    return correctName && correctPass;
+  async updateAccess({check_name,check_pass,id}:UpdateAccessDto):Promise<boolean>{
+    const user:User = await this.users.findOneBy({id});
+    const isName:boolean = user.username == check_name;
+    const isPass:boolean = await bc.compare(check_pass,user.password);
+    return isName && isPass;
   }
 }

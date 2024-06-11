@@ -3,8 +3,6 @@
 import {type IComment } from "@/libs/types/type";
 import { apiClient } from "../../apiClient";
 import {type AxiosResponse } from "axios";
-import {type ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { cookies } from "next/headers";
 import { getCookie } from "@/model/hooks/getCookie";
 
 export async function delComment(id:string):Promise<IComment> {

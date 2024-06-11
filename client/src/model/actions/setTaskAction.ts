@@ -7,7 +7,7 @@ interface IProps {
 }
 
 export async function setTaskAction({
-   setMutTasks
+  setMutTasks
 }:IProps,form:FormData):Promise<void> {
   const title = form.get("title") as string;
   if (!title) return;

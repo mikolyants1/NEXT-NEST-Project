@@ -21,7 +21,7 @@ export async function updateUserAction({
       tag,username,password
     });
     if (!parse.data) {
-      return setError(parse.error);
+      return setError(parse.error.toString());
     }
     if (tag && parse.data.tag[0] !== "@"){
       return setError("first tag symbol must be @");

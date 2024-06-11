@@ -3,7 +3,7 @@ import { InviteService } from "./invite.service";
 import { Invitation } from "../entity/invite.entity";
 import { InviteBodyDto } from "../dto/invite.dto";
 import { Auth } from "../guards/apply.guard";
-import { EInviteAction } from "src/enums/invite.enum";
+import { EInviteAction } from "../enums/invite.enum";
 
 @Controller("invitation")
 export class InviteController {
