@@ -1,12 +1,13 @@
 "use client"
 
 import {type IComment } from '@/libs/types/type'
-import { Box, Button, Flex, Input, useMediaQuery } from '@chakra-ui/react'
-import  {type ChangeEvent, useState } from 'react'
+import { useMediaQuery } from '@chakra-ui/react'
+import  { useState, useCallback } from 'react'
 import CommentCard from './item/CommentCard'
 import { createComment } from '@/api/mutation/comment/createComment'
 import DayCommCard from './item/DayCommCard'
 import checkData from '@/model/functions/compare/compareData'
+import CommInputCard from './inputs/CommInputCard'
 
 interface IProps {
   data:IComment[],
@@ -17,21 +18,16 @@ interface IProps {
 
 function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
   const [mutComment,setMutComment] = useState<IComment[]>(data);
-  const [comment,setComment] = useState<string>("");
   const [isWidth] = useMediaQuery('(max-width: 700px)');
-  
-  const change = (e:ChangeEvent<HTMLInputElement>):void => {
-    setComment(e.target.value);
-  }
 
-  const addComment = async ():Promise<void> => {
+  const addComment = useCallback(async (text:string):Promise<void> => {
     const newComm:IComment = await createComment({
       taskId,
-      text:comment,
+      text,
       author
     });
     setMutComment((prv:IComment[]) => ([...prv,newComm]));
-  }
+  },[author, taskId])
 
   return (
       <>
@@ -54,21 +50,7 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
              )
           })}
         </div>
-        <div style={{width:isWidth ? "100%" : "80%"}}
-         className="mt-10 ml-auto mr-auto justify-center items-center flex">
-          <Input w='100%'
-           onChange={change}
-           bg="rgb(200,200,200)"
-           placeholder="write comment"
-           borderRightRadius={0}
-           />
-          <Button minW="80px"
-           colorScheme="blue"
-           borderLeftRadius={0}
-           onClick={addComment}>
-            add
-          </Button>
-        </div>
+        <CommInputCard add={addComment} />
       </>
   )
 }
