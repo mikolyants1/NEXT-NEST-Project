@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, LazyExoticComponent, SetStateAction } from "react"
 import { EFriendAction, EModal } from "../enums/enum"
 
 export interface IComment {
@@ -9,6 +9,8 @@ export interface IComment {
   date:string,
   was_update:boolean
 }
+
+export type TLazy = LazyExoticComponent<() => JSX.Element>;
 
 export interface IFields {
   name:keyof TForm

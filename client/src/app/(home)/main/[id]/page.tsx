@@ -13,7 +13,8 @@ interface IProps {
 }
 export const metadata:Metadata = {
   title:"Main",
-  description:"Main page"
+  description:"Main page",
+  keywords:"create tasks, delete tasks, update tasks, create invitations,see user's friends"
 }
 
 export const revalidate = 3600;

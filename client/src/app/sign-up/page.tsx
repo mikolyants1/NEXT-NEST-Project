@@ -5,7 +5,8 @@ import {type Metadata } from "next";
 
 export const metadata:Metadata = {
   title:"Registration",
-  description:"registration page"
+  description:"registration page",
+  keywords:"registrating in karma's duary, create user"
 }
 
 export default async function Regist():Promise<JSX.Element>{

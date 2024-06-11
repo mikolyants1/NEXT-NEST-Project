@@ -1,19 +1,19 @@
 import { getUser } from '@/api/query/user/getUser'
 import type { IUser } from '@/libs/types/type'
-import ProfileCard from '@/ui/views/home/main/profile/ProfileCard'
+import ProfileCard from '@/ui/views/home/main/profile'
 import type { Metadata } from 'next'
 import { use } from 'react'
 
 interface IProps {
-    params:{
-      id:string,
-      role:string
-    }
+  params:{
+    id:string
+  }
 }
 
 export const metadata:Metadata = {
   title:"Profile",
-  description:"user profile page"
+  description:"user profile page",
+  keywords:"update user, delete user, information about user"
 }
 
 export const revalidate = 3000;

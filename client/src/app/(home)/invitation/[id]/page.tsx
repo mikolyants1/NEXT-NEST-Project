@@ -7,7 +7,8 @@ import dynamic from 'next/dynamic'
 
 export const metadata:Metadata = {
   title:"Invitations",
-  description:"user invitations page" 
+  description:"user invitations page",
+  keywords:"accept invitation, delete invitation, see user's invitations"
 }
 
 const InviteMapCard = dynamic(
@@ -36,9 +37,9 @@ export default function page():JSX.Element {
          justifyContent="center"
          alignItems="center"
          display="flex">
-         {Object.values(EInvite).map((e):JSX.Element => (
-          <TabPanel key={e}>
-            <InviteMapCard role={e} />
+         {Object.values(EInvite).map((r):JSX.Element => (
+          <TabPanel key={r}>
+            <InviteMapCard role={r} />
           </TabPanel>
          ))}
         </TabPanels>

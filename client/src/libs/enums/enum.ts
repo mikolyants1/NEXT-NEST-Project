@@ -26,3 +26,8 @@ export enum ERoles {
   GUEST = "guest",
   ADMIN = "admin"
 }
+
+export enum EDrawer {
+  SEARCH = "Search",
+  FRIENDS = "Friends"
+}

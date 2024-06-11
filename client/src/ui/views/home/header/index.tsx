@@ -3,7 +3,7 @@
 import { useDisclosure } from '@chakra-ui/react'
 import DrawerCard from './menu/DrawerCard';
 import HeaderTitleCard from './title/cards/HeaderTitleCard';
-import ModalCard from '../../cards/modal/ModalCard';
+import ModalCard from '../../cards/modal';
 
 interface IProps {
   id:string

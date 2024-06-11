@@ -6,7 +6,7 @@ interface IProps {
 function LoginErrorCard({error}:IProps):JSX.Element {
   return (
     <div>
-     {Boolean(error) && (
+     {!!error && (
        <div className="text-red-500 text-center mt-[10px]">
          {error}
        </div>

@@ -7,7 +7,7 @@ import {type IUser } from '@/libs/types/type';
 import { getUsersByTag } from '@/model/functions/find/getUsersByTag';
 import {type ChangeEvent, startTransition, useState } from 'react';
 
-function SearchCard():JSX.Element {
+export default function SearchCard():JSX.Element {
   const [sortUsers,setSortUsers] = useState<IUser[]>([]);
 
   const change = async (e:ChangeEvent<HTMLInputElement>):Promise<void> => {
@@ -33,5 +33,3 @@ function SearchCard():JSX.Element {
     </div>
   )
 }
-
-export default SearchCard

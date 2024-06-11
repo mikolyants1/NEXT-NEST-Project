@@ -16,10 +16,9 @@ interface IProps {
 
 export const metadata:Metadata = {
   title:"Comments",
-  description:"Comments page"
+  description:"Comments page",
+  keywords:"see user's comments, update comments, delete comments, create comments"
 }
-
-export const revalidate = 3600;
 
 const CommentTitleCard = dynamic(
  () => import("@/ui/views/home/comments/title/CommentTilteCard"),

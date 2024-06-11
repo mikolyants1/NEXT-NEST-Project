@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Login",
   description: "Login page",
+  keywords:"login , entry in karma's duary, authorization"
 };
 
 export default function RootLayout({

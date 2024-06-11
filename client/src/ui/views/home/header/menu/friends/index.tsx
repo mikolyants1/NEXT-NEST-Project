@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "@/ui/load/Loading";
 import Error from "@/ui/load/Error";
 
-function FriendCard():JSX.Element {
+export default function FriendCard():JSX.Element {
   const {data,isError,isLoading} = useQuery<IUser[]>({
     queryKey:["friends"],
     queryFn:() => getFriendUsers()
@@ -23,7 +23,5 @@ function FriendCard():JSX.Element {
         <SearchItemCard key={u.id} {...u} />
       ))}
     </FriendContext.Provider>
-  )
+  );
 }
-
-export default FriendCard
