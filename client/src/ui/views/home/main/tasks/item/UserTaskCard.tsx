@@ -1,6 +1,5 @@
 
 import {type IModalContext,type ITask } from '@/libs/types/type';
-import { delTask } from '@/api/mutation/task/delTask';
 import {type Dispatch,type SetStateAction, useContext, useState } from 'react';
 import { ModalContext } from '@/model/context/modal';
 import { EModal } from '@/libs/enums/enum';

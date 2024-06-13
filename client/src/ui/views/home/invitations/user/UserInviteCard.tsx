@@ -1,12 +1,9 @@
 "use server"
 
 import { EInvite } from "@/libs/enums/enum";
-import { getUser } from "@/api/query/user/getUser"
 import {type IUser,type Invitation } from "@/libs/types/type"
 import AcceptButtonCard from "./buttons/AcceptButtonCard";
 import LogoCard from "../../header/title/cards/logo/LogoCard";
-import { Button } from "@chakra-ui/react";
-import { delInvite } from "@/api/mutation/invite/delInvite";
 import CancelButtonCard from "./buttons/CancelButtonCard";
 import { userApiQuery } from "@/api/user/userApiQuery";
 

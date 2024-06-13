@@ -1,10 +1,9 @@
 "use client"
 
 import { friendApiQuery } from '@/api/friend/friendApiQuery'
-import { actionWithFriend } from '@/api/mutation/friend/actionWithFriend'
-import { delInvite } from '@/api/mutation/invite/delInvite'
+import { inviteApiQuery } from '@/api/invite/inviteApiQuery'
 import { EFriendAction } from '@/libs/enums/enum'
-import { IFriend, IFriendBody } from '@/libs/types/type'
+import { IFriend, IFriendBody, Invitation } from '@/libs/types/type'
 import { Button } from '@chakra-ui/react'
 
 interface IProps {
@@ -19,7 +18,7 @@ function AcceptButtonCard({friendId,inviteId}:IProps):JSX.Element {
       action:EFriendAction.ADD,
       friendId
     });
-    delInvite(inviteId);
+    inviteApiQuery<Invitation,string>("remove",inviteId);
   }
 
   return (

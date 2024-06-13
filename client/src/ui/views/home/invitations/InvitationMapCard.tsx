@@ -1,4 +1,3 @@
-import { getInvite } from '@/api/query/invite/getInvite';
 import { type Invitation } from '@/libs/types/type'
 import { EInvite } from '@/libs/enums/enum';
 import UserInviteWrapper from './user/wrappers/UserInviteWrapper';

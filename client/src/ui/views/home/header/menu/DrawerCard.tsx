@@ -1,8 +1,7 @@
 "use client"
 
-import { Drawer, DrawerBody,DrawerCloseButton,DrawerContent,
- DrawerHeader,Image,Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
-import SearchCard from './search'
+import { Drawer,DrawerCloseButton,DrawerContent,
+ DrawerHeader,Tab,TabList,TabPanel,TabPanels,Tabs} from '@chakra-ui/react'
 import Loading from '@/ui/load/Loading'
 import { Suspense, lazy, useState } from 'react'
 import { EDrawer } from '@/libs/enums/enum'

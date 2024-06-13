@@ -1,6 +1,4 @@
-import { commentApiQuery } from '@/api/comments/CommentApiQuery'
-import { getTaskComments } from '@/api/query/comment/getComments'
-import { taskApiQuery } from '@/api/task/taskApiQuery'
+import { commentApiQuery } from '@/api/comments/CommentApiQuery';
 import {type IComment } from '@/libs/types/type'
 import Error from '@/ui/load/Error'
 import Loading from '@/ui/load/Loading'

@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Loading from '@/ui/load/Loading';
 import Error from '@/ui/load/Error';
 import InviteCount from './invite/InviteCount';
-import { getInvite } from '@/api/query/invite/getInvite';
 import { EInvite } from '@/libs/enums/enum';
 import { inviteApiQuery } from '@/api/invite/inviteApiQuery';
 

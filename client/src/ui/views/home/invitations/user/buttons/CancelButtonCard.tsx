@@ -1,4 +1,5 @@
 "use client"
+
 import { inviteApiQuery } from "@/api/invite/inviteApiQuery"
 import { Invitation } from "@/libs/types/type"
 import { Button } from "@chakra-ui/react"
