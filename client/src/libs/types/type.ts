@@ -1,5 +1,8 @@
 import { Dispatch, LazyExoticComponent, SetStateAction } from "react"
 import { EFriendAction, EModal } from "../enums/enum"
+import { UserApi } from "@/api/user/UserApi";
+import { TaskApi } from "@/api/task/TaskApi";
+import { InviteApi } from "@/api/invite/InviteApi";
 
 export interface IComment {
   id:string,
@@ -11,6 +14,8 @@ export interface IComment {
 }
 
 export type TLazy = LazyExoticComponent<() => JSX.Element>;
+
+export type TApi = keyof UserApi | keyof TaskApi | keyof InviteApi;
 
 export interface IFields {
   name:keyof TForm

@@ -1,5 +1,5 @@
-import { getUserTasks } from "@/api/query/task/getUserTasks";
-import { getUser } from "@/api/query/user/getUser";
+import { taskApiQuery } from "@/api/task/taskApiQuery";
+import { userApiQuery } from "@/api/user/userApiQuery";
 import {type ITask,type IUser } from "@/libs/types/type";
 import { getCookie } from "@/model/hooks/getCookie";
 import UserTaskMapCard from "@/ui/views/home/main/tasks/UserTaskMapCard";
@@ -14,15 +14,19 @@ interface IProps {
 export const metadata:Metadata = {
   title:"Main",
   description:"Main page",
-  keywords:"create tasks, delete tasks, update tasks, create invitations,see user's friends"
+  keywords:"create tasks, delete tasks, update tasks, create invitations,see user's friends",
 }
 
 export const revalidate = 3600;
 
 async function page({params}:IProps):Promise<JSX.Element> {
-  const adminId = getCookie("userId");
-  const tasks:ITask[] = await getUserTasks(params.id);
-  const {id,username}:IUser = await getUser(params.id);
+  const adminId = await getCookie("userId");
+  const tasks:ITask[] =  await taskApiQuery<ITask[],string>(
+    "find",params.id
+  );
+  const {id,username} = await userApiQuery<IUser,string>(
+    "findById",params.id
+  );
   
   return (
     <main className="flex w-[100%] mt-10 justify-center items-center flex-col">

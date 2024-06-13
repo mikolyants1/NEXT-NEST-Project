@@ -1,4 +1,5 @@
 import { getUser } from '@/api/query/user/getUser'
+import { userApiQuery } from '@/api/user/userApiQuery'
 import type { IUser } from '@/libs/types/type'
 import ProfileCard from '@/ui/views/home/main/profile'
 import type { Metadata } from 'next'
@@ -18,8 +19,8 @@ export const metadata:Metadata = {
 
 export const revalidate = 3000;
 
-export default function page({params}:IProps):JSX.Element {
-  const user:IUser = use(getUser(params.id));
+export default function page({params:{id}}:IProps):JSX.Element {
+  const user = use(userApiQuery<IUser,string>("findById",id));
   
   return (
     <div className="w-[100%] flex justify-center items-center flex-col mt-10">

@@ -1,4 +1,5 @@
 import { getTask } from "@/api/query/task/getTask"
+import { taskApiQuery } from "@/api/task/taskApiQuery";
 import { ITask } from "@/libs/types/type";
 
 interface IProps {
@@ -6,7 +7,7 @@ interface IProps {
 }
 
 async function CommentTilteCard({id}:IProps):Promise<JSX.Element> {
-  const task:ITask = await getTask(id);
+  const task = await taskApiQuery<ITask,string>("findById",id);
   return (
     <div className="w-[100%] mt-3 text-center text-3xl mb-3">
        Comments for {`"${task.title}"`}

@@ -1,4 +1,5 @@
 import { getTags } from "@/api/query/user/getTags";
+import { userApiQuery } from "@/api/user/userApiQuery";
 import LoginLinks from "@/ui/views/login/content/links/LoginLinks";
 import LoginCard from "@/ui/views/login/LoginCard";
 import {type Metadata } from "next";
@@ -10,7 +11,7 @@ export const metadata:Metadata = {
 }
 
 export default async function Regist():Promise<JSX.Element>{
-  const tags:string[] = await getTags();
+  const tags = await userApiQuery<string[],unknown>("getTags");
 
   return (
     <LoginCard

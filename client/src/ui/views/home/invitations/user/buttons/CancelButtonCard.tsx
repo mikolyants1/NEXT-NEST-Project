@@ -1,6 +1,6 @@
 "use client"
-
-import { delInvite } from "@/api/mutation/invite/delInvite"
+import { inviteApiQuery } from "@/api/invite/inviteApiQuery"
+import { Invitation } from "@/libs/types/type"
 import { Button } from "@chakra-ui/react"
 
 interface IProps {
@@ -8,9 +8,13 @@ interface IProps {
 }
 
 function CancelButtonCard({id}:IProps):JSX.Element {
+  const delInvite = async () => {
+    await inviteApiQuery<Invitation,string>("remove",id);
+  }
+
   return (
     <Button colorScheme="red"
-     onClick={() => delInvite(id)}>
+     onClick={delInvite}>
       cancel
     </Button>
   )

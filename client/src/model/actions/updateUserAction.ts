@@ -1,5 +1,6 @@
 import { updateUser } from "@/api/mutation/user/updateUser";
-import { Null } from "@/libs/types/type";
+import { userApiQuery } from "@/api/user/userApiQuery";
+import { IUser, IUserBody, Null } from "@/libs/types/type";
 import { updateUserSchema } from "@/libs/types/zod";
 import { Dispatch, SetStateAction } from "react";
 
@@ -26,7 +27,7 @@ export async function updateUserAction({
     if (tag && parse.data.tag[0] !== "@"){
       return setError("first tag symbol must be @");
     }
-    await updateUser({
+    await userApiQuery<IUser,IUserBody>("update",{
       tag:parse.data.tag,
       username:parse.data.username,
       password:parse.data.password

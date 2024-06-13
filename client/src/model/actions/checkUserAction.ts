@@ -1,5 +1,5 @@
-import { getAccess } from "@/api/query/auth/getAccess";
-import {type Null } from "@/libs/types/type";
+import { authApiQuery } from "@/api/auth/authApiQuery";
+import {IAccessBody, type Null } from "@/libs/types/type";
 import { checkUserSchema } from "@/libs/types/zod";
 import {type Dispatch,type SetStateAction } from "react";
 
@@ -26,9 +26,10 @@ export async function checkUserAction({
     if (!parse.data) {
       return setError("inccorect type of data");
     }
-    const res = await getAccess({
-      check_name:parse.data.username,
-      check_pass:parse.data.password
+    const res = await authApiQuery<boolean,IAccessBody>(
+     "access",{
+       check_name:parse.data.username,
+       check_pass:parse.data.password
     });
     if (res) next();
     else return setError("incorrect data");

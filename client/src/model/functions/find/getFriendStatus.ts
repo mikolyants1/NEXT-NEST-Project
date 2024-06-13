@@ -1,20 +1,24 @@
 "use server"
 
-import { getFriends } from "@/api/query/friend/getFriend";
-import { getInvite } from "@/api/query/invite/getInvite";
+import { friendApiQuery } from "@/api/friend/friendApiQuery";
+import { inviteApiQuery } from "@/api/invite/inviteApiQuery";
 import { EFriendStatus, EInvite } from "@/libs/enums/enum";
 import { IFriend, Invitation } from "@/libs/types/type";
 import { getCookie } from "@/model/hooks/getCookie";
 
 export const getFriendStatus = async (frId:string):Promise<EFriendStatus> => {
-  const userId = getCookie("userId");
+  const userId = await getCookie("userId");
   if (!userId) return EFriendStatus.ADD;
-  const already:IFriend[] = await getFriends(userId);
+  const already = await friendApiQuery<IFriend[],string>("find",userId);
   if (already.some((f:IFriend) => f.friend_id == frId)){
     return EFriendStatus.FRIEND;
   }
-  const addInvites:Invitation[] = await getInvite(EInvite.ADRESSER);
-  const resInvites:Invitation[] = await getInvite(EInvite.RECIPIENT);
+  const addInvites = await inviteApiQuery<Invitation[],EInvite>(
+    "find",EInvite.ADRESSER
+  );
+  const resInvites = await inviteApiQuery<Invitation[],EInvite>(
+    "find",EInvite.RECIPIENT
+  );
   const searchAddressInvite = addInvites.some((i:Invitation) => (
     i.addresser == userId && i.recipient == frId
   ));

@@ -1,7 +1,8 @@
+import { userApiQuery } from '@/api/user/userApiQuery';
 import { getCookie } from '@/model/hooks/getCookie'
 import ModalLayout from '@/model/layouts/ModalLayout'
 import Header from '@/ui/views/home/header';
-import {type ReactNode } from 'react'
+import {use, type ReactNode } from 'react'
 
 
 export default function layout({
@@ -9,7 +10,8 @@ export default function layout({
 }:Readonly<{
     children:ReactNode
 }>):JSX.Element {
-  const id = getCookie("userId");
+  const id = use(getCookie("userId"));
+  
   return (
     <ModalLayout>
       <Header id={id || ""} />

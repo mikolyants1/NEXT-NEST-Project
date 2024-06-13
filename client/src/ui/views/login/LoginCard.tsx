@@ -6,14 +6,14 @@ import {type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { FormProvider,type SubmitHandler, useForm } from 'react-hook-form';
 import LoginButton from './content/buttons/LoginButtons';
 import LoginErrorCard from './content/error/LoginErrorCard';
-import {type ICheckRes,type IFields} from '@/libs/types/type';
+import {ICheckBody, IUser, IUserBody, type ICheckRes,type IFields} from '@/libs/types/type';
 import { createFields } from '@/model/functions/maps/fields';
 import LoginInputs from './content/inputs/LoginInputs';
-import { authUser } from '@/api/query/auth/authUser';
-import { createUser } from '@/api/mutation/user/createUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { checkLoginSchema } from '@/libs/types/zod';
 import { z } from 'zod';
+import { userApiQuery } from '@/api/user/userApiQuery';
+import { authApiQuery } from '@/api/auth/authApiQuery';
 
 interface IProps {
   isHome:boolean,
@@ -54,9 +54,9 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     return;
   }
   try {
-    const check:ICheckRes = await authUser({
-      username,password,isLogin:isHome
-    });
+    const check = await authApiQuery<ICheckRes,ICheckBody>(
+      "login",{username,password,isLogin:isHome}
+    );
     if (!check.success){
       setError(check.message);
       methods.reset();
@@ -73,7 +73,9 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
         setError("tag should be unique");
         return;
       }
-      createUser({username,password,tag:trimTag});
+      await userApiQuery<IUser,IUserBody>("create",{
+        username,password,tag:trimTag
+      });
     }
   } catch(e) {
     if (e instanceof Error){

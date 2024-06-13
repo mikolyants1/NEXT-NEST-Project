@@ -1,6 +1,6 @@
 "use client"
 
-import {type IComment } from '@/libs/types/type'
+import {ICommBody, type IComment } from '@/libs/types/type'
 import { useMediaQuery } from '@chakra-ui/react'
 import  { useState, useCallback } from 'react'
 import CommentCard from './item/CommentCard'
@@ -8,6 +8,7 @@ import { createComment } from '@/api/mutation/comment/createComment'
 import DayCommCard from './item/DayCommCard'
 import checkData from '@/model/functions/compare/compareData'
 import CommInputCard from './inputs/CommInputCard'
+import { commentApiQuery } from '@/api/comments/CommentApiQuery'
 
 interface IProps {
   data:IComment[],
@@ -21,11 +22,9 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
   const [isWidth] = useMediaQuery('(max-width: 700px)');
 
   const addComment = useCallback(async (text:string):Promise<void> => {
-    const newComm:IComment = await createComment({
-      taskId,
-      text,
-      author
-    });
+    const newComm = await commentApiQuery<IComment,ICommBody>(
+      "create",{taskId,text,author}
+    );
     setMutComment((prv:IComment[]) => ([...prv,newComm]));
   },[author, taskId])
 

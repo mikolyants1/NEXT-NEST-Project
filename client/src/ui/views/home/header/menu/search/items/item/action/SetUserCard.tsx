@@ -1,6 +1,6 @@
-import { createInvite } from '@/api/mutation/invite/createInvite';
+import { inviteApiQuery } from '@/api/invite/inviteApiQuery';
 import { EFriendStatus, EModal } from '@/libs/enums/enum';
-import { type IModalContext } from '@/libs/types/type';
+import { Invitation, type IModalContext } from '@/libs/types/type';
 import { FriendContext } from '@/model/context/friend';
 import { ModalContext } from '@/model/context/modal';
 import { getFriendStatus } from '@/model/functions/find/getFriendStatus';
@@ -24,7 +24,7 @@ function SetUserCard({id}:IProps):JSX.Element {
   
   const create = (status:EFriendStatus):void => {
     if (status == EFriendStatus.ADD || !isWait){
-      createInvite(id);
+      inviteApiQuery<Invitation,string>("create",id);
       setWait(true);
     }
   }

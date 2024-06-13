@@ -1,15 +1,15 @@
-import { delComment } from '@/api/mutation/comment/delComment';
-import { updateComment } from '@/api/mutation/comment/updateComment';
-import { updateTask } from '@/api/mutation/task/updateTask';
+import { commentApiQuery } from '@/api/comments/CommentApiQuery';
+import { taskApiQuery } from '@/api/task/taskApiQuery';
 import { EModal } from '@/libs/enums/enum';
-import {type IComment,type IModalContext,type ITask,type IUpdateTaskOrCommState } from '@/libs/types/type';
+import {ICommUpdateBody, ITaskUpdateBody, type IComment,
+type IModalContext,type ITask,type IUpdateTaskOrCommState } from '@/libs/types/type';
 import { ModalContext } from '@/model/context/modal';
 import { Button, Input } from '@chakra-ui/react'
 import { ChangeEvent, useContext, useState } from 'react'
 
 
 function UpdateTaskOrCommentCard():JSX.Element {
-  const {state} = useContext<IModalContext>(ModalContext);
+  const {state,onClose} = useContext<IModalContext>(ModalContext);
   const {text:initText} = state.data as IUpdateTaskOrCommState<unknown>;
   const [text,setText] = useState<string>(initText);
 
@@ -20,25 +20,31 @@ function UpdateTaskOrCommentCard():JSX.Element {
   const update = async ():Promise<void> => {
     if (state.type == EModal.UPDATE_TASK){
       const {id,change} = state.data as IUpdateTaskOrCommState<ITask[]>;
-      const newTask:ITask = await updateTask({taskId:id,title:text});
+      const newTask = await taskApiQuery<ITask,ITaskUpdateBody>(
+        "update",{taskId:id,title:text}
+      );
       change((prv:ITask[]) => (
         prv.map((t:ITask) => t.id == id ? newTask : t)
       ));
     } else if (state.type == EModal.CHANGE_COMMENT) {
       const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>;
-      const newComm:IComment = await updateComment({id,text});
+      const newComm = await commentApiQuery<IComment,ICommUpdateBody>(
+        "update",{id,text}
+      );
       change((prv:IComment[]) => (
         prv.map((c:IComment) => c.id == id ? newComm : c)
       ));
     }
+    onClose();
   }
 
   const remove = async ():Promise<void> => {
     const {id,change} = state.data as IUpdateTaskOrCommState<IComment[]>;
-    await delComment(id);
+    await commentApiQuery<IComment,string>("remove",id);
     change((prv:IComment[]) => (
       prv.filter((c:IComment) => c.id !== id)
     ));
+    onClose();
   }
 
   return (

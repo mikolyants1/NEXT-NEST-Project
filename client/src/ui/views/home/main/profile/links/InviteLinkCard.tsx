@@ -8,6 +8,7 @@ import Error from '@/ui/load/Error';
 import InviteCount from './invite/InviteCount';
 import { getInvite } from '@/api/query/invite/getInvite';
 import { EInvite } from '@/libs/enums/enum';
+import { inviteApiQuery } from '@/api/invite/inviteApiQuery';
 
 interface IProps {
   id:string
@@ -16,7 +17,7 @@ interface IProps {
 function InviteLinkCard({id}:IProps):JSX.Element {
   const {data,isError,isLoading} = useQuery<Invitation[]>({
     queryKey:["invites"],
-    queryFn:() => getInvite(EInvite.RECIPIENT)
+    queryFn:() => inviteApiQuery<Invitation[],EInvite>("find",EInvite.RECIPIENT)
   });
 
   if (isLoading) return <Loading />;

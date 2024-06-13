@@ -7,7 +7,7 @@ interface IProps {
 
 function CommInputCard({add}:IProps):JSX.Element {
   const [isWidth] = useMediaQuery('(max-width: 700px)');
-  const [comment,setCommment] = useState<string>("");
+  const [comment,setComment] = useState<string>("");
 
   const change = (e:ChangeEvent<HTMLInputElement>):void => {
     setComment(e.target.value);

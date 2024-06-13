@@ -1,15 +1,15 @@
 "use server"
 
-import { getFriends } from "@/api/query/friend/getFriend";
-import { getUsers } from "@/api/query/user/getUsers";
+import { friendApiQuery } from "@/api/friend/friendApiQuery";
+import { userApiQuery } from "@/api/user/userApiQuery";
 import {type IFriend,type IUser } from "@/libs/types/type"
 import { getCookie } from "@/model/hooks/getCookie";
 
 export const getFriendUsers = async ():Promise<IUser[]> => {
-  const id = getCookie("userId");
+  const id = await getCookie("userId");
   if (!id) return [];
-  const friends:IFriend[] = await getFriends(id);
-  const users:IUser[] = await getUsers();
+  const friends = await friendApiQuery<IFriend[],string>("find",id);
+  const users = await userApiQuery<IUser[],unknown>("find");
   return users.filter((u:IUser) => (
     friends.some((f:IFriend) => f.friend_id == u.id)
   ));

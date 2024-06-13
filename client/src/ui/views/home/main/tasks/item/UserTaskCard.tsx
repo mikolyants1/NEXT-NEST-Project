@@ -7,6 +7,7 @@ import { EModal } from '@/libs/enums/enum';
 import CommLinkCard from './comment/CommLinkCard';
 import Image from 'next/image';
 import bask from '../../../../../../../public/bask.webp';
+import { taskApiQuery } from '@/api/task/taskApiQuery';
 
 interface IProps extends ITask {
     userId:string,
@@ -19,7 +20,7 @@ function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
   const [show,setShow] = useState<boolean>(false);
 
   const deleteTask = async ():Promise<void> => {
-    await delTask(id);
+    await taskApiQuery<ITask,string>("remove",id);
     change((prv:ITask[]) => (
       prv.filter((t:ITask) => t.id !== id)
     ));

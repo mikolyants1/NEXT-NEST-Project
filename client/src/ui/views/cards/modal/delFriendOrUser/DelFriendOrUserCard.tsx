@@ -1,7 +1,8 @@
 import { actionWithFriend } from '@/api/mutation/friend/actionWithFriend';
 import { delUser } from '@/api/mutation/user/delUser';
+import { userApiQuery } from '@/api/user/userApiQuery';
 import { EFriendAction, EModal } from '@/libs/enums/enum';
-import {type IModalContext,type IRemUserState } from '@/libs/types/type';
+import {IUser, type IModalContext,type IRemUserState } from '@/libs/types/type';
 import { ModalContext } from '@/model/context/modal';
 import { Button } from '@chakra-ui/react';
 import {type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
@@ -20,7 +21,7 @@ function DelFriendOrUserCard():JSX.Element {
         friendId:data.friendId
       });
     } else if (state.type == EModal.REM_USER) {
-      await delUser();
+      await userApiQuery<IUser,unknown>("remove");
       router.push("/"); 
     }
   }

@@ -1,5 +1,7 @@
+import { commentApiQuery } from '@/api/comments/CommentApiQuery'
 import { getTaskComments } from '@/api/query/comment/getComments'
 import { getUser } from '@/api/query/user/getUser'
+import { userApiQuery } from '@/api/user/userApiQuery'
 import type { IComment, IUser } from '@/libs/types/type'
 import { getCookie } from '@/model/hooks/getCookie'
 import Loading from '@/ui/load/Loading'
@@ -29,9 +31,11 @@ const CommentTitleCard = dynamic(
 );
 
 async function page({params}:IProps):Promise<JSX.Element> {
-  const id = getCookie("userId");
-  const comments:IComment[] = await getTaskComments(params.id);
-  const user:IUser = await getUser(id);
+  const id = await getCookie("userId");
+  const comments = await commentApiQuery<IComment[],string>(
+    "find",params.id
+  );
+  const user = await userApiQuery<IUser,string>("findById",id);
   
   return (
     <>

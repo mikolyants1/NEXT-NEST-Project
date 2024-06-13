@@ -8,6 +8,7 @@ import LogoCard from "../../header/title/cards/logo/LogoCard";
 import { Button } from "@chakra-ui/react";
 import { delInvite } from "@/api/mutation/invite/delInvite";
 import CancelButtonCard from "./buttons/CancelButtonCard";
+import { userApiQuery } from "@/api/user/userApiQuery";
 
 interface IProps extends Invitation {
   role:EInvite
@@ -15,7 +16,7 @@ interface IProps extends Invitation {
  
 async function UserInviteCard({id,recipient,addresser,role}:IProps):Promise<JSX.Element> {
   const inviteUserId:string = role == EInvite.ADRESSER ? recipient : addresser;
-  const user:IUser = await getUser(inviteUserId);
+  const user = await userApiQuery<IUser,string>("findById",inviteUserId);
 
   return (
     <div className="w-[300px] mt-10 bg-[rgb(90,90,90)]
