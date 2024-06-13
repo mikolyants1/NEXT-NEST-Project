@@ -9,6 +9,11 @@ import { EInviteAction } from "../enums/invite.enum";
 export class InviteController {
   constructor(private readonly service:InviteService){}
 
+  @Get()
+  async getAllInvites(){
+   return this.service.getAllInvites();
+  }
+
   @Get(":id")
   async getInvites(
     @Param("id") id:string,

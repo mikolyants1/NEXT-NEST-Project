@@ -42,17 +42,3 @@ export class UserBodyDto {
     @IsNotEmpty()
     message:string;
   }
-
-  export class UpdateAccessDto {
-    @IsString()
-    @IsNotEmpty()
-    check_pass:string;
-
-    @IsString()
-    @IsNotEmpty()
-    check_name:string;
-
-    @IsString()
-    @IsNotEmpty()
-    id:string;
-  }

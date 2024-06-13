@@ -1,7 +1,8 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { UpdateAccessDto, UserBodyDto, UserResDto } from "../dto/user.dto";
+import { UserBodyDto, UserResDto } from "../dto/user.dto";
 import { Auth } from "../guards/apply.guard";
+import { AuthAccessDto } from "../dto/auth.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -18,7 +19,7 @@ export class AuthController {
 
   @Auth()
   @Post("access")
-  async getAccess(@Body() body:UpdateAccessDto):Promise<boolean>{
+  async getAccess(@Body() body:AuthAccessDto):Promise<boolean>{
     return this.service.updateAccess(body);
   }
 }

@@ -9,3 +9,17 @@ export class AuthUserDto {
     @IsNotEmpty()
     username:string;
 }
+
+export class AuthAccessDto {
+    @IsString()
+    @IsNotEmpty()
+    check_pass:string;
+
+    @IsString()
+    @IsNotEmpty()
+    check_name:string;
+
+    @IsString()
+    @IsNotEmpty()
+    id:string;
+}

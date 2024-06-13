@@ -20,13 +20,13 @@ export class CommentController {
       @Param("id") id:string,
       @Body() body:CommBodyDto
     ):Promise<Comment>{
-      return this.service.createComment(id,userId,body);
+      return this.service.createComment({id,userId,body});
     }
 
     @Auth()
     @Delete(":id")
-    async deleteComment(@Param("id") commId:string):Promise<number>{
-      return this.service.deleteTaskComment(commId);
+    async deleteComment(@Param("id") id:string):Promise<number>{
+      return this.service.deleteTaskComment(id);
     }
 
     @Auth()

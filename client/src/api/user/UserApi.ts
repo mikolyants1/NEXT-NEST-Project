@@ -16,7 +16,7 @@ export class UserApi {
     .then(({data}:AxiosResponse<IUser>) => data);
   }
   
-  async getTags():Promise<string[]> {
+  async findTags():Promise<string[]> {
     const {data} = await apiClient.get<IUser[]>("user");
     return data.map(u => u.tag);
   }

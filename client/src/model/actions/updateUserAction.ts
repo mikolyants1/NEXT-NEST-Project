@@ -1,4 +1,3 @@
-import { updateUser } from "@/api/mutation/user/updateUser";
 import { userApiQuery } from "@/api/user/userApiQuery";
 import { IUser, IUserBody, Null } from "@/libs/types/type";
 import { updateUserSchema } from "@/libs/types/zod";

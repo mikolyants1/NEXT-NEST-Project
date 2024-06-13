@@ -62,9 +62,13 @@ describe("CommentService",() => {
       await taskSource.save(task);
       array_task_id.push(task.id);
       const comment = await service
-      .createComment(task.id,user.id,{
-        author:user.username,
-        text:"hello world"
+      .createComment({
+        id:task.id,
+        userId:user.id,
+        body:{
+          author:user.username,
+          text:"hello world"
+        }
       });
       array_comment_id.push(comment.id);
       expect(comment.author).toBe(user.username);
@@ -87,9 +91,13 @@ describe("CommentService",() => {
         await taskSource.save(task);
         array_task_id.push(task.id);
         const comment:Comment = await service
-        .createComment(task.id,user.id,{
-          author:user.username,
-          text:"hello world"
+        .createComment({
+          id:task.id,
+          userId:user.id,
+          body:{
+            author:user.username,
+            text:"hello world"
+          }
         });
         const del_res = await service
         .deleteTaskComment(comment.id);
@@ -112,9 +120,13 @@ describe("CommentService",() => {
         await taskSource.save(task);
         array_task_id.push(task.id);
         const comment = await service
-        .createComment(task.id,user.id,{
-          author:user.username,
-          text:"hello world"
+        .createComment({
+          id:task.id,
+          userId:user.id,
+          body:{
+            author:user.username,
+            text:"hello world"
+          }
         });
         const update_com = await service
         .updateComment(comment.id,"hello again");

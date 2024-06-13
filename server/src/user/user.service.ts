@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UpdateAccessDto, UserBodyDto, UserCreateDto, UserResDto } from "../dto/user.dto";
+import { UserCreateDto } from "../dto/user.dto";
 import { DeleteResult, Repository } from "typeorm";
 import * as bc from 'bcryptjs';
 import { User } from "../entity/user.entity";
@@ -25,11 +25,11 @@ export class UserService {
       return this.users.findOneBy({id});
     }
 
-    async createUser({password,tag,username}:UserCreateDto):Promise<User>{
-      const hash_pass = await bc.hash(password,10);
+    async createUser(body:UserCreateDto):Promise<User>{
+      const hash_pass = await bc.hash(body.password,10);
       const newUser:User = this.users.create({
-        username,
-        tag,
+        username:body.username,
+        tag:body.tag,
         password:hash_pass,
         raiting:0,
       });
@@ -41,23 +41,19 @@ export class UserService {
       return user.affected;
     }
 
-    async updateUser(id:string,{password,username,tag}:UserCreateDto):Promise<User>{
+    async updateUser(id:string,body:UserCreateDto):Promise<User>{
       const user:User = await this.users.findOneBy({id});
-      if (username && username !== user.username){
+      if (body.username && body.username !== user.username){
         await this.comments.update({author:user.username},{
-          author:username
+          author:body.username
         });
       }
+      const password = await bc.hash(body.password,10);
        await this.users.update({id},{
-        username:username || user.username,
-        password:password ? bc.hashSync(password,10) : user.password,
-        tag:tag || user.tag
+        username:body.username || user.username,
+        password:body.password ? password : user.password,
+        tag:body.tag || user.tag
       });
       return this.users.findOneBy({id});
-    }
-
-    async getUserTags():Promise<string[]>{
-      const users:User[] = await this.users.find();
-      return users.map((u:User) => u.tag);
     }
 }

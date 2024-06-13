@@ -1,4 +1,4 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from "@nestjs/common";
 import { Observable, catchError, map, throwError } from "rxjs";
 import { User } from "../entity/user.entity";
 
@@ -18,7 +18,10 @@ export class HidePassInterceptor implements NestInterceptor {
           return user;
         }
       }),
-      catchError(throwError)
+      catchError((err) => {
+        Logger.error("error: ",err);
+        return err;
+      })
     );
   }
 }

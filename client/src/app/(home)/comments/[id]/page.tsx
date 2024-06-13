@@ -1,6 +1,4 @@
 import { commentApiQuery } from '@/api/comments/CommentApiQuery'
-import { getTaskComments } from '@/api/query/comment/getComments'
-import { getUser } from '@/api/query/user/getUser'
 import { userApiQuery } from '@/api/user/userApiQuery'
 import type { IComment, IUser } from '@/libs/types/type'
 import { getCookie } from '@/model/hooks/getCookie'

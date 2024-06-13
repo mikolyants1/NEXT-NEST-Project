@@ -17,6 +17,10 @@ export class InviteService {
     private readonly connect:DataSource
   ){}
 
+  async getAllInvites():Promise<Invitation[]>{
+    return this.invites.find();
+  }
+  
   async getInviteRecipient(id:string):Promise<Invitation[]>{
     return this.invites.findBy({recipient:id});
   }

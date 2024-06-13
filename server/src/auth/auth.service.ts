@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UpdateAccessDto, UserBodyDto, UserResDto } from "../dto/user.dto";
+import { UserBodyDto, UserResDto } from "../dto/user.dto";
 import { User } from "../entity/user.entity";
 import { Repository } from "typeorm";
 import * as bc from 'bcryptjs';
+import { AuthAccessDto } from "../dto/auth.dto";
 
 @Injectable()
 export class AuthService {
@@ -40,7 +41,7 @@ export class AuthService {
     }
   }
 
-  async updateAccess({check_name,check_pass,id}:UpdateAccessDto):Promise<boolean>{
+  async updateAccess({check_name,check_pass,id}:AuthAccessDto):Promise<boolean>{
     const user:User = await this.users.findOneBy({id});
     const isName:boolean = user.username == check_name;
     const isPass:boolean = await bc.compare(check_pass,user.password);

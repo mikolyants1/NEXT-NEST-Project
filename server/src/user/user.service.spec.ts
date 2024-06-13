@@ -102,8 +102,6 @@ describe("UserService", () => {
     await userDatabase.save(user);
     jest.spyOn(service,"getUsers")
     .mockImplementation(async () => [user]);
-    jest.spyOn(service,"getUserTags")
-    .mockImplementation(async () => [user.tag]);
   });
   
   afterAll(async () => {

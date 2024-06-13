@@ -1,4 +1,3 @@
-import { getUser } from '@/api/query/user/getUser'
 import { userApiQuery } from '@/api/user/userApiQuery'
 import type { IUser } from '@/libs/types/type'
 import ProfileCard from '@/ui/views/home/main/profile'

@@ -15,10 +15,6 @@ export class UserController {
     return this.service.getUsers();
   }
   
-  @Get("tags")
-  async getTags():Promise<string[]>{
-    return this.service.getUserTags();
-  }
   @Get(":id")
   @UseInterceptors(HidePassInterceptor)
   async getUser(@Param("id") id:string):Promise<User>{

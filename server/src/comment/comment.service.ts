@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { CommBodyDto, UpdateCommDto } from "../dto/comm.dto";
+import { CommCreateDto, UpdateCommDto } from "../dto/comm.dto";
 import { Comment } from "../entity/comment.entity";
 import { Task } from "../entity/task.entity";
 import { DeleteResult, Repository } from "typeorm";
@@ -24,7 +24,7 @@ export class CommentService {
       return comment.affected;
     }
 
-    async createComment(id:string,userId:string,body:CommBodyDto):Promise<Comment>{
+    async createComment({body,id,userId}:CommCreateDto):Promise<Comment>{
       const task:Task = await this.tasks.findOneBy({id});
       const newComment = this.comments.create({
         ...body,
