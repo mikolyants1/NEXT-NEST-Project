@@ -3,10 +3,11 @@
 import {type ITask } from "@/libs/types/type"
 import UserTaskCard from "./item/UserTaskCard"
 import { Button, Input } from "@chakra-ui/react"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import {motion} from 'framer-motion';
 import { setTaskAction } from "@/model/actions/setTaskAction"
 import { useFormStatus } from "react-dom"
+import CreateTaskForm from "./form/CreateTaskForm"
 
 interface IProps {
   tasks:ITask[],
@@ -16,29 +17,15 @@ interface IProps {
 
 function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
   const [mutTasks,setMutTasks] = useState<ITask[]>(tasks);
-  const taskAction = setTaskAction.bind(null,{setMutTasks});
-  const {pending} = useFormStatus();
+  
+  const createTask = useCallback((task:ITask) => {
+    setMutTasks((prv:ITask[]) => ([...prv,task]));
+  },[]);
 
   return (
     <>
       {(adminId == userId) && (
-        <form action={taskAction}>
-          <div className="mt-[5px] w-100 flex">
-            <Input w={320}
-             bg="rgb(200,200,200)"
-             placeholder="write task"
-             borderRightRadius={0}
-             name="title"
-            />
-            <Button w="80px"
-             colorScheme="blue"
-             borderLeftRadius={0}
-             isDisabled={pending}
-             type="submit">
-              add
-           </Button>
-         </div>
-       </form>
+        <CreateTaskForm createTask={createTask} />
       )}
       {mutTasks.map((t:ITask,idx:number):JSX.Element => (
        <motion.div key={t.id}

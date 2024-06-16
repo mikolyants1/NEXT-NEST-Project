@@ -7,11 +7,11 @@ interface IProps {
 }
 
 const query:QueryClient = new QueryClient({
-    defaultOptions:{
-      queries:{
-        refetchOnWindowFocus:false
-      }
+  defaultOptions:{
+    queries:{
+      refetchOnWindowFocus:false
     }
+  }
 })
 
 function QueryLayout({children}:IProps):JSX.Element {

@@ -2,6 +2,7 @@ import { IFriend, IFriendBody } from "@/libs/types/type";
 import { AxiosResponse } from "axios";
 import { apiClient } from "../apiClient";
 import { revalidatePath } from "next/cache";
+import { getCookie } from "@/model/hooks/getCookie";
 
 export class FriendApi {
   async find(id:string):Promise<IFriend[]> {
