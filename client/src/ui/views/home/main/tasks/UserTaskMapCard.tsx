@@ -2,11 +2,8 @@
 
 import {type ITask } from "@/libs/types/type"
 import UserTaskCard from "./item/UserTaskCard"
-import { Button, Input } from "@chakra-ui/react"
 import { useCallback, useState } from "react"
 import {motion} from 'framer-motion';
-import { setTaskAction } from "@/model/actions/setTaskAction"
-import { useFormStatus } from "react-dom"
 import CreateTaskForm from "./form/CreateTaskForm"
 
 interface IProps {

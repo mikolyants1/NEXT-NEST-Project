@@ -4,8 +4,7 @@ import {type Dispatch,type SetStateAction, useContext, useState } from 'react';
 import { ModalContext } from '@/model/context/modal';
 import { EModal } from '@/libs/enums/enum';
 import CommLinkCard from './comment/CommLinkCard';
-import Image from 'next/image';
-import bask from '../../../../../../../public/bask.webp';
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { taskApiQuery } from '@/api/task/taskApiQuery';
 
 interface IProps extends ITask {
@@ -44,10 +43,10 @@ function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
           {title}
         </div>
         {(userId == adminId) && (
-          <Image src={bask} alt="none"
-           className="z-101 transition ease-in-out duration-300 transform translate-x-[45px]"
+          <TrashIcon width={45} height={45}
+           className="z-10 text-xs text-white bg-red-500 transition
+           ease-in-out duration-300 transform translate-x-[45px]"
            style={{transform:`translateX(${show ? 0 : 45}px)`}}
-           width={45} height={45}
            onClick={deleteTask}
           />
         )}
