@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: server
+    env_file:
+      - ./src/env/.pg.env
+    ports:
+      -'5000:5000'
+    volumes:
+      - ./:/usr/srv/app
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:13.3
+    restart: always
+    env_file:
+      - ./src/env/.docker.env
+    ports:
+      - '5432:5432'
+    volumes:
+      - post_data:/var/lib/postgresql/data
+
+volumes:
+  post_data:
+     
