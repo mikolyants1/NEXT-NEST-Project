@@ -26,7 +26,7 @@ function CreateTaskForm({createTask}:IProps):JSX.Element {
          borderLeftRadius={0}
          isDisabled={pending}
          type="submit">
-          add
+           add
         </Button>
       </div>
     </form>

@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { Friend } from "../entity/friend.entity";
 import { Invitation } from "../entity/invite.entity";
 import { User } from "../entity/user.entity";
@@ -16,6 +16,7 @@ export class FriendService {
       private readonly friends:Repository<Friend>,
       @InjectRepository(Invitation)
       private readonly invites:Repository<Invitation>,
+      @InjectDataSource()
       private readonly connect:DataSource
     ){}
 

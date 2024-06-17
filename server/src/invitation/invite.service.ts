@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+import { InjectDataSource, InjectRepository } from "@nestjs/typeorm";
 import { InviteBodyDto } from "../dto/invite.dto";
 import { Invitation } from "../entity/invite.entity";
 import { User } from "../entity/user.entity";
@@ -14,6 +14,7 @@ export class InviteService {
     private readonly invites:Repository<Invitation>,
     @InjectRepository(User)
     private readonly users:Repository<User>,
+    @InjectDataSource()
     private readonly connect:DataSource
   ){}
 
