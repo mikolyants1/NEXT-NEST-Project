@@ -15,7 +15,7 @@ export class InviteService {
     @InjectRepository(User)
     private readonly users:Repository<User>,
     @InjectDataSource()
-    private readonly connect:DataSource
+    private readonly source:DataSource
   ){}
 
   async getAllInvites():Promise<Invitation[]>{
@@ -36,7 +36,7 @@ export class InviteService {
   }
 
     async createInvite(userId:string,{recipient}:InviteBodyDto):Promise<Invitation>{
-      const query:QueryRunner = this.connect.createQueryRunner();
+      const query:QueryRunner = this.source.createQueryRunner();
       await query.connect();
       await query.startTransaction();
       try {

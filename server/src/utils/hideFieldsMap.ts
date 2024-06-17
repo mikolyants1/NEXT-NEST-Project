@@ -1,3 +1,4 @@
+type TField<T> = Array<keyof T as Key>;
 
 export const hideFieldMap = <T>(
   user:T,

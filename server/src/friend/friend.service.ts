@@ -17,7 +17,7 @@ export class FriendService {
       @InjectRepository(Invitation)
       private readonly invites:Repository<Invitation>,
       @InjectDataSource()
-      private readonly connect:DataSource
+      private readonly source:DataSource
     ){}
 
     async getUserFriends(id:string):Promise<Friend[]>{
@@ -26,7 +26,7 @@ export class FriendService {
     }
 
     async addFriend(userId:string,friendId:string):Promise<Friend[]>{
-      const query:QueryRunner = this.connect.createQueryRunner();
+      const query:QueryRunner = this.source.createQueryRunner();
       await query.connect();
       await query.startTransaction();
       try {
@@ -49,7 +49,7 @@ export class FriendService {
     }
 
     async delFriend(userId:string,friendId:string):Promise<number>{
-      const query:QueryRunner = this.connect.createQueryRunner();
+      const query:QueryRunner = this.source.createQueryRunner();
       await query.connect();
       await query.startTransaction();
       try {
