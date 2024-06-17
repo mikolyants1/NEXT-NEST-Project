@@ -11,7 +11,7 @@ export class CommBodyDto {
   author:string;
 }
 
-export class UpdateCommDto extends OmitType(CommBodyDto,["author"]) {
+export class UpdateCommDto extends OmitType(CommBodyDto,["author"] as const) {
   @IsBoolean()
   @IsOptional()
   was_update?:boolean;
