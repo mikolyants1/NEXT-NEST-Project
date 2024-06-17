@@ -1,7 +1,7 @@
 import { BadRequestException, CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
 import { Observable, catchError, map, throwError } from "rxjs";
 import { User } from "../entity/user.entity";
-import { hidePassMap } from "../utils/hidePassMap";
+import { hideFieldMap } from "src/utils/hideFieldsMap";
 
 @Injectable()
 export class HidePassInterceptor implements NestInterceptor {
@@ -11,10 +11,11 @@ export class HidePassInterceptor implements NestInterceptor {
         if (Array.isArray(data)){
           const users = data as User[];
           return users.map((u:User) => (
-            hidePassMap(u)
+            hideFieldMap<User>(u,["password"])
           ));
         } else {
-          return hidePassMap(data as User);
+          const user = data as User;
+          return hideFieldMap<User>(user,["password"]);
         }
       }),
       catchError((err) => (
