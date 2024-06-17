@@ -19,7 +19,6 @@ export class HidePassInterceptor implements NestInterceptor {
             return user;
           });
           return res.status(HttpStatus.OK).json(hide_array);
-          return
         } else {
           const {password,...user} = data as User;
           return res.status(HttpStatus.OK).json(user);
