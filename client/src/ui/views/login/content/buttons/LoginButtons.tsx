@@ -3,17 +3,17 @@ import { Button } from '@chakra-ui/react';
 import {type SubmitHandler, useFormContext } from 'react-hook-form';
 
 interface IProps {
-  isHome:boolean,
-  submit:SubmitHandler<TForm>
+  isHome:boolean
 };
 
-function LoginButton({isHome,submit}:IProps):JSX.Element {
- const {handleSubmit} = useFormContext<TForm>();
+function LoginButton({isHome}:IProps):JSX.Element {
+ const {formState} = useFormContext<TForm>();
   return (
     <div className="flex mt-2 justify-center">
      <Button w={150}
       colorScheme='green'
-      onClick={handleSubmit(submit)}
+      type="submit"
+      isDisabled={formState.isLoading}
       mt={2} mb={1}>
        {isHome ? 'login' : 'regist'}
      </Button>

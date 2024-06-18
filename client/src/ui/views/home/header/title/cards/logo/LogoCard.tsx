@@ -22,9 +22,10 @@ function LogoCard({username,id,size,isHeader,allow}:IProps):JSX.Element {
  
   return (
     <div className="text-center box-border rounded-[50%] font-bold text-white"
-     onClick={ allow ? () => router.push(
-      isHeader ? `/main/${id}/profile` : `/main/${id}`
-     ) : () => null}
+     onClick={() => {
+      if (!allow) return;
+      router.push(`/main/${id}/${isHeader ? "profile" : ""}`);
+    }}
      style={{
        background:`linear-gradient(45deg,${one},${two})`,
        width:styles.getSize("w",size),

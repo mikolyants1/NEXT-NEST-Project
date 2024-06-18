@@ -34,7 +34,6 @@ describe('AuthService', () => {
      controllers:[AuthController],
      providers:[AuthService]
    }).compile();
-
    service = module.get<AuthService>(AuthService);
    jwtService = module.get<JwtService>(JwtService);
    userSource = module.get<Repository<User>>(getRepositoryToken(User));

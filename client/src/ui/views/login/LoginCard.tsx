@@ -24,11 +24,9 @@ interface IProps {
 type TForm = z.infer<typeof checkLoginSchema>;
 
 export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
- const [errArray,setErrArray] = useState<string[]>([]);
- const hashArray:string[] = useMemo(() => errArray,[errArray]);
  const router:AppRouterInstance = useRouter();
  const [error,setError] = useState<string>("");
- const methods = useForm<TForm>({
+ const form = useForm<TForm>({
   defaultValues:{
     username:"",
     password:"",
@@ -36,19 +34,14 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
   },
   resolver:zodResolver(checkLoginSchema)
  });
- const fields:IFields[] = createFields(isHome);
-
- const submit:SubmitHandler<TForm> = async (values):Promise<void> => {
-  setErrArray([]);
-  const isTag = isHome || values.tag;
+ 
+ const onSubmit:SubmitHandler<TForm> = async (values):Promise<void> => {
+  const isTag = isHome ? !values.tag : values.tag;
   const parseUser = checkLoginSchema.safeParse(values);
   if (parseUser.error){
     return setError("invalid types of fields");
   }
   const { username, password, tag } = parseUser.data;
-  if (!username) errorHandler("name");
-  if (!password) errorHandler("pass");
-  if (!isHome && !tag) errorHandler("tag");
   if (!username || !password || !isTag){
     setError("all fields shouldn't be empty");
     return;
@@ -59,7 +52,7 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     );
     if (!check.success){
       setError(check.message);
-      methods.reset();
+      form.reset();
       return;
     };
     if (isHome) router.push(`/main/${check.id}`);
@@ -81,46 +74,27 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     if (e instanceof Error){
     return setError(e.message);
     }
-    methods.reset();
+    form.reset();
   }
  }
  
- const errorHandler = (value:string):void => {
-  setErrArray((prv:string[])=>([
-    ...prv,value
-  ]));
- }
-
- const focus = useCallback((e:ChangeEvent<HTMLInputElement>):void => {
-   const newArrArray:string[] = errArray
-   .filter((i:string)=>i !== e.target.name);
-   setErrArray(newArrArray);
- },[errArray]);
-
   return (
-    <FormProvider {...methods}>
-      <div className="w-[400px] mr-auto ml-auto mt-20 bg-[rgb(90,90,90)]
+    <FormProvider {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}
+       className="w-[400px] mr-auto ml-auto mt-20 bg-[rgb(90,90,90)]
        text-white absolute right-0 left-0 min-h-75 rounded-xl overflow-hidden">
         <div className="text-3xl font-bold text-center mt-[10px] ">
           {isHome ? "Entrance" : "Registration"}
         </div>
         <>
-         {fields.map((i:IFields):JSX.Element=>(
-           <LoginInputs
-            key={i.name}
-            err={hashArray}
-            focus={focus}
-            {...i}
-           />
+         {createFields(isHome).map((i:IFields):JSX.Element=>(
+           <LoginInputs key={i.name} {...i} />
           ))}
         </>
-         <LoginButton
-          isHome={isHome}
-          submit={submit}
-          />
+         <LoginButton isHome={isHome} />
         <LoginErrorCard error={error} />
           {children}
-      </div>
+      </form>
     </FormProvider>
   )
 };
