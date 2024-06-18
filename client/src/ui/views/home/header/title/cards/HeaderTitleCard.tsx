@@ -6,7 +6,7 @@ import Loading from '@/ui/load/Loading'
 import Error from '@/ui/load/Error'
 import { EInvite } from '@/libs/enums/enum'
 import { userApiQuery } from '@/api/user/userApiQuery'
-import { IUser, Invitation } from '@/libs/types/type'
+import { IUser, Invitation } from '@/libs/types'
 import { inviteApiQuery } from '@/api/invite/inviteApiQuery'
 
 interface IProps {

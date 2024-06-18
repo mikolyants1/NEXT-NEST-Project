@@ -1,5 +1,5 @@
 import { userApiQuery } from '@/api/user/userApiQuery'
-import type { IUser } from '@/libs/types/type'
+import type { IUser } from '@/libs/types'
 import ProfileCard from '@/ui/views/home/main/profile'
 import type { Metadata } from 'next'
 import { use } from 'react'

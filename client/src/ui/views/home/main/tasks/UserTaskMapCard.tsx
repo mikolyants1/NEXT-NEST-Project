@@ -1,6 +1,6 @@
 "use client"
 
-import {type ITask } from "@/libs/types/type"
+import {type ITask } from "@/libs/types"
 import UserTaskCard from "./item/UserTaskCard"
 import { useCallback, useState } from "react"
 import {motion} from 'framer-motion';

@@ -1,7 +1,7 @@
 "use server"
 
 import { userApiQuery } from "@/api/user/userApiQuery";
-import { IUser } from "@/libs/types/type";
+import { IUser } from "@/libs/types";
 import { getCookie } from "@/model/hooks/getCookie";
 
 export const getUsersByTag = async (tag:string):Promise<IUser[]> => {

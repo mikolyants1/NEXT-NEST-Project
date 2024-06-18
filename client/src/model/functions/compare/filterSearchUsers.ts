@@ -1,4 +1,4 @@
-import { IUser } from "@/libs/types/type";
+import { IUser } from "@/libs/types";
 
 interface IArgs {
   users:IUser[],

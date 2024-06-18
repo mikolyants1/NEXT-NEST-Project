@@ -1,6 +1,6 @@
 "use client"
 
-import { IUser } from "@/libs/types/type";
+import { IUser } from "@/libs/types";
 import { FriendContext } from "@/model/context/friend";
 import SearchItemCard from "../search/items/item/SearchItemCard";
 import { getFriendUsers } from "@/model/functions/compare/friendUsers"

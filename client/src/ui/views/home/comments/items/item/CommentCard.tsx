@@ -1,6 +1,6 @@
 
 import { EModal } from "@/libs/enums/enum";
-import { IComment, IModalContext} from "@/libs/types/type"
+import { IComment, IModalContext} from "@/libs/types"
 import { ModalContext } from "@/model/context/modal"
 import { getTime } from "@/model/functions/find/getTime";
 import { Dispatch, SetStateAction, useContext } from "react"

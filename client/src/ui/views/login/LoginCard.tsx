@@ -6,7 +6,7 @@ import {type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { FormProvider,type SubmitHandler, useForm } from 'react-hook-form';
 import LoginButton from './content/buttons/LoginButtons';
 import LoginErrorCard from './content/error/LoginErrorCard';
-import {ICheckBody, IUser, IUserBody, type ICheckRes,type IFields} from '@/libs/types/type';
+import {ICheckBody, IUser, IUserBody, type ICheckRes,type IFields} from '@/libs/types';
 import { createFields } from '@/model/functions/maps/fields';
 import LoginInputs from './content/inputs/LoginInputs';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -86,12 +86,10 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
         <div className="text-3xl font-bold text-center mt-[10px] ">
           {isHome ? "Entrance" : "Registration"}
         </div>
-        <>
-         {createFields(isHome).map((i:IFields):JSX.Element=>(
-           <LoginInputs key={i.name} {...i} />
-          ))}
-        </>
-         <LoginButton isHome={isHome} />
+        {createFields(isHome).map((i:IFields):JSX.Element=>(
+          <LoginInputs key={i.name} {...i} />
+        ))}
+        <LoginButton isHome={isHome} />
         <LoginErrorCard error={error} />
           {children}
       </form>

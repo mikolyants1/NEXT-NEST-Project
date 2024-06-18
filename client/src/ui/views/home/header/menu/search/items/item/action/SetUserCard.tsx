@@ -1,6 +1,6 @@
 import { inviteApiQuery } from '@/api/invite/inviteApiQuery';
 import { EFriendStatus, EModal } from '@/libs/enums/enum';
-import { Invitation, type IModalContext } from '@/libs/types/type';
+import { Invitation, type IModalContext } from '@/libs/types';
 import { FriendContext } from '@/model/context/friend';
 import { ModalContext } from '@/model/context/modal';
 import { getFriendStatus } from '@/model/functions/find/getFriendStatus';

@@ -1,7 +1,9 @@
-import { ICommBody, ICommUpdateBody, IComment } from "@/libs/types/type";
+import { ICommBody, ICommUpdateBody, IComment } from "@/libs/types";
 import { getCookie } from "@/model/hooks/getCookie";
 import { apiClient } from "../apiClient";
 import { AxiosResponse } from "axios";
+import { z } from "zod";
+import { CommentSchema } from "@/libs/zod/data";
 
 export class CommentApi {
   async create({taskId,...body}:ICommBody):Promise<IComment> {
@@ -39,7 +41,8 @@ export class CommentApi {
   }
 
   async find(id:string):Promise<IComment[]> {
-    return apiClient.get<IComment[]>(`comments/${id}`)
-    .then(({data}:AxiosResponse<IComment[]>) => data);
+    const {data} = await apiClient.get<IComment[]>(`comments/${id}`);
+    const map_schema = z.array(CommentSchema);
+    return map_schema.parse(data);
   }
 }

@@ -3,7 +3,7 @@
 import { friendApiQuery } from '@/api/friend/friendApiQuery'
 import { inviteApiQuery } from '@/api/invite/inviteApiQuery'
 import { EFriendAction } from '@/libs/enums/enum'
-import { IFriend, IFriendBody, Invitation } from '@/libs/types/type'
+import { IFriend, IFriendBody, Invitation } from '@/libs/types'
 import { Button } from '@chakra-ui/react'
 
 interface IProps {

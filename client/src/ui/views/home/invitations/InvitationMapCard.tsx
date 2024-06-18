@@ -1,4 +1,4 @@
-import { type Invitation } from '@/libs/types/type'
+import { type Invitation } from '@/libs/types'
 import { EInvite } from '@/libs/enums/enum';
 import UserInviteWrapper from './user/wrappers/UserInviteWrapper';
 import EmptyInviteCard from './empty/EmptyInviteCard';

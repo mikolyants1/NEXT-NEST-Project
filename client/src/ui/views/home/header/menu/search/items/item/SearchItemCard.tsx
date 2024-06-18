@@ -1,6 +1,6 @@
 "use client"
 
-import {type IUser } from '@/libs/types/type'
+import {type IUser } from '@/libs/types'
 import LogoCard from '../../../../title/cards/logo/LogoCard';
 import SetUserCard from './action/SetUserCard';
 import { useContext, useState } from 'react';

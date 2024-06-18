@@ -2,7 +2,7 @@
 
 import { friendApiQuery } from "@/api/friend/friendApiQuery";
 import { userApiQuery } from "@/api/user/userApiQuery";
-import {type IFriend,type IUser } from "@/libs/types/type"
+import {type IFriend,type IUser } from "@/libs/types"
 import { getCookie } from "@/model/hooks/getCookie";
 
 export const getFriendUsers = async ():Promise<IUser[]> => {

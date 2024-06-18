@@ -1,4 +1,3 @@
-import { userApiQuery } from '@/api/user/userApiQuery';
 import { getCookie } from '@/model/hooks/getCookie'
 import ModalLayout from '@/model/layouts/ModalLayout'
 import Header from '@/ui/views/home/header';

@@ -1,9 +1,9 @@
 import {z} from 'zod';
 
 export const updateUserSchema = z.object({
-  tag:z.string(),
-  username:z.string(),
-  password:z.string()
+  tag:z.string().optional(),
+  username:z.string().optional(),
+  password:z.string().optional()
 });
 
 export const checkLoginSchema = z.object({

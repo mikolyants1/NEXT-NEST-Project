@@ -1,19 +1,22 @@
 
-import { IUser, IUserBody } from "@/libs/types/type";
+import { IUser, IUserBody } from "@/libs/types";
 import { apiClient } from "../apiClient";
 import { AxiosResponse } from "axios";
 import { revalidatePath } from "next/cache";
 import { getCookie } from "@/model/hooks/getCookie";
+import { z } from "zod";
+import { UserSchema } from "@/libs/zod/data";
 
 export class UserApi {
   async find():Promise<IUser[]> {
-    return apiClient.get<IUser[]>("user")
-    .then(({data}:AxiosResponse<IUser[]>) => data);
+    const {data} = await apiClient.get<IUser[]>("user");
+    const map_schema = z.array(UserSchema);
+    return map_schema.parse(data);
   }
 
   async findById(id:string):Promise<IUser> {
-    return apiClient.get<IUser>(`user/${id}`)
-    .then(({data}:AxiosResponse<IUser>) => data);
+    const {data} = await apiClient.get<IUser>(`user/${id}`);
+    return UserSchema.parse(data);
   }
   
   async findTags():Promise<string[]> {

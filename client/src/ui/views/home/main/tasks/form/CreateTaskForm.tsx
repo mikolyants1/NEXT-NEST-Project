@@ -1,4 +1,4 @@
-import { ITask } from '@/libs/types/type'
+import { ITask } from '@/libs/types'
 import { setTaskAction } from '@/model/actions/setTaskAction'
 import { Button, Input } from '@chakra-ui/react';
 import React from 'react'

@@ -1,6 +1,6 @@
 "use client"
 
-import {ICommBody, type IComment } from '@/libs/types/type'
+import {ICommBody, type IComment } from '@/libs/types'
 import { useMediaQuery } from '@chakra-ui/react'
 import  { useState, useCallback } from 'react'
 import CommentCard from './item/CommentCard'
@@ -28,28 +28,28 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
   },[author, taskId])
 
   return (
-      <>
-        <div style={{width:isWidth ? "100%" : "80%"}}
-         className='w-[80%] overflow-y-scroll box-border pl-5 mt-10 ml-auto mr-auto'>
-          {mutComment.map((c:IComment,idx:number):JSX.Element => {
-             const isNewDay:boolean = checkData(data,idx);
-             return (
-              <>
-               {isNewDay && (
+    <>
+      <div style={{width:isWidth ? "100%" : "80%"}}
+       className='w-[80%] overflow-y-scroll box-border pl-5 mt-10 ml-auto mr-auto'>
+        {mutComment.map((c:IComment,idx:number):JSX.Element => {
+          const isNewDay:boolean = checkData(data,idx);
+          return (
+            <>
+              {isNewDay && (
                 <DayCommCard time={c.date} />
-               )}
-                <CommentCard
-                 userId={userId}
-                 change={setMutComment}
-                 key={c.id}
-                  {...c}
-                 />
-              </>
-             )
-          })}
-        </div>
-        <CommInputCard add={addComment} />
-      </>
+              )}
+              <CommentCard
+               userId={userId}
+               change={setMutComment}
+               key={c.id}
+               {...c}
+               />
+            </>
+          )
+        })}
+      </div>
+      <CommInputCard add={addComment} />
+    </>
   )
 }
 

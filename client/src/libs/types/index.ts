@@ -9,7 +9,7 @@ export interface IComment {
   text:string,
   author:string,
   author_id:string,
-  date:string,
+  date:number,
   was_update:boolean
 }
 
@@ -76,9 +76,8 @@ export interface ICommUpdateBody extends Omit<ICommBody,"author"|"taskId"> {
 export interface IUser {
   id:string,
   username:string,
-  password:string,
   tag:string,
-  raiting:string
+  raiting:number
 }
 
 export interface IUserBody extends Omit<ICheckBody,"isLogin">{
@@ -136,4 +135,4 @@ export interface InviteCreareBody {
    recipient:string
 }
 
-export type TForm = Omit<IUser,"id"|"raiting">;
+export type TForm = Pick<IUser,"tag"|"username"> & {password:string};

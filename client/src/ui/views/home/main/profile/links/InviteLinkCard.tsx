@@ -1,6 +1,6 @@
 "use client"
 
-import {type Invitation} from '@/libs/types/type';
+import {type Invitation} from '@/libs/types';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import Loading from '@/ui/load/Loading';

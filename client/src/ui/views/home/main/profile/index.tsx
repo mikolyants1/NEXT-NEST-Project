@@ -1,6 +1,6 @@
 "use client"
 
-import {type IModalContext,type IUser } from '@/libs/types/type'
+import {type IModalContext,type IUser } from '@/libs/types'
 import { useContext } from 'react'
 import LogoCard from '../../header/title/cards/logo/LogoCard';
 import { Button } from '@chakra-ui/react';

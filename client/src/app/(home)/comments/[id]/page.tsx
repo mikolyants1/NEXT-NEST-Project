@@ -1,6 +1,6 @@
 import { commentApiQuery } from '@/api/comments/CommentApiQuery'
 import { userApiQuery } from '@/api/user/userApiQuery'
-import type { IComment, IUser } from '@/libs/types/type'
+import type { IComment, IUser } from '@/libs/types'
 import { getCookie } from '@/model/hooks/getCookie'
 import Loading from '@/ui/load/Loading'
 import BackLinkCard from '@/ui/views/home/comments/back/BackLinkCard'

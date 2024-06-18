@@ -1,5 +1,5 @@
 import { taskApiQuery } from "@/api/task/taskApiQuery";
-import { ITask } from "@/libs/types/type";
+import { ITask } from "@/libs/types";
 
 interface IProps {
   id:string

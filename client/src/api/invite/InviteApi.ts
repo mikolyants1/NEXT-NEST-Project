@@ -1,20 +1,26 @@
-import { Invitation } from "@/libs/types/type";
+import { Invitation } from "@/libs/types";
 import { getCookie } from "@/model/hooks/getCookie";
 import { apiClient } from "../apiClient";
 import { revalidateTag } from "next/cache";
 import { AxiosResponse } from "axios";
 import { EInvite } from "@/libs/enums/enum";
+import { z } from "zod";
+import { InviteSchema } from "@/libs/zod/data";
 
 export class InviteApi {
   async find(type:EInvite):Promise<Invitation[]> {
     const id = await getCookie("userId");
-    return fetch(`http://localhost:5000/invitation/${id}?type=${type}`,{
+    const res = await fetch(
+     `http://localhost:5000/invitation/${id}?type=${type}`,{
       method:"GET",
       next:{
         revalidate:3600,
         tags:["invite"]
       }
-    }).then((res) => res.json());
+    });
+    const data = await res.json();
+    const map_schema = z.array(InviteSchema);
+    return map_schema.parse(data);
   }
   
   async create(recipient:string):Promise<Invitation> {

@@ -1,6 +1,6 @@
 "use client"
 
-import {type ILogo} from '@/libs/types/type';
+import {type ILogo} from '@/libs/types';
 import { memo } from 'react'
 import { createLogo } from '@/model/functions/create/logo';
 import { useRouter } from 'next/navigation';

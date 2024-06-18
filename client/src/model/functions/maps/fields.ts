@@ -1,4 +1,4 @@
-import {type IFields } from "@/libs/types/type";
+import {type IFields } from "@/libs/types";
 
 export const createFields = (isHome:boolean):IFields[] => {
    const data:IFields[] = [

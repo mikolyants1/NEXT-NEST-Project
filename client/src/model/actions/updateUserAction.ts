@@ -1,6 +1,6 @@
 import { userApiQuery } from "@/api/user/userApiQuery";
-import { IUser, IUserBody, Null } from "@/libs/types/type";
-import { updateUserSchema } from "@/libs/types/zod";
+import { IUser, IUserBody, Null } from "@/libs/types";
+import { updateUserSchema } from "@/libs/zod/form";
 import { Dispatch, SetStateAction } from "react";
 
 interface IProps {
@@ -23,13 +23,13 @@ export async function updateUserAction({
     if (!parse.data) {
       return setError(parse.error.toString());
     }
-    if (tag && parse.data.tag[0] !== "@"){
+    if (tag && parse.data.tag && parse.data.tag[0] !== "@"){
       return setError("first tag symbol must be @");
     }
     await userApiQuery<IUser,IUserBody>("update",{
-      tag:parse.data.tag,
-      username:parse.data.username,
-      password:parse.data.password
+      tag:parse.data.tag || "",
+      username:parse.data.username || "",
+      password:parse.data.password || ""
     });
   } catch (e) {
     if (e instanceof Error){

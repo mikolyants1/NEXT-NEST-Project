@@ -1,4 +1,4 @@
-import {type ILogo } from "@/libs/types/type";
+import {type ILogo } from "@/libs/types";
 
 export function createLogo():ILogo {
   const first:string[] = ['gold','green','orange'];

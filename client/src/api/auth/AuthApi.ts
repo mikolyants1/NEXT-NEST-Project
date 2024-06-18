@@ -1,4 +1,4 @@
-import { IAccessBody, ICheckBody, ICheckRes } from "@/libs/types/type";
+import { IAccessBody, ICheckBody, ICheckRes } from "@/libs/types";
 import { apiClient } from "../apiClient";
 import { AxiosResponse } from "axios";
 import { getCookie } from "@/model/hooks/getCookie";
@@ -9,8 +9,8 @@ export class AuthApi {
     return apiClient.post<ICheckRes>("auth/login",body)
     .then(async ({data}:AxiosResponse<ICheckRes>) => {
       if (data.success && body.isLogin){
-       await setCookie<string>("token",data.token);
-       await setCookie<string>("userId",data.id);
+       await setCookie("token",data.token);
+       await setCookie("userId",data.id);
       }
       return data;
     });

@@ -1,4 +1,4 @@
-import { type TForm } from "@/libs/types/type";
+import { type TForm } from "@/libs/types";
 import { Input } from "@chakra-ui/react";
 import { memo } from "react";
 import { Controller, useFormContext} from 'react-hook-form'
@@ -15,7 +15,7 @@ function LoginInput({name}:IProps):JSX.Element{
       <Controller
        control={control}
        name={name}
-       render={({field}):JSX.Element=>(
+       render={({field}):JSX.Element => (
         <Input w='100%'
          variant="flushed"
          isInvalid={!!formState.errors[`${name}`]}

@@ -2,9 +2,9 @@
 
 import { cookies } from "next/headers"
 
-export const setCookie = async <T>(
+export const setCookie = async (
     key:string,
-    value:T
+    value:string
 ):Promise<void> => {
   cookies().set(key,value);
 }

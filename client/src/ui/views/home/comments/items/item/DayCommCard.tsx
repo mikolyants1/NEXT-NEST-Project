@@ -1,7 +1,7 @@
 import { getDayOfComment } from '@/model/functions/find/getDayOfComm';
 
 interface IProps {
-  time:string
+  time:number
 }
 
 function DayCommCard({time}:IProps):JSX.Element {

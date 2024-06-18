@@ -1,19 +1,22 @@
 
-import { ITask, ITaskUpdateBody } from "@/libs/types/type";
+import { ITask, ITaskUpdateBody } from "@/libs/types";
 import { AxiosResponse } from "axios";
 import { apiClient } from "../apiClient";
 import { getCookie } from "@/model/hooks/getCookie";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { TaskSchema } from "@/libs/zod/data";
 
 export class TaskApi {
   async find(id:string):Promise<ITask[]> {
-    return apiClient.get<ITask[]>(`task/user/${id}`)
-    .then(({data}:AxiosResponse<ITask[]>) => data);
+    const {data} = await apiClient.get<ITask[]>(`task/user/${id}`);
+    const map_schema = z.array(TaskSchema);
+    return map_schema.parse(data);
   }
 
   async findById(id:string):Promise<ITask> {
-    return apiClient.get<ITask>(`task/${id}`)
-    .then(({data}:AxiosResponse<ITask>)=>data);
+    const {data} = await apiClient.get<ITask>(`task/${id}`);
+    return TaskSchema.parse(data);
   }
   
   async create(title:string):Promise<ITask> {

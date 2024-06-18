@@ -1,6 +1,6 @@
 import { taskApiQuery } from "@/api/task/taskApiQuery";
 import { userApiQuery } from "@/api/user/userApiQuery";
-import {type ITask,type IUser } from "@/libs/types/type";
+import {type ITask,type IUser } from "@/libs/types";
 import { getCookie } from "@/model/hooks/getCookie";
 import UserTaskMapCard from "@/ui/views/home/main/tasks/UserTaskMapCard";
 import UserTitleCard from "@/ui/views/home/main/tasks/UserTitleCard";
@@ -21,7 +21,7 @@ export const revalidate = 3600;
 
 async function page({params}:IProps):Promise<JSX.Element> {
   const adminId = await getCookie("userId");
-  const tasks:ITask[] =  await taskApiQuery<ITask[],string>(
+  const tasks = await taskApiQuery<ITask[],string>(
     "find",params.id
   );
   const {id,username} = await userApiQuery<IUser,string>(

@@ -1,5 +1,5 @@
 import { commentApiQuery } from '@/api/comments/CommentApiQuery';
-import {type IComment } from '@/libs/types/type'
+import {type IComment } from '@/libs/types'
 import Error from '@/ui/load/Error'
 import Loading from '@/ui/load/Loading'
 import { useQuery } from '@tanstack/react-query'

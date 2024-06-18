@@ -1,7 +1,7 @@
 "use client"
 
 import { EModal } from '@/libs/enums/enum';
-import {type IModalContext } from '@/libs/types/type'
+import {type IModalContext } from '@/libs/types'
 import { ModalContext } from '@/model/context/modal'
 import Loading from '@/ui/load/Loading';
 import { Modal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from '@chakra-ui/react';

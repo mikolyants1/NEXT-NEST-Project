@@ -3,7 +3,7 @@
 import { friendApiQuery } from "@/api/friend/friendApiQuery";
 import { inviteApiQuery } from "@/api/invite/inviteApiQuery";
 import { EFriendStatus, EInvite } from "@/libs/enums/enum";
-import { IFriend, Invitation } from "@/libs/types/type";
+import { IFriend, Invitation } from "@/libs/types";
 import { getCookie } from "@/model/hooks/getCookie";
 
 export const getFriendStatus = async (frId:string):Promise<EFriendStatus> => {

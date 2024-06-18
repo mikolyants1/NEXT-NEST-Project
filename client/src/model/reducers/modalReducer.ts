@@ -1,5 +1,5 @@
 import { EModal } from "@/libs/enums/enum";
-import { IModalAction, IModalState } from "@/libs/types/type";
+import { IModalAction, IModalState } from "@/libs/types";
 
 export const modalState:IModalState = {
   type:EModal.CHANGE_COMMENT,

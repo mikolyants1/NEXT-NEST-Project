@@ -1,4 +1,4 @@
-import {type IModalContext } from '@/libs/types/type';
+import {type IModalContext } from '@/libs/types';
 import { updateUserAction } from '@/model/actions/updateUserAction';
 import { ModalContext } from '@/model/context/modal';
 import { Button, Input } from '@chakra-ui/react';
@@ -38,7 +38,7 @@ function UpdateStepCard():JSX.Element {
           </div>
         </div>
       </form>
-    );
+  );
 }
 
 export default UpdateStepCard

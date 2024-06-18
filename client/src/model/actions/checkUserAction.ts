@@ -1,6 +1,6 @@
 import { authApiQuery } from "@/api/auth/authApiQuery";
-import {IAccessBody, type Null } from "@/libs/types/type";
-import { checkUserSchema } from "@/libs/types/zod";
+import {IAccessBody, type Null } from "@/libs/types";
+import { checkUserSchema } from "@/libs/zod/form";
 import {type Dispatch,type SetStateAction } from "react";
 
 interface IProps {

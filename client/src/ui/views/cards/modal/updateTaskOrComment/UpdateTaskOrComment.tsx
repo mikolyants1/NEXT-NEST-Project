@@ -2,7 +2,7 @@ import { commentApiQuery } from '@/api/comments/CommentApiQuery';
 import { taskApiQuery } from '@/api/task/taskApiQuery';
 import { EModal } from '@/libs/enums/enum';
 import {ICommUpdateBody, ITaskUpdateBody, type IComment,
-type IModalContext,type ITask,type IUpdateTaskOrCommState } from '@/libs/types/type';
+type IModalContext,type ITask,type IUpdateTaskOrCommState } from '@/libs/types';
 import { ModalContext } from '@/model/context/modal';
 import { Button, Input } from '@chakra-ui/react'
 import { ChangeEvent, useContext, useState } from 'react'
