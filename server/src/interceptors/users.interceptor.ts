@@ -11,9 +11,9 @@ export class HidePassInterceptor implements NestInterceptor {
       map(data => {
         if (Array.isArray(data)){
           const users = data as User[];
-          return users.map((user:User) => {
-            return hideFieldMap<User>(user,["password"]);
-          });
+          return users.map((user:User) => (
+            hideFieldMap<User>(user,["password"])
+          ));
         } else {
           return hideFieldMap<User>(data,["password"]);
         }
