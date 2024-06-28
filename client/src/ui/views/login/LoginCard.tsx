@@ -2,7 +2,7 @@
 
 import {type AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
-import {type ChangeEvent, useCallback, useMemo, useState } from 'react';
+import {useState } from 'react';
 import { FormProvider,type SubmitHandler, useForm } from 'react-hook-form';
 import LoginButton from './content/buttons/LoginButtons';
 import LoginErrorCard from './content/error/LoginErrorCard';
@@ -10,10 +10,10 @@ import {ICheckBody, IUser, IUserBody, type ICheckRes,type IFields} from '@/libs/
 import { createFields } from '@/model/functions/maps/fields';
 import LoginInputs from './content/inputs/LoginInputs';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { checkLoginSchema } from '@/libs/types/zod';
 import { z } from 'zod';
 import { userApiQuery } from '@/api/user/userApiQuery';
 import { authApiQuery } from '@/api/auth/authApiQuery';
+import { checkLoginSchema } from '@/libs/zod/form';
 
 interface IProps {
   isHome:boolean,
@@ -34,7 +34,6 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
   },
   resolver:zodResolver(checkLoginSchema)
  });
- 
  const onSubmit:SubmitHandler<TForm> = async (values):Promise<void> => {
   const isTag = isHome ? !values.tag : values.tag;
   const parseUser = checkLoginSchema.safeParse(values);
@@ -72,7 +71,7 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
     }
   } catch(e) {
     if (e instanceof Error){
-    return setError(e.message);
+       return setError(e.message);
     }
     form.reset();
   }
@@ -86,8 +85,8 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
         <div className="text-3xl font-bold text-center mt-[10px] ">
           {isHome ? "Entrance" : "Registration"}
         </div>
-        {createFields(isHome).map((i:IFields):JSX.Element=>(
-          <LoginInputs key={i.name} {...i} />
+        {createFields(isHome).map((i:IFields,idx:number):JSX.Element => (
+          <LoginInputs key={i.name} idx={idx} {...i} />
         ))}
         <LoginButton isHome={isHome} />
         <LoginErrorCard error={error} />

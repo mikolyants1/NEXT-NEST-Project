@@ -19,7 +19,7 @@ export class FriendController {
   async actionWithFriend(
     @Headers("x-user") userId:string,
     @Body() {action,friendId}:FriendBodyDto
-  ):Promise<Friend[]|number>{
+  ):Promise<Friend[]>{
     if (action == EFriendAction.ADD){
       return this.service.addFriend(userId,friendId);
     }

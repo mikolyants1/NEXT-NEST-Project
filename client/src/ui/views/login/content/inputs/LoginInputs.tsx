@@ -4,10 +4,11 @@ import { memo } from "react";
 import { Controller, useFormContext} from 'react-hook-form'
 
 interface IProps {
-   name:keyof TForm
+   name:keyof TForm,
+   idx:number
 }
 
-function LoginInput({name}:IProps):JSX.Element{
+function LoginInput({name,idx}:IProps):JSX.Element{
   const {control,formState} = useFormContext<TForm>();
   
   return (
@@ -18,6 +19,7 @@ function LoginInput({name}:IProps):JSX.Element{
        render={({field}):JSX.Element => (
         <Input w='100%'
          variant="flushed"
+         tabIndex={idx}
          isInvalid={!!formState.errors[`${name}`]}
          color={formState.errors[`${name}`] ? "red" : "white"}
          placeholder={name}

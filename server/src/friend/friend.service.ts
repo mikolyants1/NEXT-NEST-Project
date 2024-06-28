@@ -48,23 +48,27 @@ export class FriendService {
       }
     }
 
-    async delFriend(userId:string,friendId:string):Promise<number>{
+    async delFriend(userId:string,friendId:string):Promise<Friend[]>{
       const query:QueryRunner = this.source.createQueryRunner();
       await query.connect();
       await query.startTransaction();
       try {
       const user:User = await this.users.findOneBy({id:userId});
       const friend:User = await this.users.findOneBy({id:friendId});
-      await this.friends.delete({
+      const friend_entity = await this.friends.findOneBy({
         user:friend,
         friend_id:userId
       });
-      const res = await this.friends.delete({
+      const user_entity = await this.friends.findOneBy({
         user,
         friend_id:friendId
       });
+      const result = await this.friends.remove([
+        friend_entity,
+        user_entity
+      ]);
       await query.commitTransaction();
-      return res.affected;
+      return result;
       } catch (e){
         this.logger.error(e);
         await query.rollbackTransaction();
