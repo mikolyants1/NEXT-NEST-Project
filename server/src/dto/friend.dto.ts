@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsString } from "class-validator";
 import { EFriendAction } from "../enums/friend.enum";
 
 export class FriendBodyDto {
@@ -8,5 +8,6 @@ export class FriendBodyDto {
 
    @IsString()
    @IsNotEmpty()
+   @IsEnum(EFriendAction)
    action:EFriendAction;
 }
