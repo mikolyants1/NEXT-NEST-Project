@@ -19,10 +19,15 @@ export const CommentCreateBodySchema = z.object({
 
 export const CommentUpdateBodySchema = z.object({
   text:z.string().min(1,"text is required"),
-  id:z.string().ulid("id must be uuid")
+  id:z.string().uuid("id must be uuid")
 });
 
 export const FriendDeleteOrCreateBodySchema = z.object({
   friendId:z.string().uuid("griend id must be uuid"),
-  action:z.enum([Object.values(EFriendAction)])
-})
+  action:z.nativeEnum(EFriendAction)
+});
+
+export const TaskUpdateBodySchema = z.object({
+  taskId:z.string().uuid("task id must be required"),
+  title:z.string().min(1,"title is required")
+});

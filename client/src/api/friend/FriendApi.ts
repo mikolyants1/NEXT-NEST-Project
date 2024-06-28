@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { getCookie } from "@/model/hooks/getCookie";
 import { z } from "zod";
 import { FriendSchema } from "@/libs/zod/data";
+import { FriendDeleteOrCreateBodySchema } from "@/libs/zod/params";
 
 export class FriendApi {
   async find(id:string):Promise<IFriend[]> {
@@ -17,7 +18,8 @@ export class FriendApi {
     const token = await getCookie("token");
     const userId = await getCookie("userId");
     revalidatePath("/main","layout");
-    return apiClient.post<IFriend>(`friend`,body,{
+    const parse_body = FriendDeleteOrCreateBodySchema.parse(body);
+    return apiClient.post<IFriend>(`friend`,parse_body,{
       headers:{
         Authorization:`Bearer ${token}`,
         "x-user":userId

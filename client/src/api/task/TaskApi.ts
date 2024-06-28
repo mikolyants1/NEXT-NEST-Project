@@ -6,6 +6,7 @@ import { getCookie } from "@/model/hooks/getCookie";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { TaskSchema } from "@/libs/zod/data";
+import { TaskUpdateBodySchema } from "@/libs/zod/params";
 
 export class TaskApi {
   async find(id:string):Promise<ITask[]> {
@@ -42,9 +43,10 @@ export class TaskApi {
     }).then(({data}:AxiosResponse<ITask>) => data);
   }
 
-  async update({taskId,title}:ITaskUpdateBody):Promise<ITask> {
+  async update(body:ITaskUpdateBody):Promise<ITask> {
     const userId = await getCookie("userId");
     const token = await getCookie("token");
+    const { taskId, title } = TaskUpdateBodySchema.parse(body);
     return apiClient.put<ITask>(`task/${taskId}`,{title},{
       headers:{
         Authorization:`Bearer ${token}`,
