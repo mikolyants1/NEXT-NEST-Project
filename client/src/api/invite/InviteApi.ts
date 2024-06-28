@@ -26,7 +26,8 @@ export class InviteApi {
   async create(recipient:string):Promise<Invitation> {
     const token = await getCookie("token");
     const userId = await getCookie("userId");
-    const data = await fetch(`http://localhost:5000/invitation`,{
+    const data = await fetch(
+     "http://localhost:5000/invitation",{
       method:"POST",
       headers:{
         "Content-type":"application/json",

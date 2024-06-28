@@ -12,7 +12,6 @@ function layout({
   if (!userId || !token){
     redirect("/unauthorized");
   }
-  
   return children;
 }
 

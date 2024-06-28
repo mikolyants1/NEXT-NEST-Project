@@ -1,6 +1,6 @@
-FROM node:latest
+FROM node:21.5.0-alpine
 
-WORKDIR /app
+WORKDIR /usr/cli/app
 
 COPY package*.json .
 
@@ -8,6 +8,8 @@ RUN yarn
 
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
 
-CMD yarn run dev
+CMD ["yarn", "run" , "dev"]
+
+EXPOSE 3000

@@ -1,6 +1,6 @@
 import {type TForm } from '@/libs/types';
 import { Button } from '@chakra-ui/react';
-import {type SubmitHandler, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 interface IProps {
   isHome:boolean

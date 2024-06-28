@@ -24,15 +24,15 @@ async function page({params}:IProps):Promise<JSX.Element> {
   const tasks = await taskApiQuery<ITask[],string>(
     "find",params.id
   );
-  const {id,username} = await userApiQuery<IUser,string>(
+  const user = await userApiQuery<IUser,string>(
     "findById",params.id
   );
   
   return (
     <main className="flex w-[100%] mt-10 justify-center items-center flex-col">
       <UserTitleCard
-       userId={id}
-       username={username}
+       userId={user.id}
+       username={user.username}
        adminId={adminId || ""}
       />
       <UserTaskMapCard

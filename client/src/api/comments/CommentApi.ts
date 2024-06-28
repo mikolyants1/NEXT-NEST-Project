@@ -4,13 +4,15 @@ import { apiClient } from "../apiClient";
 import { AxiosResponse } from "axios";
 import { z } from "zod";
 import { CommentSchema } from "@/libs/zod/data";
+import { CommentCreateBodySchema, CommentUpdateBodySchema } from "@/libs/zod/params";
 
 export class CommentApi {
   async create({taskId,...body}:ICommBody):Promise<IComment> {
     const token = await getCookie("token");
     const userId = await getCookie("userId");
+    const parse_body = CommentCreateBodySchema.parse(body);
     return apiClient.post<IComment>(
-      `comments/${taskId}`,body,{
+     `comments/${taskId}`,parse_body,{
       headers:{
         Authorization:`Bearer ${token}`,
         "x-user":userId
@@ -29,10 +31,12 @@ export class CommentApi {
     }).then(({data}:AxiosResponse<IComment>) => data)
   }
 
-  async update({id,text}:ICommUpdateBody):Promise<IComment> {
+  async update(body:ICommUpdateBody):Promise<IComment> {
     const token = await getCookie("token");
     const userId = await getCookie("userId");
-    return apiClient.put<IComment>(`comments/${id}`,{text},{
+    const { id, text } = CommentUpdateBodySchema.parse(body);
+    return apiClient.put<IComment>(
+    `comments/${id}`,{text},{
       headers:{
         Authorization:`Bearer ${token}`,
         "x-user":userId

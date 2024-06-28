@@ -3,8 +3,8 @@ import { z } from "zod";
 export const UserSchema = z.object({
   id:z.string().uuid("id must be uuid"),
   username:z.string().min(1,"username is required"),
-  tag:z.string().includes("@",{message:"@ is required"}),
-  raiting:z.number().int("raiting must be integer")
+  tag:z.string().min(1,"tag is required").includes("@",{message:"@ is required"}),
+  raiting:z.number().min(0,"raiting can't be less than 0").int("raiting must be integer")
 });
 
 export const TaskSchema = z.object({
