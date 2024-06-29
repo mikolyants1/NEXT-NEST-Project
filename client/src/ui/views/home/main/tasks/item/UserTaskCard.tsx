@@ -6,6 +6,7 @@ import { EModal } from '@/libs/enums/enum';
 import CommLinkCard from './comment/CommLinkCard';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { taskApiQuery } from '@/api/task/taskApiQuery';
+import { AnimatePresence , motion } from 'framer-motion';
 
 interface IProps extends ITask {
     userId:string,
@@ -43,12 +44,20 @@ function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
           {title}
         </div>
         {(userId == adminId) && (
-          <TrashIcon width={45} height={45}
-           className="z-10 text-xs text-white bg-red-500 transition
-           ease-in-out duration-300 transform translate-x-[45px]"
-           style={{transform:`translateX(${show ? 0 : 45}px)`}}
-           onClick={deleteTask}
-          />
+          <AnimatePresence>
+            {show && (
+             <motion.div
+              initial={{translateX:45}}
+              animate={{translateX:0}}
+              exit={{translateX:45}}>
+               <TrashIcon
+                width={45} height={45}
+                className="z-10 text-xs text-white bg-red-500"
+                onClick={deleteTask}
+                />
+             </motion.div>
+            )}
+          </AnimatePresence>
         )}
       </div>
       <CommLinkCard taskId={id} />
