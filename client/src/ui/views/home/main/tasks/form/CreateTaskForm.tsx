@@ -4,9 +4,7 @@ import { createTaskSchema } from '@/libs/zod/form';
 import { Button, Input } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
-import ErrorCard from './error/ErrorCard';
 import { z } from 'zod';
 
 interface IProps {
@@ -16,23 +14,24 @@ interface IProps {
 type TCreateTaskFormSchema = z.infer<typeof createTaskSchema>;
 
 function CreateTaskForm({createTask}:IProps):JSX.Element {
-  const {pending} = useFormStatus();
+  const [loading,setLoading] = useState<boolean>(false);
   const [error,setError] = useState<string>("");
   const form = useForm<TCreateTaskFormSchema>({
-    defaultValues:{title:""},
     resolver:zodResolver(createTaskSchema)
   });
-  const title = form.watch("title");
+  const title = form.watch("title","");
 
   const onSubmit = () => {
     setError("");
+    setLoading(true);
     taskApiQuery<ITask,string>("create",title)
     .then(createTask)
     .catch(e => {
       if (e instanceof Error){
         setError(e.message);
       }
-    });
+    })
+    .finally(() => setLoading(false));
   }
 
   return (
@@ -47,18 +46,18 @@ function CreateTaskForm({createTask}:IProps):JSX.Element {
         <Button w="80px"
          colorScheme="blue"
          borderLeftRadius={0}
-         isDisabled={pending}
+         isDisabled={loading}
          type="submit">
            add
         </Button>
       </div>
       {!!error && (
-        <div className='w-100 mb-2 mt-2 text-red-500'>
+        <div className='w-100 mb-2 mt-2 text-red-500 text-center'>
           {error}
         </div>
       )}
     </form>
-  )
+  );
 }
 
 export default CreateTaskForm
