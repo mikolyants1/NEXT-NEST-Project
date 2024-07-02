@@ -21,15 +21,18 @@ function CreateTaskForm({createTask}:IProps):JSX.Element {
   });
   const title = form.watch("title","");
 
-  const onSubmit = () => {
+  const onSubmit = async ():Promise<void> => {
     setError("");
     setLoading(true);
     taskApiQuery<ITask,string>("create",title)
-    .then(createTask)
-    .catch(e => {
-      if (e instanceof Error){
-        setError(e.message);
-      }
+    .then((data:ITask) => {
+      createTask(data);
+      form.setValue("title","");
+    })
+    .catch((e) => {
+       if (e instanceof Error){
+        setError(e.message)
+       }
     })
     .finally(() => setLoading(false));
   }
