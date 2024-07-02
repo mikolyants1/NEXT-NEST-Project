@@ -1,15 +1,19 @@
 import { taskApiQuery } from '@/api/task/taskApiQuery';
-import { ITask, TCreateTaskFormSchema } from '@/libs/types'
+import {type ITask } from '@/libs/types'
 import { createTaskSchema } from '@/libs/zod/form';
 import { Button, Input } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useForm } from 'react-hook-form';
+import ErrorCard from './error/ErrorCard';
+import { z } from 'zod';
 
 interface IProps {
   createTask:(task:ITask) => void
 }
+
+type TCreateTaskFormSchema = z.infer<typeof createTaskSchema>;
 
 function CreateTaskForm({createTask}:IProps):JSX.Element {
   const {pending} = useFormStatus();
@@ -21,6 +25,7 @@ function CreateTaskForm({createTask}:IProps):JSX.Element {
   const title = form.watch("title");
 
   const onSubmit = () => {
+    setError("");
     taskApiQuery<ITask,string>("create",title)
     .then(createTask)
     .catch(e => {
@@ -47,6 +52,11 @@ function CreateTaskForm({createTask}:IProps):JSX.Element {
            add
         </Button>
       </div>
+      {!!error && (
+        <div className='w-100 mb-2 mt-2 text-red-500'>
+          {error}
+        </div>
+      )}
     </form>
   )
 }
