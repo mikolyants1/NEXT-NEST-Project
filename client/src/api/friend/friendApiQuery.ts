@@ -1,7 +1,7 @@
 "use server"
 
-import { FriendApi } from "./FriendApi";
 
+import { FriendApi } from "./FriendApi";
 
 export const friendApiQuery = async <T,A>(
   key:keyof FriendApi,

@@ -47,18 +47,18 @@ describe('friendService', () => {
 
   it("add friend",async () => {
     const users =  userSource.create([
-        {
-          username:"friend_name",
-          password:"friend_pass",
-          tag:"@friend",
-          raiting:0
-        },
-        {
-          username:"friend_name1",
-          password:"friend_pass1",
-          tag:"@friend1",
-          raiting:0
-        }
+      {
+        username:"friend_name",
+        password:"friend_pass",
+        tag:"@friend",
+        raiting:0
+      },
+      {
+        username:"friend_name1",
+        password:"friend_pass1",
+        tag:"@friend1",
+        raiting:0
+      }
     ]);
     await userSource.save(users);
     array_user_id.push(users[0].id,users[1].id);
@@ -77,18 +77,18 @@ describe('friendService', () => {
 
   it("del friend",async () => {
     const users =  userSource.create([
-        {
-          username:"friend_name2",
-          password:"friend_pass2",
-          tag:"@friend2",
-          raiting:0
-        },
-        {
-          username:"friend_name3",
-          password:"friend_pass3",
-          tag:"@friend3",
-          raiting:0
-        }
+      {
+        username:"friend_name2",
+        password:"friend_pass2",
+        tag:"@friend2",
+        raiting:0
+      },
+      {
+        username:"friend_name3",
+        password:"friend_pass3",
+        tag:"@friend3",
+        raiting:0
+      }
     ]);
     await userSource.save(users);
     array_user_id.push(users[0].id,users[1].id);

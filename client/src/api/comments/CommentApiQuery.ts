@@ -1,3 +1,5 @@
+"use server"
+
 import { CommentApi } from "./CommentApi";
 
 export const commentApiQuery = async <T,A>(

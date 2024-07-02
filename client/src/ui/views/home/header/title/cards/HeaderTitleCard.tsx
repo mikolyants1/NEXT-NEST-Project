@@ -10,7 +10,7 @@ import { IUser, Invitation } from '@/libs/types'
 import { inviteApiQuery } from '@/api/invite/inviteApiQuery'
 
 interface IProps {
-  onOpen:()=>void,
+  onOpen:() => void,
   id:string
 }
 
@@ -31,7 +31,7 @@ function HeaderTitleCard({onOpen,id}:IProps):JSX.Element {
   if (user.isLoading || invites.isLoading) return <Loading />;
   if (user.isError || invites.isError) return <Error />;
   if (!user.data || !invites.data) return <Error />;
-  console.log(user.data)
+  
   return (
     <header className="w-[100%] font-bold bg-[rgb(90,90,90)]">
       <div className="text-white flex w-[90%] items-center h-[80px] justify-between m-auto">

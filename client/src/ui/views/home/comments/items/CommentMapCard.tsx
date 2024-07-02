@@ -31,11 +31,9 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
     <>
       <div style={{width:isWidth ? "100%" : "80%"}}
        className='w-[80%] overflow-y-scroll box-border pl-5 mt-10 ml-auto mr-auto'>
-        {mutComment.map((c:IComment,idx:number):JSX.Element => {
-          const isNewDay:boolean = checkData(data,idx);
-          return (
+        {mutComment.map((c:IComment,idx:number):JSX.Element => (
             <>
-              {isNewDay && (
+              {checkData(data,idx) && (
                 <DayCommCard time={c.date} />
               )}
               <CommentCard
@@ -45,8 +43,7 @@ function CommentMapCard({data,taskId,userId,author}:IProps):JSX.Element {
                {...c}
                />
             </>
-          )
-        })}
+        ))}
       </div>
       <CommInputCard add={addComment} />
     </>

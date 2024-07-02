@@ -16,6 +16,7 @@ export async function updateUserAction({
   const tag:TForm = form.get("tag");
   const username:TForm = form.get("username");
   const password:TForm = form.get("password");
+  const { update } = await userApiQuery();
   try {
     const parse = updateUserSchema.safeParse({
       tag,username,password
@@ -26,7 +27,7 @@ export async function updateUserAction({
     if (tag && parse.data.tag && parse.data.tag[0] !== "@"){
       return setError("first tag symbol must be @");
     }
-    await userApiQuery<IUser,IUserBody>("update",{
+    await update({
       tag:parse.data.tag || "",
       username:parse.data.username || "",
       password:parse.data.password || ""
