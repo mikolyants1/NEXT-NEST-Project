@@ -25,7 +25,7 @@ function UserTaskCard({title,id,userId,adminId,change}:IProps):JSX.Element {
     ));
   }
 
-  const updateOpen = ():void => {
+  const updateOpen = () => {
     dispatch({
       type:EModal.UPDATE_TASK,
       payload:{id,text:title,change}

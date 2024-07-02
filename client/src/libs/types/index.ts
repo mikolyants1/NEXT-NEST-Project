@@ -3,6 +3,8 @@ import { EFriendAction, EModal } from "../enums/enum"
 import { UserApi } from "@/api/user/UserApi";
 import { TaskApi } from "@/api/task/TaskApi";
 import { InviteApi } from "@/api/invite/InviteApi";
+import { z } from "zod";
+import { createTaskSchema } from "../zod/form";
 
 export interface IComment {
   id:string,
@@ -25,6 +27,8 @@ export interface IFriend {
   id:string,
   friend_id:string,
 }
+
+export type TCreateTaskFormSchema = z.infer<typeof createTaskSchema>;
 
 export interface Invitation {
   id:string,

@@ -14,7 +14,7 @@ interface IProps {
 
 function UserTaskMapCard({tasks,userId,adminId}:IProps):JSX.Element {
   const [mutTasks,setMutTasks] = useState<ITask[]>(tasks);
-  
+ 
   const createTask = useCallback((task:ITask) => {
     setMutTasks((prv:ITask[]) => ([...prv,task]));
   },[]);

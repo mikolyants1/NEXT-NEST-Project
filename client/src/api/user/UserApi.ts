@@ -18,11 +18,6 @@ export class UserApi {
     const {data} = await apiClient.get<IUser>(`user/${id}`);
     return UserSchema.parse(data);
   }
-  
-  async findTags():Promise<string[]> {
-    const {data} = await apiClient.get<IUser[]>("user");
-    return data.map(u => u.tag);
-  }
 
   async create(body:IUserBody):Promise<IUser> {
     return apiClient.post<IUser>("user",body)

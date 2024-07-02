@@ -16,3 +16,7 @@ export const checkUserSchema = z.object({
   username:z.string().min(1,"username is required"),
   password:z.string().min(1,"password is required")
 });
+
+export const createTaskSchema = z.object({
+  title:z.string().min(1,"username is required")
+});
