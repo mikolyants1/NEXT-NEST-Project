@@ -9,7 +9,7 @@ interface IProps {
 
 function CheckStepCard({next}:IProps):JSX.Element {
   const [error,setError] = useState<string>("");
-  const {pending} = useFormStatus();
+  const { pending } = useFormStatus();
   const checkAction = checkUserAction.bind(null,{next,setError});
 
   return (

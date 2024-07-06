@@ -27,12 +27,7 @@ export default function LoginCard({isHome,tags,children}:IProps):JSX.Element {
  const router:AppRouterInstance = useRouter();
  const [error,setError] = useState<string>("");
  const form = useForm<TForm>({
-  defaultValues:{
-    username:"",
-    password:"",
-    tag:""
-  },
-  resolver:zodResolver(checkLoginSchema)
+   resolver:zodResolver(checkLoginSchema)
  });
  const onSubmit:SubmitHandler<TForm> = async (values):Promise<void> => {
   const isTag = isHome ? !values.tag : values.tag;

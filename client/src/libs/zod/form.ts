@@ -7,9 +7,9 @@ export const updateUserSchema = z.object({
 });
 
 export const checkLoginSchema = z.object({
-  tag:z.string().optional(),
-  username:z.string().min(1,"username is required"),
-  password:z.string().min(1,"password is required")
+  tag:z.string().optional().default(""),
+  username:z.string().min(1,"username is required").default(""),
+  password:z.string().min(1,"password is required").default("")
 });
 
 export const checkUserSchema = z.object({

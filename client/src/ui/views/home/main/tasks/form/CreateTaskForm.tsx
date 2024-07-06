@@ -29,7 +29,7 @@ function CreateTaskForm({createTask}:IProps):JSX.Element {
       createTask(data);
       form.setValue("title","");
     })
-    .catch((e) => {
+    .catch((e) => { 
        if (e instanceof Error){
         setError(e.message)
        }

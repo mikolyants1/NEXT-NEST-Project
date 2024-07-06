@@ -8,7 +8,7 @@ export class AuthGuard implements CanActivate {
   canActivate(ctx: ExecutionContext):boolean {
     try {
       const http:HttpArgumentsHost = ctx.switchToHttp();
-      const req:Request = http.getRequest();
+      const req = http.getRequest<Request>();
       const user = req.user as Pick<User,"id">;
       const id = req.headers["x-user"] as string;
       return user.id == id;
